@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:loggy/loggy.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'app/my_app.dart';
 
-void main() {
+void main() async {
+  //si assicura che tutto sia inizializzato a livello native
+  WidgetsFlutterBinding.ensureInitialized();
+  //inizializzo per avero lo storage per hydrated_bloc (hive)
+  HydratedBloc.storage = await HydratedStorage.build(
+      storageDirectory: await getTemporaryDirectory());
+  //iniziallizza il logger con la stampa a video colorata
   Loggy.initLoggy(
     logPrinter: const PrettyPrinter(),
   );
