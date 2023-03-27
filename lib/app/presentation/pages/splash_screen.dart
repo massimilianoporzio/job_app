@@ -5,8 +5,8 @@ import 'package:loggy/loggy.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../main.dart';
-import '../resources/font_manager.dart';
+import '../../../main.dart';
+import '../../resources/font_manager.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
