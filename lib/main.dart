@@ -9,6 +9,7 @@ void main() async {
   //si assicura che tutto sia inizializzato a livello native
   WidgetsFlutterBinding.ensureInitialized();
   //inizializzo per avero lo storage per hydrated_bloc (hive)
+  //usando una directory temporanea sul dispostivo (path_provider)
   HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory: await getTemporaryDirectory());
   //iniziallizza il logger con la stampa a video colorata
