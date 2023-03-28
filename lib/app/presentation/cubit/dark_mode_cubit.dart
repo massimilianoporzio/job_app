@@ -1,20 +1,15 @@
-import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DarkModeCubit extends HydratedCubit<bool> {
-  DarkModeCubit(super.state);
+part 'dark_mode_state.dart';
 
-  //restituisce il bool salvato dentro la mappa sotto la chiave 'enabled'
-  @override
-  bool? fromJson(Map<String, dynamic> json) {
-    return json['enabled'] as bool;
+class DarkModeCubit extends Cubit<DarkModeState> {
+  DarkModeCubit() : super(DarkModeState.initial());
+
+  void toggleDarkMode() {
+    emit(state.copyWith(
+        mode:
+            state.mode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light));
   }
-
-  //restituisce la mappa con la chiave 'enabled' contenente lo stato
-  @override
-  Map<String, dynamic>? toJson(bool state) {
-    return {'enabled': state};
-  }
-
-  //Metodo del cubit per cambiare lo stato
-  void toggle() => emit(!state); //emette nuovo stato 'opposto' a quello in uso
 }

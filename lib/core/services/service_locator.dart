@@ -7,5 +7,5 @@ Future<void> init() async {
   //*BLOCS / CUBITS
   //dark mode cubit
   //singleton per l'intera app
-  sl.registerFactory<DarkModeCubit>(() => DarkModeCubit(true));
+  sl.registerFactory<DarkModeCubit>(() => DarkModeCubit());
 }

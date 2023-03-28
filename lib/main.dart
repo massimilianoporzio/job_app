@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:job_app/app/presentation/cubit/dark_mode_cubit.dart';
 import 'package:loggy/loggy.dart';
 import 'package:path_provider/path_provider.dart';
+import 'core/bloc_observer.dart';
 import 'core/services/service_locator.dart' as di;
 
 import 'app/my_app.dart';
@@ -19,8 +22,16 @@ void main() async {
   );
   //inizializzo tutte le dipendenze che verranno iniettate
   await di.init();
+  Bloc.observer = AppBlocObserver();
   //faccio girare la mia app:
-  runApp(const MyApp());
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider<DarkModeCubit>(
+        create: (context) => DarkModeCubit(),
+      ),
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyHomePage extends StatefulWidget {
@@ -41,7 +52,7 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with UiLoggy {
   int _counter = 0;
 
   void _incrementCounter() {
@@ -57,6 +68,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final darkModeEnabled =
+        context.watch<DarkModeCubit>().state.mode == ThemeMode.dark;
+
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -68,6 +82,16 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
+        actions: [
+          IconButton(
+              onPressed: () {
+                //Scambio il tema dark <-> light chiamando il metodo del cubit
+                loggy.debug('Dark Mode pressed');
+                context.read<DarkModeCubit>().toggleDarkMode();
+              },
+              //Cambio icona in funzione del tema selezionato
+              icon: Icon(darkModeEnabled ? Icons.dark_mode : Icons.light_mode))
+        ],
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it

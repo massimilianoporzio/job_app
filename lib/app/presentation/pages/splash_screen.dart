@@ -79,7 +79,10 @@ class IconCredit extends StatelessWidget {
       children: [
         Text(
           "icon by ",
-          style: Theme.of(context).textTheme.titleLarge,
+          style: Theme.of(context)
+              .textTheme
+              .titleLarge!
+              .copyWith(color: Colors.white),
         ),
         GestureDetector(
           onTap: () {
@@ -91,6 +94,7 @@ class IconCredit extends StatelessWidget {
             "Icons8",
             style: Theme.of(context).textTheme.titleLarge!.copyWith(
                 decoration: TextDecoration.underline,
+                color: Colors.white,
                 fontWeight: FontWeightManager.bold),
           ),
         )
@@ -122,7 +126,10 @@ class MainSplashContent extends StatelessWidget {
           Text(
             "Offerte di lavoro Flutter!",
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.displayMedium,
+            style: Theme.of(context)
+                .textTheme
+                .displayMedium!
+                .copyWith(color: Colors.white),
           ),
           const SizedBox(
             height: 40,
@@ -146,7 +153,10 @@ class MainSplashContent extends StatelessWidget {
                 animDurationMultiplier: 2,
                 spinnerMode: false,
                 infoProperties: InfoProperties(
-                    mainLabelStyle: Theme.of(context).textTheme.headlineLarge)),
+                    mainLabelStyle: Theme.of(context)
+                        .textTheme
+                        .headlineLarge!
+                        .copyWith(color: Colors.white))),
             // onChange: (double value) {
             //   loggy.debug(value);
             // },
