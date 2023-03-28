@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../main.dart';
 import '../../resources/font_manager.dart';
+import 'home_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -31,7 +32,8 @@ class _SplashScreenState extends State<SplashScreen> with UiLoggy {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => const MyHomePage(title: "da splash"),
+        // builder: (context) => const MyHomePage(title: "da splash"),
+        builder: (context) => const HomePage(),
       ),
     );
   }
@@ -168,7 +170,10 @@ class MainSplashContent extends StatelessWidget {
           ),
           Text(
             'Initializing app...',
-            style: Theme.of(context).textTheme.headlineSmall,
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall!
+                .copyWith(color: Colors.white),
           ),
         ],
       ),
