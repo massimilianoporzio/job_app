@@ -2,19 +2,21 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class CardClipper extends CustomClipper<Path> {
+class CardPainter extends CustomPainter {
   @override
-  Path getClip(Size size) {
-    //size è della card
-    //il corner è 1/4 dell'altezza (quadrato)
+  void paint(Canvas canvas, Size size) {
     var cornerRadius = size.height * 0.25;
     //il raggio piccolo è 1/5 del corner
     double radius = 0.2 * cornerRadius;
+
     //il raggio grande è 2 volte quello piccolo
     double radius2 = 2 * radius;
+    var paint = Paint();
+    paint.strokeWidth = 2.0;
+    paint.style = PaintingStyle.stroke;
+    // TODO: Set properties to paint
 
-    //parto in alto a sinistra dopo il corner
-    Path path = Path()
+    var path = Path()
           ..lineTo(size.width - cornerRadius, 0)
           //faccio arco di cerchio a scendere in verticale
           ..arcTo(
@@ -36,36 +38,34 @@ class CardClipper extends CustomClipper<Path> {
               0 * pi,
               0.5 * pi,
               false)
-          ..moveTo(size.width - radius, size.height - radius)
-          // //parte con l'arco
+          // ..moveTo(size.width - step, size.height - step)
+          // // //parte con l'arco
           ..arcTo(
               Rect.fromCircle(
                   center: Offset(size.width - 0.5 * cornerRadius,
                       size.height - 0.5 * cornerRadius),
                   radius: radius2),
-              0.75 * pi,
-              pi,
-              false) //non andare all'inzio dell'arco
-        // //spostati ora
-        // //ultimo pezzetto di arco per arrivare al fondo
+              0.25 * pi,
+              1.5 * pi,
+              true)
+        // ..moveTo(size.width - radius, size.height - radius)
+        // // //parte con l'arco
         // ..arcTo(
-        //     Rect.fromPoints(
-        //       Offset(size.width - cornerRadius, size.height - radius),
-        //       Offset(size.width - cornerRadius + radius, size.height),
-        //     ),
-        //     0,
+        //     Rect.fromCircle(
+        //         center: Offset(size.width - radius, size.height), radius: radius),
+        //     1.5 * pi,
         //     0.5 * pi,
-        //     false) //non unire all'inizio dell'arco
-        // //ora linea orizz in basso a tornare al corner in basso a sin
-        // ..lineTo(radius, size.height)
+        //     false)
+        // ..lineTo(size.width, size.height)
         ;
-    //ora arco ad andare in verticale sul bordo sinistro
 
-    return path;
+    // TODO: Draw your path
+
+    canvas.drawPath(path, paint);
   }
 
   @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return oldClipper != this;
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
   }
 }

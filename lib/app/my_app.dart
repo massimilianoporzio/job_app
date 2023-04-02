@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:job_app/app/presentation/cubit/dark_mode_cubit.dart';
 import 'package:job_app/app/resources/theme_manager.dart';
 import 'package:job_app/app/presentation/pages/splash_screen.dart';
-import 'package:job_app/main.dart';
 
 class JobApp extends StatelessWidget {
   const JobApp({super.key});

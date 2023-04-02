@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:job_app/app/presentation/pages/widgets/card_clipper.dart';
+import 'package:job_app/app/presentation/pages/widgets/card_painter.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -14,7 +16,15 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(),
+        child: Center(
+          child: SizedBox(
+            width: 450,
+            height: 300,
+            child: CustomPaint(
+              painter: CardPainter(),
+            ),
+          ),
+        ),
       ),
     );
   }
