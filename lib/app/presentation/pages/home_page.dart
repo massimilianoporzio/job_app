@@ -24,7 +24,8 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(StringConsts.appbarTitle),
+        title: const Text(StringConsts.appbarTitle,
+            style: TextStyle(fontWeight: FontWeight.bold)),
         actions: [
           IconButton(
               onPressed: () {
@@ -263,7 +264,8 @@ class HomePage extends StatelessWidget {
                                 child: Card(
                                   color: Theme.of(context)
                                       .colorScheme
-                                      .onPrimaryContainer,
+                                      .onPrimaryContainer
+                                      .withOpacity(0.75),
                                   child: Padding(
                                     padding:
                                         const EdgeInsets.symmetric(vertical: 4),
@@ -292,7 +294,7 @@ class HomePage extends StatelessWidget {
                                                   color: Theme.of(context)
                                                       .colorScheme
                                                       .onPrimary,
-                                                  fontSize: 10,
+                                                  fontSize: 12,
                                                   fontWeight: FontWeight.bold),
                                         ),
                                       ],
