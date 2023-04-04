@@ -3,17 +3,17 @@ import 'color_manager.dart';
 import 'font_manager.dart';
 
 class ThemeManager {
-  static ThemeData getLightTheme() {
+  static ThemeData getLightTheme(ColorScheme? lightDynamic) {
     return ThemeData(
-      colorScheme: ColorManager.defaultLightColorScheme,
-      useMaterial3: true,
-      fontFamily: FontConstants.fontFamily,
-    );
+        useMaterial3: true,
+        fontFamily: FontConstants.fontFamily,
+        // appBarTheme: AppBarTheme(backgroundColor: Colors.grey.shade200),
+        colorScheme: lightDynamic ?? ColorManager.defaultLightColorScheme);
   }
 
-  static ThemeData getDarkTheme() {
+  static ThemeData getDarkTheme(ColorScheme? darktDynamic) {
     return ThemeData(
-      colorScheme: ColorManager.defaultDarkColorScheme,
+      colorScheme: darktDynamic ?? ColorManager.defaultDarkColorScheme,
       useMaterial3: true,
       fontFamily: FontConstants.fontFamily,
       // textTheme: TextTheme(
