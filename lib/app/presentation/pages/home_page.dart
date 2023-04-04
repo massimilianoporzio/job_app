@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:job_app/app/presentation/cubit/dark_mode_cubit.dart';
 import 'package:job_app/app/presentation/pages/widgets/card_clipper.dart';
 import 'package:job_app/app/presentation/pages/widgets/card_painter.dart';
 
@@ -13,9 +15,23 @@ class HomePage extends StatelessWidget {
     var mWidth = mSize.width; //Larghezza
     var mHeight = mSize.height; //Altezza
 
+    var themeMode = context.watch<DarkModeCubit>().state.mode;
+
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Offerte di lavoro Flutter!"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                context.read<DarkModeCubit>().toggleDarkMode();
+              },
+              icon: Icon(themeMode == ThemeMode.dark
+                  ? Icons.dark_mode
+                  : Icons.light_mode))
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.corporate_fare),
             label: "Aziende",
@@ -52,30 +68,30 @@ class HomePage extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.normal,
                         fontSize: 14,
-                        color: Color(0xff000000),
+                        // color: Color(0xff000000),
                       ),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          borderSide:
-                              BorderSide(color: Color(0xff000000), width: 1),
+                          borderSide: BorderSide(
+                            // color: Color(0xff000000),
+                            width: 1,
+                          ),
                         ),
                         hintText: "Enter Text",
                         hintStyle: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontStyle: FontStyle.normal,
                           fontSize: 14,
-                          color: Color(0xff000000),
+                          // color: Color(0xff000000),
                         ),
                         filled: true,
-                        fillColor: Color(0xfff2f2f3),
+                        // fillColor: Color(0xfff2f2f3),
                         isDense: false,
                         contentPadding:
                             EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                        prefixIcon: Icon(Icons.search,
-                            color: Color(0xff212435), size: 24),
-                        suffixIcon: Icon(Icons.filter_alt_outlined,
-                            color: Color(0xff212435), size: 24),
+                        prefixIcon: Icon(Icons.search, size: 24),
+                        suffixIcon: Icon(Icons.filter_alt_outlined, size: 24),
                       ),
                     ),
                   ),
