@@ -24,6 +24,8 @@ void main() async {
   await di.init();
   Bloc.observer = AppBlocObserver();
   //faccio girare la mia app:
+  //precache image
+
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider<DarkModeCubit>(

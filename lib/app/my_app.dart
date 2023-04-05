@@ -11,6 +11,8 @@ class JobApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    precacheImage(
+        const AssetImage("assets/images/splashBackground.jpg"), context);
     return DynamicColorBuilder(
       builder: (lightDynamic, darkDynamic) => MaterialApp(
           useInheritedMediaQuery: true,
