@@ -22,12 +22,15 @@ class VerticalStats extends StatelessWidget {
       //height: 160,
       // color: Colors.deepOrange,
       child: Row(
-        // crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          StatAnnunci(
-            orientation: Orientation.portrait,
-            mWidth: mWidth,
+          Expanded(
+            flex: 2,
+            child: StatAnnunci(
+              orientation: Orientation.portrait,
+              mWidth: mWidth,
+            ),
           ),
           Expanded(
             flex: 1,
@@ -35,9 +38,11 @@ class VerticalStats extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               mainAxisSize: MainAxisSize.min,
               children: [
-                StatAziende(
-                  mWidth: mWidth,
-                  orientation: Orientation.portrait,
+                Expanded(
+                  child: StatAziende(
+                    mWidth: mWidth,
+                    orientation: Orientation.portrait,
+                  ),
                 ),
                 AnnunciRecenti(
                   mWidth: mWidth,

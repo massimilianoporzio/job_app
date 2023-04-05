@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class StatAziende extends StatelessWidget {
@@ -16,7 +17,7 @@ class StatAziende extends StatelessWidget {
       margin: EdgeInsets.symmetric(
           horizontal: orientation == Orientation.landscape ? 0 : 10,
           vertical: 0),
-      width: orientation == Orientation.portrait ? 0.9 * mWidth : 70,
+      width: orientation == Orientation.portrait ? 0.9 * mWidth : 0.1 * mWidth,
       child: SizedBox(
         height: 60,
         child: Card(
@@ -24,16 +25,20 @@ class StatAziende extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text("9",
+                AutoSizeText("9",
+                    presetFontSizes: const [22],
                     style: Theme.of(context).textTheme.labelLarge!.copyWith(
                           fontWeight: FontWeight.bold,
-                          fontSize: 22,
                         )),
-                Text(
+                AutoSizeText(
                   "aziende",
-                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                      fontSize: orientation == Orientation.portrait ? 14 : 10,
-                      fontWeight: FontWeight.bold),
+                  presetFontSizes: [
+                    orientation == Orientation.portrait ? 14 : 10,
+                  ],
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelMedium!
+                      .copyWith(fontWeight: FontWeight.bold),
                 ),
               ],
             )),

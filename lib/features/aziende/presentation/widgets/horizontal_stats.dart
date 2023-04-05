@@ -34,9 +34,11 @@ class HorizontalStats extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              StatAziende(
-                mWidth: mWidth,
-                orientation: Orientation.landscape,
+              Expanded(
+                child: StatAziende(
+                  mWidth: mWidth,
+                  orientation: Orientation.landscape,
+                ),
               ),
               AnnunciRecenti(mWidth: mWidth, orientation: Orientation.landscape)
             ],
