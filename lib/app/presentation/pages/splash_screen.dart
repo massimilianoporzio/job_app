@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:job_app/app/resources/pages_manager.dart';
 import 'package:loggy/loggy.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -33,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> with UiLoggy {
       context,
       MaterialPageRoute(
         // builder: (context) => const MyHomePage(title: "da splash"),
-        builder: (context) => const HomePage(),
+        builder: (context) => const HomePage(pages: PagesManager.pages),
       ),
     );
   }

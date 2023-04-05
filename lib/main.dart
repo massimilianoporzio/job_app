@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:job_app/app/presentation/cubit/dark_mode_cubit.dart';
+
 import 'package:loggy/loggy.dart';
 import 'package:path_provider/path_provider.dart';
 import 'core/bloc_observer.dart';
@@ -24,14 +24,6 @@ void main() async {
   await di.init();
   Bloc.observer = AppBlocObserver();
   //faccio girare la mia app:
-  //precache image
 
-  runApp(MultiBlocProvider(
-    providers: [
-      BlocProvider<DarkModeCubit>(
-        create: (context) => DarkModeCubit(),
-      ),
-    ],
-    child: MyApp(),
-  ));
+  runApp(const MyApp());
 }

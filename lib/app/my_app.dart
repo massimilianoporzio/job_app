@@ -2,9 +2,13 @@ import 'package:device_preview/device_preview.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:job_app/app/presentation/cubit/dark_mode_cubit.dart';
+
+import 'package:job_app/app/presentation/cubit/navbar/navigation_cubit.dart';
 import 'package:job_app/app/resources/theme_manager.dart';
 import 'package:job_app/app/presentation/pages/splash_screen.dart';
+import 'package:job_app/core/services/service_locator.dart';
+
+import 'presentation/cubit/dark_mode/dark_mode_cubit.dart';
 
 class JobApp extends StatelessWidget {
   const JobApp({super.key});
@@ -34,6 +38,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const JobApp();
+    return MultiBlocProvider(providers: [
+      BlocProvider<DarkModeCubit>(
+        create: (context) => sl<DarkModeCubit>(),
+      ),
+      BlocProvider<NavigationCubit>(
+        create: (context) => sl<NavigationCubit>(),
+      ),
+    ], child: const JobApp());
   }
 }
