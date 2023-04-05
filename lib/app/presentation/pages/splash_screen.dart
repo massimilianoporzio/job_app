@@ -136,7 +136,7 @@ class HorizontalSplash extends StatelessWidget with UiLoggy {
               ],
             ),
           ),
-          IconCredit()
+          const IconCredit()
         ],
       ),
     );
