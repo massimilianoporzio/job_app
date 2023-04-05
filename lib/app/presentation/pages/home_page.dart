@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:job_app/app/presentation/cubit/navbar/navigation_cubit.dart';
+import '../cubit/navbar/navigation_cubit.dart';
 
-import '../../../features/aziende/presentation/pages/annunci_aziende.dart';
 import '../../resources/string_constants.dart';
 
 import '../cubit/dark_mode/dark_mode_cubit.dart';

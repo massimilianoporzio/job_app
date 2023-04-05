@@ -1,8 +1,7 @@
 /// Chart import
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:job_app/app/resources/font_manager.dart';
+
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class _ChartData {

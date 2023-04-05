@@ -9,6 +9,7 @@ class MyBottomNavBar extends StatelessWidget {
     super.key,
   });
 
+  @override
   Widget build(BuildContext context) {
     int selectedIndex = context.watch<NavigationCubit>().state.selectedIndex;
     return BottomNavigationBar(

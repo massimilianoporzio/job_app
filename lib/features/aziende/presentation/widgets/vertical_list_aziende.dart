@@ -44,7 +44,7 @@ class CardAzienda extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             gradient: LinearGradient(
               colors: [
-                Color.fromARGB(255, 228, 214, 214)
+                ColorManager.veryLightRed
                     .harmonizeWith(
                         Theme.of(context).colorScheme.secondaryContainer)
                     .withOpacity(0.2),
@@ -61,25 +61,25 @@ class CardAzienda extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  children: [],
+                  children: const [],
                 ),
-                Text("Milano"),
-                Text("20k-30k a seconda dell'esperienza"),
+                const Text("Milano"),
+                const Text("20k-30k a seconda dell'esperienza"),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SeniorityChip(
+                    const SeniorityChip(
                       seniority: Seniority.junior,
                     ),
                     Card(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(4)),
-                      child: AutoSizeText('Full Remote'),
+                      child: const AutoSizeText('Full Remote'),
                     ),
                     Card(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(4)),
-                      child: AutoSizeText('Full Time'),
+                      child: const AutoSizeText('Full Time'),
                     )
                   ],
                 ),
