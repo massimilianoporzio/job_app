@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/navbar/navigation_cubit.dart';
@@ -20,7 +21,8 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(StringConsts.appbarTitle,
+        centerTitle: false,
+        title: const AutoSizeText(StringConsts.appbarTitle,
             style: TextStyle(fontWeight: FontWeight.bold)),
         actions: [
           IconButton(

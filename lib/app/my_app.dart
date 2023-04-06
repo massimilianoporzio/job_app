@@ -7,6 +7,7 @@ import 'package:job_app/app/presentation/cubit/navbar/navigation_cubit.dart';
 import 'package:job_app/app/resources/theme_manager.dart';
 import 'package:job_app/app/presentation/pages/splash_screen.dart';
 import 'package:job_app/core/services/service_locator.dart';
+import 'package:job_app/features/aziende/presentation/pages/dettagli_annuncio_aziende.dart';
 
 import 'presentation/cubit/dark_mode/dark_mode_cubit.dart';
 import 'resources/color_manager.dart';
@@ -21,21 +22,25 @@ class JobApp extends StatelessWidget {
     //     const AssetImage("assets/images/splashBackground.jpg"), context);
     return DynamicColorBuilder(
       builder: (lightDynamic, darkDynamic) => MaterialApp(
-          useInheritedMediaQuery: true,
-          locale: DevicePreview.locale(context),
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          //dipende dallo stato del cubit DarkModeCubit
-          themeMode: context.watch<DarkModeCubit>().state.mode,
-          // theme: ThemeManager.getLightTheme(lightDynamic),
-          theme: ThemeData(
-              useMaterial3: true,
-              fontFamily: FontConstants.fontFamily,
-              // appBarTheme: AppBarTheme(backgroundColor: Colors.grey.shade200),
-              colorScheme:
-                  lightDynamic ?? ColorManager.defaultLightColorScheme),
-          darkTheme: ThemeManager.getDarkTheme(darkDynamic),
-          home: const SplashScreen()),
+        useInheritedMediaQuery: true,
+        locale: DevicePreview.locale(context),
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        //dipende dallo stato del cubit DarkModeCubit
+        themeMode: context.watch<DarkModeCubit>().state.mode,
+        // theme: ThemeManager.getLightTheme(lightDynamic),
+        theme: ThemeData(
+            useMaterial3: true,
+            fontFamily: FontConstants.fontFamily,
+            // appBarTheme: AppBarTheme(backgroundColor: Colors.grey.shade200),
+            colorScheme: lightDynamic ?? ColorManager.defaultLightColorScheme),
+        darkTheme: ThemeManager.getDarkTheme(darkDynamic),
+        home: const SplashScreen(),
+        routes: {
+          DettaglioAnnunciAziende.routeName: (context) =>
+              const DettaglioAnnunciAziende()
+        },
+      ),
     );
   }
 }
