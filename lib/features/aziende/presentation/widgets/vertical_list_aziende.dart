@@ -19,6 +19,8 @@ class VerticalList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
         child: ListView.builder(
+      key: const PageStorageKey<String>(
+          'Aziende'), //mi tiene la posizione in cui ero
       itemBuilder: (context, index) => SizedBox(
         height: 0.2 * mHeigth,
         child: Padding(

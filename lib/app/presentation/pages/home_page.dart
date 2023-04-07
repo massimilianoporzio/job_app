@@ -26,6 +26,8 @@ class HomePage extends StatelessWidget {
       onOffline: showOfflineSnackbar,
       child: Scaffold(
         appBar: AppBar(
+          surfaceTintColor: Colors.transparent,
+          scrolledUnderElevation: 0,
           centerTitle: false,
           title: const AutoSizeText(StringConsts.appbarTitle,
               style: TextStyle(fontWeight: FontWeight.bold)),
