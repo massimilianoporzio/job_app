@@ -1,6 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_patterns/connection.dart';
+import '../../tools/connection/connectivity_utils.dart';
 import '../cubit/navbar/navigation_cubit.dart';
 
 import '../../resources/string_constants.dart';
@@ -19,23 +21,27 @@ class HomePage extends StatelessWidget {
     var themeMode = context.watch<DarkModeCubit>().state.mode;
     var selectedIndex = context.watch<NavigationCubit>().state.selectedIndex;
 
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        title: const AutoSizeText(StringConsts.appbarTitle,
-            style: TextStyle(fontWeight: FontWeight.bold)),
-        actions: [
-          IconButton(
-              onPressed: () {
-                context.read<DarkModeCubit>().toggleDarkMode();
-              },
-              icon: Icon(themeMode == ThemeMode.light
-                  ? Icons.dark_mode
-                  : Icons.light_mode))
-        ],
+    return ConnectionListener(
+      onOnline: showOnlineSnackbar,
+      onOffline: showOfflineSnackbar,
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: false,
+          title: const AutoSizeText(StringConsts.appbarTitle,
+              style: TextStyle(fontWeight: FontWeight.bold)),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  context.read<DarkModeCubit>().toggleDarkMode();
+                },
+                icon: Icon(themeMode == ThemeMode.light
+                    ? Icons.dark_mode
+                    : Icons.light_mode))
+          ],
+        ),
+        bottomNavigationBar: const MyBottomNavBar(),
+        body: pages[selectedIndex],
       ),
-      bottomNavigationBar: const MyBottomNavBar(),
-      body: pages[selectedIndex],
     );
   }
 }

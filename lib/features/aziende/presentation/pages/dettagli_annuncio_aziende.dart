@@ -16,7 +16,7 @@ class DettaglioAnnunciAziende extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as AnnuncioAziendeArguments;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dettaglio'),
+        title: const Text('Dettaglio'),
       ),
       body: Center(
         child: Text("DETTAGLI ANNUNCIO con id: ${args.annuncioId}"),

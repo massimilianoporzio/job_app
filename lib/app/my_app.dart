@@ -1,7 +1,9 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_patterns/connection.dart';
 
 import 'package:job_app/app/presentation/cubit/navbar/navigation_cubit.dart';
 import 'package:job_app/app/resources/theme_manager.dart';
@@ -12,6 +14,7 @@ import 'package:job_app/features/aziende/presentation/pages/dettagli_annuncio_az
 import 'presentation/cubit/dark_mode/dark_mode_cubit.dart';
 import 'resources/color_manager.dart';
 import 'resources/font_manager.dart';
+import 'tools/connection/connectivity_plus_repository.dart';
 
 class JobApp extends StatelessWidget {
   const JobApp({super.key});
@@ -57,6 +60,11 @@ class MyApp extends StatelessWidget {
       ),
       BlocProvider<NavigationCubit>(
         create: (context) => sl<NavigationCubit>(),
+      ),
+      BlocProvider(
+        create: (_) => ConnectionBloc(
+          ConnectivityPlusRepository(Connectivity()),
+        ),
       ),
     ], child: const JobApp());
   }
