@@ -25,7 +25,6 @@ class JobApp extends StatelessWidget {
     //     const AssetImage("assets/images/splashBackground.jpg"), context);
     return DynamicColorBuilder(
       builder: (lightDynamic, darkDynamic) => MaterialApp(
-        useInheritedMediaQuery: true,
         locale: DevicePreview.locale(context),
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
