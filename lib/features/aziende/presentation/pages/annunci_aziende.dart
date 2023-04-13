@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../app/presentation/pages/widgets/search_bar.dart';
 import '../widgets/horizontal_list_aziende.dart';
 import '../widgets/horizontal_stats.dart';
 import '../widgets/vertical_list_aziende.dart';
