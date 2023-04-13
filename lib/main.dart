@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:intl/intl.dart';
 
 import 'package:loggy/loggy.dart';
 import 'package:path_provider/path_provider.dart';
@@ -22,7 +23,8 @@ void main() async {
   //inizializzo tutte le dipendenze che verranno iniettate
   await di.init();
   Bloc.observer = AppBlocObserver();
+  //Imposto il locale italiano
+  Intl.defaultLocale = 'it';
   //faccio girare la mia app:
-
   runApp(const MyApp());
 }

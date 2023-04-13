@@ -9,6 +9,10 @@ class StringConsts {
   static const String senioritySenior = "Senior";
   static const String seniorityDefault = "-";
 
+  static const String notionTeamInSede = "In sede";
+  static const String notionTeamIbrido = "Ibrido";
+  static const String notionTeamFullRemote = "Full remote";
+
   static const String teamInSede = "In sede";
   static const String teamIbrido = "Ibrido";
   static const String teamFullRemote = "Full remote";
