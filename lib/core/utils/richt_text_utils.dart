@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:js_interop';
 
 import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:job_app/app/resources/app_consts.dart';
@@ -8,14 +7,15 @@ import 'package:job_app/app/resources/enums/seniority.dart';
 import 'package:job_app/app/resources/string_constants.dart';
 import 'package:loggy/loggy.dart';
 
+import '../../app/resources/enums/contratto.dart';
 import '../domain/app_enums.dart';
 import '../domain/entities/annuncio.dart';
+import '../domain/entities/rich_text_entity.dart';
+import '../domain/entities/weblink.dart';
 
 // import 'package:easy_rich_text/easy_rich_text.dart';
 
 void main() async {
-  print("prova: ");
-  print(Seniority.junior.compareTo(Seniority.mid));
   var input = await File('dummy_annunci.json').readAsString();
   var response = json.decode(input);
   var emojiParser = EmojiParser();
@@ -23,9 +23,18 @@ void main() async {
   List<Annuncio> listaAnnunci = [];
   if (results.isNotEmpty) {
     for (Map<String, dynamic> annuncio in results) {
-      String id = annuncio['id'];
-      Emoji? emoji;
-      Team? team;
+      final String id = annuncio['id'];
+      final Emoji? emoji;
+      final Team? team;
+      final Contratto? contratto;
+      final Seniority? seniority;
+      final String titolo;
+      final String? qualifica;
+      final String? retribuzione;
+      final List<RichTextTextEntity> descrizioneOfferta = [];
+      final Weblink comeCandidarsi;
+      final String localita;
+
       if (annuncio.containsKey("icon")) {
         if (annuncio["icon"]["type"] == "emoji") {
           try {
@@ -36,33 +45,79 @@ void main() async {
         }
       }
       //default false
-      bool archived = annuncio.containsKey("archived")
+      final bool archived = annuncio.containsKey("archived")
           ? annuncio["archived"] as bool
           : false;
       Map<String, dynamic> properties = annuncio["properties"];
-      DateTime jobPosted =
+      final DateTime jobPosted =
           DateTime.parse(properties["Job Posted"]["created_time"] as String);
       if (properties.containsKey("Team")) {
         Map<String, dynamic> mapTeam =
             properties["Team"] as Map<String, dynamic>;
         if (mapTeam.containsKey("select")) {
-          String teamName = mapTeam["select"]["name"] as String;
-          if (AppConsts.notionTeams.contains(teamName)) {
-            switch (teamName) {
-              case StringConsts.notionTeamInSede:
-                team = Team.inSede;
+          if (mapTeam["select"] != null) {
+            String teamName = mapTeam["select"]["name"] as String;
+            if (AppConsts.notionTeams.contains(teamName)) {
+              switch (teamName) {
+                case StringConsts.notionTeamInSede:
+                  team = Team.inSede;
+                  break;
+                case StringConsts.notionTeamIbrido:
+                  team = Team.ibrido;
+                  break;
+                case StringConsts.notionTeamFullRemote:
+                  team = Team.fullRemote;
+                  break;
+                default:
+              }
+            }
+          }
+        }
+      } //fine parsing di Team
+      if (properties.containsKey("Contratto")) {
+        Map<String, dynamic> mapContratto =
+            properties["Contratto"] as Map<String, dynamic>;
+        if (mapContratto.containsKey("select")) {
+          if (mapContratto["select"] != null) {
+            String contrattoName = mapContratto["select"]["name"] as String;
+            switch (contrattoName) {
+              case StringConsts.notionContrattoFullTime:
+                contratto = Contratto.fullTime;
                 break;
-              case StringConsts.notionTeamIbrido:
-                team = Team.ibrido;
+              case StringConsts.notionContrattoPartTime:
+                contratto = Contratto.partTime;
                 break;
-              case StringConsts.notionTeamFullRemote:
-                team = Team.fullRemote;
+
+              default:
+            }
+          }
+        }
+      } //fine parsing di Contratto
+      if (properties.containsKey("Seniority")) {
+        Map<String, dynamic> mapSeniority =
+            properties["Seniority"] as Map<String, dynamic>;
+        if (mapSeniority.containsKey("select")) {
+          if (mapSeniority["select"] != null) {
+            String seniorityName = mapSeniority["select"]["name"] as String;
+            switch (seniorityName) {
+              case StringConsts.notionSeniorityJunior:
+                seniority = Seniority.junior;
+                break;
+              case StringConsts.notionSeniorityMid:
+                seniority = Seniority.mid;
+                break;
+              case StringConsts.notionSenioritySenior:
+                seniority = Seniority.senior;
                 break;
               default:
             }
           }
         }
-      } //fine definizione di Team
+      } //fine parsing Seniority
+      titolo = properties["Name"]["title"]["plain_text"];
+      if (properties.containsKey("Qualifica")) {
+        qualifica = properties["Qualifica"]["rich_text"]["plain_text"];
+      } //fine parsing Qualifica
     } //fine giro sugli annunci "results"
   }
   var primoAnnuncio = results[0];

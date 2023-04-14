@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:job_app/app/presentation/pages/widgets/search_bar.dart';
 
 import '../widgets/horizontal_list_aziende.dart';
 import '../widgets/horizontal_stats.dart';
@@ -31,7 +32,7 @@ class AnnunciAziende extends StatelessWidget {
               // mainAxisSize: MainAxisSize.max,
 
               children: [
-                const SearchBar(),
+                const MySearchBar(),
                 SizedBox(
                   height: orientation == Orientation.landscape ? 8 : 0,
                 ),
