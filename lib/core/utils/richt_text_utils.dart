@@ -8,9 +8,11 @@ import 'package:job_app/app/resources/string_constants.dart';
 import 'package:loggy/loggy.dart';
 
 import '../../app/resources/enums/contratto.dart';
-import '../domain/app_enums.dart';
+
+import '../../app/resources/enums/team.dart';
 import '../domain/entities/annuncio.dart';
 import '../domain/entities/rich_text_entity.dart';
+import '../domain/entities/team_entity.dart';
 import '../domain/entities/weblink.dart';
 
 // import 'package:easy_rich_text/easy_rich_text.dart';
@@ -25,7 +27,7 @@ void main() async {
     for (Map<String, dynamic> annuncio in results) {
       final String id = annuncio['id'];
       final Emoji? emoji;
-      final Team? team;
+      final TeamEntity? team;
       final Contratto? contratto;
       final Seniority? seniority;
       final String titolo;
@@ -57,16 +59,21 @@ void main() async {
         if (mapTeam.containsKey("select")) {
           if (mapTeam["select"] != null) {
             String teamName = mapTeam["select"]["name"] as String;
+            String teamColor = mapTeam["select"]["color"] as String;
+
             if (AppConsts.notionTeams.contains(teamName)) {
               switch (teamName) {
                 case StringConsts.notionTeamInSede:
-                  team = Team.inSede;
+                  team = TeamEntity(
+                      team: Team.inSede, backgroundColorString: teamColor);
                   break;
                 case StringConsts.notionTeamIbrido:
-                  team = Team.ibrido;
+                  team = TeamEntity(
+                      team: Team.ibrido, backgroundColorString: teamColor);
                   break;
                 case StringConsts.notionTeamFullRemote:
-                  team = Team.fullRemote;
+                  team = TeamEntity(
+                      team: Team.fullRemote, backgroundColorString: teamColor);
                   break;
                 default:
               }

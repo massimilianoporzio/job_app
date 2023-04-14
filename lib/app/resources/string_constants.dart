@@ -22,6 +22,13 @@ class StringConsts {
   static const String teamFullRemote = "Full remote";
   static const String teamDefault = "-";
 
+  static const String notionYellow = "yellow";
+  static const String notionRed = "red";
+  static const String notionGreen = "green";
+  static const String notionBlue = "blue";
+  static const String notionPurple = "purple";
+  static const String notionGrey = "grey";
+
   static const String notionContrattoFullTime = "Full time";
   static const String notionContrattoPartTime = "Part time";
 
