@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:job_app/core/domain/entities/contratto_entity.dart';
 
 import 'package:job_app/core/domain/entities/rich_text_entity.dart';
