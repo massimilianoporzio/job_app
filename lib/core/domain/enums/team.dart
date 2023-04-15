@@ -1,4 +1,4 @@
-import '../string_constants.dart';
+import '../../../app/resources/string_constants.dart';
 
 enum Team {
   inSede(value: 0),
