@@ -9,6 +9,9 @@ enum Seniority implements Comparable<Seniority> {
 
   final int value;
 
+  String toJson() => name;
+  static Seniority fromJson(String json) => values.byName(json);
+
   @override
   int compareTo(Seniority other) => value - other.value;
 

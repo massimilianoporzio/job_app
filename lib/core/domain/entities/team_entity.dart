@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:job_app/core/utils/mixins.dart';
 
@@ -18,7 +20,7 @@ class TeamEntity extends Equatable with NotionColor {
   @override
   bool? get stringify => true;
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
     result.addAll({'team': team.toJson()});
@@ -28,6 +30,8 @@ class TeamEntity extends Equatable with NotionColor {
 
     return result;
   }
+
+  String toJson() => json.encode(toMap());
 
   factory TeamEntity.fromJson(Map<String, dynamic> json) {
     return TeamEntity(

@@ -6,6 +6,9 @@ enum Contratto {
 
   const Contratto({required this.value});
 
+  String toJson() => name;
+  static Contratto fromJson(String json) => values.byName(json);
+
   final int value;
 
   @override
