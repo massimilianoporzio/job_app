@@ -5,7 +5,7 @@ import 'package:job_app/app/resources/color_manager.dart';
 import 'package:job_app/features/aziende/presentation/pages/dettagli_annuncio_aziende.dart';
 import 'package:loggy/loggy.dart';
 
-import '../../../../app/resources/enums/seniority.dart';
+import '../../../../core/domain/enums/seniority.dart';
 
 class VerticalList extends StatelessWidget {
   const VerticalList({

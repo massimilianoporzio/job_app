@@ -3,14 +3,14 @@ import 'dart:io';
 
 import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:job_app/app/resources/app_consts.dart';
-import 'package:job_app/app/resources/enums/seniority.dart';
+import 'package:job_app/core/domain/enums/seniority.dart';
 import 'package:job_app/app/resources/string_constants.dart';
 import 'package:job_app/core/domain/entities/rich_text_annotation.dart';
 import 'package:loggy/loggy.dart';
 
-import '../../app/resources/enums/contratto.dart';
+import '../domain/enums/contratto.dart';
 
-import '../../app/resources/enums/team.dart';
+import '../domain/enums/team.dart';
 import '../domain/entities/annuncio.dart';
 import '../domain/entities/contratto_entity.dart';
 import '../domain/entities/rich_text_entity.dart';

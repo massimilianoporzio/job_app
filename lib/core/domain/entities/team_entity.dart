@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:job_app/core/utils/mixins.dart';
 
-import '../../../app/resources/enums/team.dart';
+import '../enums/team.dart';
 
 class TeamEntity extends Equatable with NotionColor {
   final Team team;
