@@ -1,12 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
 
-import 'package:job_app/app/resources/enums/contratto.dart';
-import 'package:job_app/app/resources/enums/seniority.dart';
-
 import 'package:job_app/core/domain/entities/rich_text_entity.dart';
+import 'package:job_app/core/domain/entities/seniority_enitity.dart';
 import 'package:job_app/core/domain/entities/weblink.dart';
 
+import 'contratto_entity.dart';
 import 'team_entity.dart';
 
 class Annuncio extends Equatable {
@@ -15,12 +14,12 @@ class Annuncio extends Equatable {
   final String? qualifica;
   final String nomeAzienda;
   final TeamEntity? team;
-  final Contratto? contratto;
-  final Seniority? seniority;
+  final ContrattoEntity? contratto;
+  final SeniorityEntity? seniority;
   final String? retribuzione;
   final List<RichTextTextEntity> descrizioneOfferta;
   final Weblink comeCandidarsi;
-  final String localita;
+  final String? localita;
   final Emoji? emoji;
   final DateTime jobPosted;
   final bool archived;
@@ -36,7 +35,7 @@ class Annuncio extends Equatable {
     this.retribuzione,
     required this.descrizioneOfferta,
     required this.comeCandidarsi,
-    required this.localita,
+    this.localita,
     this.emoji,
     required this.jobPosted,
     required this.archived,

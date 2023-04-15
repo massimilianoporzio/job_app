@@ -4,7 +4,7 @@ class RichTextAnnotation {
   final bool strikethrough;
   final bool underline;
   final bool code;
-  final String color;
+  final String? colorString;
 
   RichTextAnnotation({
     required this.bold,
@@ -12,6 +12,6 @@ class RichTextAnnotation {
     required this.strikethrough,
     required this.underline,
     required this.code,
-    required this.color,
+    this.colorString,
   });
 }
