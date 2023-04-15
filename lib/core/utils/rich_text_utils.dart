@@ -29,7 +29,7 @@ void main() async {
   if (results.isNotEmpty) {
     for (Map<String, dynamic> annuncio in results) {
       final String id = annuncio['id'];
-      Emoji? emoji;
+      String? emoji;
       TeamEntity? team;
       ContrattoEntity? contratto;
       SeniorityEntity? seniority;
@@ -44,7 +44,7 @@ void main() async {
       if (annuncio.containsKey("icon")) {
         if (annuncio["icon"]["type"] == "emoji") {
           try {
-            emoji = emojiParser.getEmoji(annuncio["icon"]["emoji"]);
+            emoji = emojiParser.getEmoji(annuncio["icon"]["emoji"]).name;
           } on Exception {
             logError("Error in parsing emoji");
           }

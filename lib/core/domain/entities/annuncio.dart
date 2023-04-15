@@ -20,7 +20,7 @@ class Annuncio extends Equatable {
   final List<RichTextTextEntity> descrizioneOfferta;
   final Weblink comeCandidarsi;
   final String? localita;
-  final Emoji? emoji;
+  final String? emoji;
   final DateTime jobPosted;
   final bool archived;
 

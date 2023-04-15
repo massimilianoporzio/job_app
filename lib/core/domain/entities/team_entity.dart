@@ -18,21 +18,21 @@ class TeamEntity extends Equatable with NotionColor {
   @override
   bool? get stringify => true;
 
-  // Map<String, dynamic> toJson() {
-  //   final result = <String, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final result = <String, dynamic>{};
 
-  //   result.addAll({'team': team.toJson()});
-  //   if (backgroundColorString != null) {
-  //     result.addAll({'backgroundColorString': backgroundColorString});
-  //   }
+    result.addAll({'team': team.toJson()});
+    if (backgroundColorString != null) {
+      result.addAll({'backgroundColorString': backgroundColorString});
+    }
 
-  //   return result;
-  // }
+    return result;
+  }
 
-  // factory TeamEntity.fromJson(Map<String, dynamic> json) {
-  //   return TeamEntity(
-  //     team: Team.fromJson(json['team']),
-  //     backgroundColorString: json['backgroundColorString'],
-  //   );
-  // }
+  factory TeamEntity.fromJson(Map<String, dynamic> json) {
+    return TeamEntity(
+      team: Team.fromJson(json['team']),
+      backgroundColorString: json['backgroundColorString'],
+    );
+  }
 }
