@@ -32,6 +32,7 @@ dependencies:
   awesome_snackbar_content: ^0.1.2
   connectivity_plus: ^3.0.3
   cupertino_icons: ^1.0.2
+  dartz: ^0.10.1
   device_preview: ^1.1.0
   dynamic_color: ^1.6.2
   easy_rich_text: ^1.2.0
