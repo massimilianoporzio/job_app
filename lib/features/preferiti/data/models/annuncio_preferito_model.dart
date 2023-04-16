@@ -1,10 +1,11 @@
-import '../../../../core/domain/entities/annuncio.dart';
+import '../../../../core/data/models/annuncio_model.dart';
 import '../../../../core/domain/enums/tipologia_annunci.dart';
 
-class AnnuncioAzienda extends Annuncio {
-  final TipoAnnuncio tipologia = TipoAnnuncio.aziende;
-  const AnnuncioAzienda(
-      {required super.id,
+class AnnuncioPreferitoModel extends AnnuncioModel {
+  final TipoAnnuncio tipologia;
+  const AnnuncioPreferitoModel(
+      {required this.tipologia,
+      required super.id,
       required super.titolo,
       super.qualifica,
       required super.nomeAzienda,

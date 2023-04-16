@@ -1,9 +1,9 @@
 import '../../../../core/domain/entities/annuncio.dart';
 import '../../../../core/domain/enums/tipologia_annunci.dart';
 
-class AnnuncioAzienda extends Annuncio {
-  final TipoAnnuncio tipologia = TipoAnnuncio.aziende;
-  const AnnuncioAzienda(
+class AnnuncioFreelancer extends Annuncio {
+  final TipoAnnuncio tipologia = TipoAnnuncio.freelancers;
+  const AnnuncioFreelancer(
       {required super.id,
       required super.titolo,
       super.qualifica,
