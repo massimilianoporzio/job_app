@@ -7,7 +7,6 @@ class AnnuncioAzienda extends Annuncio {
       required super.nomeAzienda,
       required super.descrizioneOfferta,
       required super.comeCandidarsi,
-      required super.localita,
       required super.jobPosted,
       required super.archived});
 }
