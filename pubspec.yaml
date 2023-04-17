@@ -45,9 +45,9 @@ dependencies:
   get_it: ^7.2.0
   hydrated_bloc: ^9.1.0
   intl: ^0.18.0
-  isar: ^3.0.5
   isar_flutter_libs: ^3.0.5
   loggy: ^2.0.3
+  mockito: ^5.4.0
   path_provider: ^2.0.14
   shimmer: ^2.0.0
   sleek_circular_slider: ^2.0.1

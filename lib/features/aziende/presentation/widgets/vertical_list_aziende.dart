@@ -70,7 +70,7 @@ class CardAzienda extends StatelessWidget with UiLoggy {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
+                  const Row(
                     children: [],
                   ),
                   const Text("Milano"),
