@@ -1,11 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
+import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:job_app/app/resources/app_consts.dart';
 import 'package:job_app/core/domain/enums/seniority.dart';
 import 'package:job_app/app/resources/string_constants.dart';
 import 'package:job_app/core/domain/entities/rich_text_annotation.dart';
+import 'package:job_app/core/services/api/dio_client.dart';
 import 'package:loggy/loggy.dart';
 
 import '../domain/enums/contratto.dart';
@@ -17,10 +20,17 @@ import '../domain/entities/rich_text_entity.dart';
 import '../domain/entities/seniority_enitity.dart';
 import '../domain/entities/team_entity.dart';
 import '../domain/entities/weblink.dart';
+import '../services/service_locator.dart';
 
 // import 'package:easy_rich_text/easy_rich_text.dart';
 
 void main() async {
+  final dio = sl<Dio>();
+  final response2 =
+      await dio.post(StringConsts.baseUrlAziende, data: {"page_size": 2});
+
+  print(response2.data);
+
   var input = await File('dummy_annunci.json').readAsString();
   var response = json.decode(input);
   var emojiParser = EmojiParser();
@@ -37,7 +47,7 @@ void main() async {
       String? qualifica;
       String? retribuzione;
       final List<RichTextTextEntity> descrizioneOfferta = [];
-      final Weblink comeCandidarsi;
+      Weblink comeCandidarsi;
       String? localita;
       final String nomeAzienda;
 
@@ -141,16 +151,20 @@ void main() async {
         }
       } //fine parsing Seniority
       //parsing "Name"
-      titolo = properties["Name"]["title"]["plain_text"] as String;
+      titolo = properties["Name"]["title"][0]["plain_text"] as String;
       //parsing "Qualifica"
       if (properties.containsKey("Qualifica")) {
-        qualifica =
-            properties["Qualifica"]["rich_text"]["plain_text"] as String;
+        if ((properties["Qualifica"]["rich_text"] as List).isNotEmpty) {
+          qualifica =
+              properties["Qualifica"]["rich_text"][0]["plain_text"] as String;
+        }
       } //fine parsing Qualifica
       //parsing "Retrubizione"
       if (properties.containsKey("Retribuzione")) {
-        retribuzione =
-            properties["Retribuzione"]["rich_text"]["plain_text"] as String;
+        if ((properties["Retribuzione"]["rich_text"] as List).isNotEmpty) {
+          retribuzione = properties["Retribuzione"]["rich_text"][0]
+              ["plain_text"] as String;
+        }
       }
       //fine parsing retribuzione
       //*DESCRIZIONE OFFERTA - RICHTEXT
@@ -178,17 +192,26 @@ void main() async {
           } //fine if se il rich text è di tipo text
         } //fine giro dei token dell'offerta
       } //fine parsing descrizione offerta come rich text
-
+      String? urlComeCandiarsi;
+      if (properties["Come candidarsi"]["rich_text"][0]["href"] != null) {
+        urlComeCandiarsi =
+            properties["Come candidarsi"]["rich_text"][0]["href"] as String;
+      }
       comeCandidarsi = Weblink(
-          content: properties["Come candidarsi"]["rich_text"]["plain_text"]
-              as String,
-          url: properties["Come candidarsi"]["rich_text"]["href"] as String);
+        content: properties["Come candidarsi"]["rich_text"][0]["plain_text"]
+            as String,
+        url: urlComeCandiarsi,
+      );
+
       //fine parsing come candidarsi
       if (properties.containsKey("Località")) {
-        localita = properties["Località"]["rich_text"]["plain_text"] as String?;
+        if ((properties["Località"]["rich_text"] as List).isNotEmpty) {
+          localita =
+              properties["Località"]["rich_text"][0]["plain_text"] as String?;
+        }
       } //fine parsing località
       nomeAzienda =
-          properties["Nome azienda"]["rich_text"]["plain_text"] as String;
+          properties["Nome azienda"]["rich_text"][0]["plain_text"] as String;
 
       //*ora creo l'annuncio
 

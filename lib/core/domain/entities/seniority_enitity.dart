@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 
-import '../../utils/mixins.dart';
+// import '../../utils/mixins.dart';
 import '../enums/seniority.dart';
 
-class SeniorityEntity extends Equatable with NotionColor {
+class SeniorityEntity extends Equatable {
   final Seniority seniority;
   final String? backgroundColorString;
 

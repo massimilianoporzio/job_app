@@ -35,4 +35,7 @@ class StringConsts {
   static const String contrattoFullTime = "Full Time";
   static const String contrattoPartTime = "Part Time";
   static const String contrattoDefault = "-";
+
+  static const String baseUrlAziende = 'https://example.com';
+  static const String baseUrlFreelancers = 'https://example.com';
 }

@@ -1,9 +1,8 @@
 import 'package:equatable/equatable.dart';
 
-import '../../utils/mixins.dart';
 import '../enums/contratto.dart';
 
-class ContrattoEntity extends Equatable with NotionColor {
+class ContrattoEntity extends Equatable {
   final Contratto contratto;
   final String? backgroundColorString;
 
