@@ -36,6 +36,9 @@ class StringConsts {
   static const String contrattoPartTime = "Part Time";
   static const String contrattoDefault = "-";
 
-  static const String baseUrlAziende = 'https://example.com';
+  //*DA ENVIRONMENT
+  static const String authToken = String.fromEnvironment('NOTION_TOKEN');
+  static const String baseUrlAziende =
+      String.fromEnvironment('NOTION_DB_AZIENDE');
   static const String baseUrlFreelancers = 'https://example.com';
 }

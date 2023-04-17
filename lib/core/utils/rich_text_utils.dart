@@ -3,23 +3,20 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
-import 'package:http_mock_adapter/http_mock_adapter.dart';
-import 'package:job_app/app/resources/app_consts.dart';
-import 'package:job_app/core/domain/enums/seniority.dart';
-import 'package:job_app/app/resources/string_constants.dart';
-import 'package:job_app/core/domain/entities/rich_text_annotation.dart';
-import 'package:job_app/core/services/api/dio_client.dart';
 import 'package:loggy/loggy.dart';
 
-import '../domain/enums/contratto.dart';
-
-import '../domain/enums/team.dart';
+import '../../app/resources/app_consts.dart';
+import '../../app/resources/string_constants.dart';
 import '../domain/entities/annuncio.dart';
 import '../domain/entities/contratto_entity.dart';
+import '../domain/entities/rich_text_annotation.dart';
 import '../domain/entities/rich_text_entity.dart';
 import '../domain/entities/seniority_enitity.dart';
 import '../domain/entities/team_entity.dart';
 import '../domain/entities/weblink.dart';
+import '../domain/enums/contratto.dart';
+import '../domain/enums/seniority.dart';
+import '../domain/enums/team.dart';
 import '../services/service_locator.dart';
 
 // import 'package:easy_rich_text/easy_rich_text.dart';

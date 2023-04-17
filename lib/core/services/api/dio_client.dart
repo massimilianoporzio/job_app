@@ -8,8 +8,7 @@ import 'package:job_app/app/resources/string_constants.dart';
 class DioClient {
   static Future<Dio> createDio() async {
     final dio = Dio(BaseOptions());
-    dio.options.headers["authorization"] =
-        "Bearer secret_Azc2DHy4JY0Ved0cD0ObrEFJqIaUqy96CboXgJZp8bZ"; //TODO da mettere a compile time
+    dio.options.headers["authorization"] = StringConsts.authToken;
     dio.options.headers["Notion-Version"] = "2022-06-28";
     final dioAdapter = DioAdapter(dio: dio);
 
