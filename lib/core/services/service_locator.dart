@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
 import 'package:job_app/app/presentation/cubit/navbar/navigation_cubit.dart';
-import 'package:job_app/core/services/api/dio_client.dart';
+import 'package:job_app/core/services/api/api_client.dart';
 import 'package:job_app/features/aziende/data/datasources/aziende_datasource.dart';
 import 'package:job_app/features/aziende/data/datasources/aziende_datasource_impl.dart';
 import 'package:job_app/features/aziende/data/repositories/aziende_repository_impl.dart';
