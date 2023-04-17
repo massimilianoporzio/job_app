@@ -1,4 +1,6 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_bloc_patterns/connection.dart';
 import 'package:get_it/get_it.dart';
 
 import 'package:job_app/app/presentation/cubit/navbar/navigation_cubit.dart';
@@ -9,17 +11,24 @@ import 'package:job_app/features/aziende/data/repositories/aziende_repository_im
 import 'package:job_app/features/aziende/domain/repositories/aziende_repository.dart';
 import 'package:job_app/features/aziende/domain/usecases/fetch_annunci_azienda.dart';
 import 'package:job_app/features/aziende/presentation/cubit/aziende_cubit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
+import '../../app/tools/connection/connectivity_plus_repository.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
   //*DATASOURCES
-  sl.registerLazySingleton<AziendeDatasource>(
-      () => AziendeDatasourceImpl(dio: sl()));
+  sl.registerLazySingleton<AziendeDatasource>(() => AziendeDatasourceImpl(
+        dio: sl<Dio>(),
+        prefs: sl<SharedPreferences>(),
+        connectivity: sl<Connectivity>(),
+      ));
 
   //*REPOSITORIES
+  sl.registerLazySingleton<ConnectionRepository>(
+      () => ConnectivityPlusRepository(sl<Connectivity>()));
 
   sl.registerLazySingleton<AziendeRepository>(
       () => AziendeRepositoryImpl(remoteDS: sl()));
@@ -29,6 +38,7 @@ Future<void> init() async {
       () => FetchAnnunciAzienda(repository: sl()));
 
   //*BLOCS / CUBITS
+
   //dark mode cubit
 
   sl.registerFactory<DarkModeCubit>(() => DarkModeCubit());
@@ -40,7 +50,13 @@ Future<void> init() async {
   sl.registerFactory<AziendeCubit>(
       () => AziendeCubit(fectAnnunciUsecase: sl<FetchAnnunciAzienda>()));
 
+  //*third party
   //DIO
-
   sl.registerSingleton<Dio>(await DioClient.createDio());
+  //shared prefs
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  sl.registerSingleton<SharedPreferences>(prefs);
+  //connectivity
+  Connectivity connectivity = Connectivity();
+  sl.registerLazySingleton<Connectivity>(() => connectivity);
 }

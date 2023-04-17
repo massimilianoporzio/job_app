@@ -1,17 +1,27 @@
 part of 'aziende_cubit.dart';
 
 abstract class AziendeState extends Equatable {
-  final List<RichTextTextEntity> listaAnnunci;
-  const AziendeState({required this.listaAnnunci});
+  const AziendeState();
 
   @override
   List<Object> get props => [];
 }
 
 class AziendeStateInitial extends AziendeState {
-  const AziendeStateInitial({super.listaAnnunci = const []});
+  final List<RichTextTextEntity> listaAnnunci;
+  const AziendeStateInitial({
+    this.listaAnnunci = const [],
+  });
 }
 
 class AziendeStateLoaded extends AziendeState {
-  const AziendeStateLoaded({required super.listaAnnunci});
+  final List<RichTextTextEntity> listaAnnunci;
+  const AziendeStateLoaded({
+    required this.listaAnnunci,
+  });
+}
+
+class AziendeStateError extends AziendeState {
+  final String message;
+  const AziendeStateError({required this.message});
 }

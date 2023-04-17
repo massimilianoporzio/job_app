@@ -64,13 +64,16 @@ class MyApp extends StatelessWidget {
       ),
       BlocProvider(
         create: (_) => ConnectionBloc(
-          ConnectivityPlusRepository(Connectivity()),
+          sl<ConnectionRepository>(),
         ),
       ),
       BlocProvider<AziendeCubit>(
         create: (context) {
           var aziendeCubit = sl<AziendeCubit>();
-          if (aziendeCubit.state.listaAnnunci.isEmpty) {
+          //qui so che è initial
+          if ((aziendeCubit.state as AziendeStateInitial)
+              .listaAnnunci
+              .isEmpty) {
             //
             logDebug("...state is empty: fetchAllAnnunci...");
             aziendeCubit.fetchAllAnnunci();

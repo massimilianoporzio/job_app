@@ -14,7 +14,7 @@ class AziendeCubit extends Cubit<AziendeState> {
   void fetchAllAnnunci() async {
     final response = await fectAnnunciUsecase(const AnnunciAzParams());
     response.fold(
-      (l) => logError("FAILURE!"),
+      (l) => emit(const AziendeStateError(message: "ERRORE")),
       (r) =>
           emit(AziendeStateLoaded(listaAnnunci: r as List<RichTextTextEntity>)),
     );

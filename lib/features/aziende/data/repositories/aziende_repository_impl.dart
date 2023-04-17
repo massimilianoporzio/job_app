@@ -1,7 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:job_app/core/domain/entities/rich_text_entity.dart';
+import 'package:job_app/core/domain/errors/exceptions.dart';
 
 import 'package:job_app/core/domain/errors/failures.dart';
+import 'package:job_app/core/log/repository_logger.dart';
 import 'package:job_app/features/aziende/data/datasources/aziende_datasource.dart';
 import 'package:job_app/features/aziende/domain/repositories/aziende_repository.dart';
 import 'package:job_app/features/aziende/domain/usecases/fetch_annunci_azienda.dart';
@@ -9,7 +11,7 @@ import 'package:loggy/loggy.dart';
 
 import '../../../../app/resources/string_constants.dart';
 
-class AziendeRepositoryImpl implements AziendeRepository {
+class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
   bool hasNext;
   String nextCursor;
   final AziendeDatasource remoteDS;
@@ -35,12 +37,20 @@ class AziendeRepositoryImpl implements AziendeRepository {
     try {
       if (askingAll) {
         String path = StringConsts.baseUrlAziende;
-        logDebug("REPO: askingAll");
-        remoteDS.fetchAll();
+        loggy.debug("REPO: askingAll");
+
+        try {
+          remoteDS.fetchAll();
+        } on Exception {
+          rethrow;
+        }
+
         return const Right(<RichTextTextEntity>[]);
       } else {
         return const Right(<RichTextTextEntity>[]);
       }
+    } on NetworkException {
+      return Left(NetworkFailure());
     } catch (e) {
       return Left(GenericFailure());
     }

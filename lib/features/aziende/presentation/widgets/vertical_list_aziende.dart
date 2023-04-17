@@ -22,7 +22,7 @@ class VerticalList extends StatelessWidget {
       key: const PageStorageKey<String>(
           'Aziende'), //mi tiene la posizione in cui ero
       itemBuilder: (context, index) => SizedBox(
-        height: 0.2 * mHeigth,
+        height: 0.15 * mHeigth,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: CardAzienda(index: index),

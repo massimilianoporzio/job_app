@@ -41,4 +41,10 @@ class StringConsts {
   static const String baseUrlAziende =
       String.fromEnvironment('NOTION_DB_AZIENDE');
   static const String baseUrlFreelancers = 'https://example.com';
+
+  static const String genericError = "OOPS! Qualcosa è andato storto";
+  static const String connectivtyError =
+      "Non sei connesso a Internet. Controlla la connessione";
+  static const String tryAgain = "Prova ancora.";
+  static const String reloadThePage = "Ricarica la pagina";
 }

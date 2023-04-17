@@ -1,9 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.massimilianoporzio.job_app">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="job_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+       
         <activity
             android:name=".MainActivity"
             android:exported="true"
