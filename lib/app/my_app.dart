@@ -9,7 +9,9 @@ import 'package:job_app/app/presentation/cubit/navbar/navigation_cubit.dart';
 import 'package:job_app/app/resources/theme_manager.dart';
 import 'package:job_app/app/presentation/pages/splash_screen.dart';
 import 'package:job_app/core/services/service_locator.dart';
+import 'package:job_app/features/aziende/presentation/cubit/aziende_cubit.dart';
 import 'package:job_app/features/aziende/presentation/pages/dettagli_annuncio_aziende.dart';
+import 'package:loggy/loggy.dart';
 
 import 'presentation/cubit/dark_mode/dark_mode_cubit.dart';
 import 'resources/color_manager.dart';
@@ -64,6 +66,18 @@ class MyApp extends StatelessWidget {
         create: (_) => ConnectionBloc(
           ConnectivityPlusRepository(Connectivity()),
         ),
+      ),
+      BlocProvider<AziendeCubit>(
+        create: (context) {
+          var aziendeCubit = sl<AziendeCubit>();
+          if (aziendeCubit.state.listaAnnunci.isEmpty) {
+            //
+            logDebug("...state is empty: fetchAllAnnunci...");
+            aziendeCubit.fetchAllAnnunci();
+            logDebug("...annunci presi...");
+          }
+          return aziendeCubit;
+        },
       ),
     ], child: const JobApp());
   }

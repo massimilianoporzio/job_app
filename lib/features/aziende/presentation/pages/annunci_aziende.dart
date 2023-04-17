@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:job_app/app/presentation/pages/widgets/search_bar.dart';
 
+import '../cubit/aziende_cubit.dart';
 import '../widgets/horizontal_list_aziende.dart';
 import '../widgets/horizontal_stats.dart';
 import '../widgets/vertical_list_aziende.dart';
@@ -18,57 +20,61 @@ class AnnunciAziende extends StatelessWidget {
     //salvo larghezza e altezza
     var mWidth = mSize.width; //Larghezza
     var mHeight = mSize.height; //Altezza
-    return OrientationBuilder(
-      builder: (context, orientation) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            // color: Colors.lime,
-            height: double.infinity,
-            width: mWidth,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.start,
-              // mainAxisSize: MainAxisSize.max,
+    return BlocBuilder<AziendeCubit, AziendeState>(
+      builder: (context, state) {
+        return OrientationBuilder(
+          builder: (context, orientation) => SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                // color: Colors.lime,
+                height: double.infinity,
+                width: mWidth,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  // mainAxisSize: MainAxisSize.max,
 
-              children: [
-                const MySearchBar(),
-                SizedBox(
-                  height: orientation == Orientation.landscape ? 8 : 0,
+                  children: [
+                    const MySearchBar(),
+                    SizedBox(
+                      height: orientation == Orientation.landscape ? 8 : 0,
+                    ),
+                    SizedBox(
+                      // color: Colors.red,
+                      width: double.infinity,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          if (orientation == Orientation.portrait)
+                            VerticalStats(
+                              mWidth: mWidth,
+                              mHeight: mHeight,
+                            )
+                          else
+                            HorizontalStats(
+                              mWidth: mWidth,
+                              mHeigth: mHeight,
+                            ),
+                          if (orientation == Orientation.landscape)
+                            HorizontalList(
+                              mHeigth: mHeight,
+                            )
+                        ],
+                      ),
+                    ),
+                    if (orientation == Orientation.portrait)
+                      VerticalList(
+                        mHeigth: mHeight,
+                      )
+                  ],
                 ),
-                SizedBox(
-                  // color: Colors.red,
-                  width: double.infinity,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (orientation == Orientation.portrait)
-                        VerticalStats(
-                          mWidth: mWidth,
-                          mHeight: mHeight,
-                        )
-                      else
-                        HorizontalStats(
-                          mWidth: mWidth,
-                          mHeigth: mHeight,
-                        ),
-                      if (orientation == Orientation.landscape)
-                        HorizontalList(
-                          mHeigth: mHeight,
-                        )
-                    ],
-                  ),
-                ),
-                if (orientation == Orientation.portrait)
-                  VerticalList(
-                    mHeigth: mHeight,
-                  )
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

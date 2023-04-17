@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
+import 'package:flutter/services.dart';
 
 import 'package:dio/dio.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
@@ -12,9 +12,13 @@ class DioClient {
     dio.options.headers["Notion-Version"] = "2022-06-28";
     final dioAdapter = DioAdapter(dio: dio);
 
-    final data = await File('dummy_annunci.json').readAsString();
+    final data = await rootBundle.load('assets/json/dummy_annunci.json');
     dioAdapter.onPost(StringConsts.baseUrlAziende, (server) {
-      final map = jsonDecode(data);
+      final map = jsonDecode(
+        utf8.decode(
+          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
+        ),
+      );
       return server.reply(
         200,
         map,
