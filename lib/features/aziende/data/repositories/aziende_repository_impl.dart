@@ -1,12 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:job_app/core/data/mappers/annuncio_mapper.dart';
-import 'package:job_app/core/domain/entities/typedefs.dart';
 
-import '../../../../app/resources/string_constants.dart';
+import '../../../../core/data/mappers/annuncio_mapper.dart';
 import '../../../../core/data/models/notion_response.dart';
+import '../../../../core/domain/entities/typedefs.dart';
 import '../../../../core/domain/errors/failures.dart';
 import '../../../../core/log/repository_logger.dart';
-
 import '../../domain/repositories/aziende_repository.dart';
 import '../../domain/usecases/fetch_all_annunci.dart';
 import '../datasources/aziende_datasource.dart';
@@ -26,8 +24,7 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
   @override
   Future<Either<Failure, AnnuncioList>> fetchAnnunciAziende(
       AnnunciAzParams params) async {
-    String path = StringConsts.baseUrlAziende;
-    loggy.debug("REPO: askingAll");
+    loggy.debug("REPO: recupero tutti gli annunci");
     try {
       final NotionResponseDTO notionResponse = await remoteDS.fetchAll();
 

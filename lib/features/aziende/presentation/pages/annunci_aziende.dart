@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:job_app/app/presentation/pages/widgets/error_dialog.dart';
 import 'package:job_app/app/presentation/pages/widgets/search_bar.dart';
+import 'package:job_app/core/domain/entities/typedefs.dart';
 
 import '../cubit/aziende_cubit.dart';
 import '../widgets/horizontal_list_aziende.dart';
@@ -30,6 +31,11 @@ class AnnunciAziende extends StatelessWidget {
       builder: (context, state) {
         return BlocBuilder<AziendeCubit, AziendeState>(
           builder: (context, state) {
+            if (state is! AziendeStateLoaded) {
+              return const SizedBox.shrink();
+            }
+            final AnnuncioList listaAnnunci =
+                (state as AziendeStateLoaded).listaAnnunci;
             return OrientationBuilder(
               builder: (context, orientation) => SafeArea(
                 child: Padding(
@@ -75,6 +81,7 @@ class AnnunciAziende extends StatelessWidget {
                         if (orientation == Orientation.portrait)
                           VerticalList(
                             mHeigth: mHeight,
+                            listaAnnunci: listaAnnunci,
                           )
                       ],
                     ),

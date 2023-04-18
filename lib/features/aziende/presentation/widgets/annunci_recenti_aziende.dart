@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../cubit/aziende_cubit.dart';
 
 class AnnunciRecenti extends StatelessWidget {
   const AnnunciRecenti({
@@ -24,12 +27,20 @@ class AnnunciRecenti extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text("4",
-                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                      )),
+              BlocBuilder<AziendeCubit, AziendeState>(
+                builder: (context, state) {
+                  String num = "0";
+                  if (state is AziendeStateLoaded) {
+                    num = state.numeroAnnunciRecenti;
+                  }
+                  return Text(num,
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22,
+                          ));
+                },
+              ),
               Text(
                 "annunci\nrecenti",
                 textAlign: TextAlign.center,

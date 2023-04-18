@@ -2,18 +2,22 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:job_app/app/resources/color_manager.dart';
+import 'package:job_app/core/domain/entities/typedefs.dart';
 import 'package:job_app/features/aziende/presentation/pages/dettagli_annuncio_aziende.dart';
 import 'package:loggy/loggy.dart';
 
+import '../../../../core/domain/entities/annuncio.dart';
 import '../../../../core/domain/enums/seniority.dart';
 
 class VerticalList extends StatelessWidget {
   const VerticalList({
     super.key,
     required this.mHeigth,
+    required this.listaAnnunci,
   });
 
   final double mHeigth;
+  final AnnuncioList listaAnnunci;
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +25,15 @@ class VerticalList extends StatelessWidget {
         child: ListView.builder(
       key: const PageStorageKey<String>(
           'Aziende'), //mi tiene la posizione in cui ero
+      itemCount: listaAnnunci.length,
       itemBuilder: (context, index) => SizedBox(
-        height: 0.15 * mHeigth,
+        height: 0.2 * mHeigth,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: CardAzienda(index: index),
+          child: CardAzienda(
+            index: index,
+            annuncio: listaAnnunci[index],
+          ),
         ),
       ),
     ));
@@ -34,9 +42,11 @@ class VerticalList extends StatelessWidget {
 
 class CardAzienda extends StatelessWidget with UiLoggy {
   final int index;
+  final Annuncio annuncio;
   const CardAzienda({
     super.key,
     required this.index,
+    required this.annuncio,
   });
 
   @override
@@ -73,8 +83,8 @@ class CardAzienda extends StatelessWidget with UiLoggy {
                   const Row(
                     children: [],
                   ),
-                  const Text("Milano"),
-                  const Text("20k-30k a seconda dell'esperienza"),
+                  Text(annuncio.localita ?? ""),
+                  Text(annuncio.retribuzione ?? ""),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [

@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:job_app/core/domain/entities/annuncio.dart';
+import 'package:loggy/loggy.dart';
 
 import '../../../../core/domain/entities/typedefs.dart';
 import '../../../../core/log/bloc_logger.dart';

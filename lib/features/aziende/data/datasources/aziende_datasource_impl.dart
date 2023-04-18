@@ -50,7 +50,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
         if (response.data["has_more"] != null) {
           hasMore = response.data["has_more"] as bool;
         }
-        //TODO parser della risposta e lista
+
         if (response.data["results"] != null) {
           var emojiParser = EmojiParser();
           List annunciNotion = response.data["results"];
@@ -265,7 +265,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
           } //fine giro sugli annunciNotion
         } //fine se response.data ha "results"
       } //fine se ho response.data
-      loggy.debug("ECCO LA LISTA DEGLI ANNUNCI MODEL:\n$listaAnnunci");
+      // loggy.debug("ECCO LA LISTA DEGLI ANNUNCI MODEL:\n$listaAnnunci");
       return NotionResponseDTO(
         listaAnnunci: listaAnnunci,
         hasMore: hasMore,
