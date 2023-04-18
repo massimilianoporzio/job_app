@@ -1,7 +1,7 @@
-import 'package:job_app/features/aziende/domain/entities/annuncio_azienda.dart';
+import 'package:job_app/core/data/models/notion_response.dart';
 
 abstract class AziendeDatasource {
-  Future<List<AnnuncioAzienda>> fetchAll();
-  Future<List<AnnuncioAzienda>> fetchPrimaPagina();
-  Future<List<AnnuncioAzienda>> fetchPaginaSuccessiva();
+  Future<NotionResponseDTO> fetchAll();
+  Future<NotionResponseDTO> fetchPrimaPagina();
+  Future<NotionResponseDTO> fetchPaginaSuccessiva();
 }

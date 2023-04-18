@@ -1,11 +1,14 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:job_app/core/domain/entities/rich_text_entity.dart';
-import 'package:job_app/features/aziende/domain/usecases/fetch_all_annunci.dart';
+import 'package:job_app/core/domain/entities/annuncio.dart';
+
+import '../../../../core/domain/entities/typedefs.dart';
+import '../../../../core/log/bloc_logger.dart';
+import '../../domain/usecases/fetch_all_annunci.dart';
 
 part 'aziende_state.dart';
 
-class AziendeCubit extends Cubit<AziendeState> {
+class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
   final FetchAnnunciAzienda fectAnnunciUsecase;
   AziendeCubit({required this.fectAnnunciUsecase})
       : super(const AziendeStateInitial());
@@ -14,8 +17,11 @@ class AziendeCubit extends Cubit<AziendeState> {
     final response = await fectAnnunciUsecase(const AnnunciAzParams());
     response.fold(
       (l) => emit(const AziendeStateError(message: "ERRORE")),
-      (r) =>
-          emit(AziendeStateLoaded(listaAnnunci: r as List<RichTextTextEntity>)),
+      (r) {
+        loggy.debug("AL CUBIT è arrivato:");
+        loggy.debug(r as List<Annuncio>);
+        return emit(AziendeStateLoaded(listaAnnunci: r));
+      },
     );
   }
 }

@@ -1,12 +1,15 @@
 import 'dart:convert';
 
-import '../../domain/entities/rich_text_entity.dart';
+import 'package:equatable/equatable.dart';
+
 import 'rich_text_annotation_model.dart';
 
-class RichTextModel extends RichTextTextEntity {
+class RichTextModel extends Equatable {
+  final String plainText;
+  final RichTextAnnotationModel annotation;
   const RichTextModel({
-    required super.plainText,
-    required super.annotation,
+    required this.plainText,
+    required this.annotation,
   });
 
   Map<String, dynamic> toMap() {
@@ -14,7 +17,7 @@ class RichTextModel extends RichTextTextEntity {
 
     result.addAll({'plainText': plainText});
     result.addAll(
-        {'annotation': (annotation as RichTextAnnotationModel).toMap()});
+        {'annotation': (annotation).toMap()});
 
     return result;
   }
@@ -27,4 +30,7 @@ class RichTextModel extends RichTextTextEntity {
   }
 
   String toJson() => json.encode(toMap());
+
+  @override
+  List<Object> get props => [plainText, annotation];
 }

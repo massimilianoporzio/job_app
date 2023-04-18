@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
+import 'package:job_app/core/domain/enums/tipologia_annunci.dart';
 import 'package:loggy/loggy.dart';
 
 import '../../app/resources/app_consts.dart';
@@ -213,21 +214,21 @@ void main() async {
       //*ora creo l'annuncio
 
       listaAnnunci.add(Annuncio(
-        id: id,
-        titolo: titolo,
-        nomeAzienda: nomeAzienda,
-        descrizioneOfferta: descrizioneOfferta,
-        comeCandidarsi: comeCandidarsi,
-        jobPosted: jobPosted,
-        archived: archived,
-        contratto: contratto,
-        emoji: emoji,
-        localita: localita,
-        qualifica: qualifica,
-        retribuzione: retribuzione,
-        seniority: seniority,
-        team: team,
-      ));
+          id: id,
+          titolo: titolo,
+          nomeAzienda: nomeAzienda,
+          descrizioneOfferta: descrizioneOfferta,
+          comeCandidarsi: comeCandidarsi,
+          jobPosted: jobPosted,
+          archived: archived,
+          contratto: contratto,
+          emoji: emoji,
+          localita: localita,
+          qualifica: qualifica,
+          retribuzione: retribuzione,
+          seniority: seniority,
+          team: team,
+          tipoAnnuncio: TipoAnnuncio.aziende));
     } //fine giro sugli annunci "results"
   } //fine if se result non è vuoto
   logDebug(listaAnnunci);

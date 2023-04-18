@@ -1,12 +1,16 @@
 import 'dart:convert';
 
-import 'package:job_app/core/domain/entities/seniority_enitity.dart';
+import 'package:equatable/equatable.dart';
 
 import '../../domain/enums/seniority.dart';
 
-class SeniorityModel extends SeniorityEntity {
-  const SeniorityModel(
-      {required super.seniority, required backgroundColorString});
+class SeniorityModel extends Equatable {
+  final Seniority seniority;
+  final String? backgroundColorString;
+  const SeniorityModel({
+    required this.seniority,
+    this.backgroundColorString,
+  });
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
@@ -27,4 +31,7 @@ class SeniorityModel extends SeniorityEntity {
   }
 
   String toJson() => json.encode(toMap());
+
+  @override
+  List<Object?> get props => [seniority, backgroundColorString];
 }

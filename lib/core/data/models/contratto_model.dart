@@ -1,13 +1,16 @@
 import 'dart:convert';
 
-import 'package:job_app/core/domain/entities/contratto_entity.dart';
+import 'package:equatable/equatable.dart';
 
 import '../../domain/enums/contratto.dart';
 
-class ContrattoModel extends ContrattoEntity {
+class ContrattoModel extends Equatable {
+  final Contratto contratto;
+  final String? backgroundColorString;
+
   const ContrattoModel({
-    required super.contratto,
-    required backgroundColorString,
+    required this.contratto,
+    this.backgroundColorString,
   });
 
   Map<String, dynamic> toMap() {
@@ -29,4 +32,7 @@ class ContrattoModel extends ContrattoEntity {
   }
 
   String toJson() => json.encode(toMap());
+
+  @override
+  List<Object?> get props => [contratto, backgroundColorString];
 }

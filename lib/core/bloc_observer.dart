@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:job_app/app/log/bloc_logger.dart';
+import 'package:job_app/core/log/bloc_logger.dart';
 
 class AppBlocObserver extends BlocObserver with BlocLoggy {
   @override

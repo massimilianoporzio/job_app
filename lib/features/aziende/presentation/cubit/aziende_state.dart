@@ -8,14 +8,14 @@ abstract class AziendeState extends Equatable {
 }
 
 class AziendeStateInitial extends AziendeState {
-  final List<RichTextTextEntity> listaAnnunci;
+  final AnnuncioList listaAnnunci;
   const AziendeStateInitial({
     this.listaAnnunci = const [],
   });
 }
 
 class AziendeStateLoaded extends AziendeState {
-  final List<RichTextTextEntity> listaAnnunci;
+  final AnnuncioList listaAnnunci;
   const AziendeStateLoaded({
     required this.listaAnnunci,
   });

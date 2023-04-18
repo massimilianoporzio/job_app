@@ -23,7 +23,6 @@ Future<void> init() async {
   sl.registerLazySingleton<AziendeDatasource>(() => AziendeDatasourceImpl(
         dio: sl<Dio>(),
         prefs: sl<SharedPreferences>(),
-        connectivity: sl<Connectivity>(),
       ));
 
   //*REPOSITORIES
@@ -52,7 +51,7 @@ Future<void> init() async {
 
   //*third party
   //DIO
-  sl.registerSingleton<Dio>(await DioClient.createDio(isMock: false));
+  sl.registerSingleton<Dio>(await DioClient.createDio(isMock: true));
   //shared prefs
   SharedPreferences prefs = await SharedPreferences.getInstance();
   sl.registerSingleton<SharedPreferences>(prefs);

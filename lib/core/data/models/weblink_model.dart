@@ -1,9 +1,14 @@
 import 'dart:convert';
 
-import 'package:job_app/core/domain/entities/weblink.dart';
+import 'package:equatable/equatable.dart';
 
-class WebLinkModel extends Weblink {
-  WebLinkModel({required super.content, url});
+class WebLinkModel extends Equatable {
+  final String content;
+  final String? url;
+  const WebLinkModel({
+    required this.content,
+    this.url,
+  });
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
@@ -24,4 +29,7 @@ class WebLinkModel extends Weblink {
   }
 
   String toJson() => json.encode(toMap());
+
+  @override
+  List<Object?> get props => [content, url];
 }

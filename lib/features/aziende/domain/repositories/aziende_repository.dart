@@ -1,12 +1,14 @@
 import 'package:dartz/dartz.dart';
-import 'package:job_app/features/aziende/domain/usecases/fetch_all_annunci.dart';
 
+import '../../../../core/domain/entities/typedefs.dart';
 import '../../../../core/domain/errors/failures.dart';
+import '../usecases/fetch_all_annunci.dart';
 
 abstract class AziendeRepository {
-  Future<Either<Failure, dynamic>> fetchAnnunciAziende(AnnunciAzParams params);
-  Future<Either<Failure, dynamic>> fetchPrimaPaginaAnnunci(
+  Future<Either<Failure, AnnuncioList>> fetchAnnunciAziende(
       AnnunciAzParams params);
-  Future<Either<Failure, dynamic>> fetchProssimaPaginaAnnunci(
+  Future<Either<Failure, AnnuncioList>> fetchPrimaPaginaAnnunci(
+      AnnunciAzParams params);
+  Future<Either<Failure, AnnuncioList>> fetchProssimaPaginaAnnunci(
       AnnunciAzParams params);
 }

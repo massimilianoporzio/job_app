@@ -1,14 +1,17 @@
 import 'dart:convert';
 
-import 'package:job_app/core/domain/entities/team_entity.dart';
+import 'package:equatable/equatable.dart';
 
 import '../../domain/enums/team.dart';
 
-class TeamModel extends TeamEntity {
+class TeamModel extends Equatable {
+  final Team team;
+  final String? backgroundColorString;
   const TeamModel({
-    required super.team,
-    required backgroundColorString,
+    required this.team,
+    this.backgroundColorString,
   });
+
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
@@ -28,4 +31,7 @@ class TeamModel extends TeamEntity {
       backgroundColorString: json['backgroundColorString'],
     );
   }
+
+  @override
+  List<Object?> get props => [team, backgroundColorString];
 }

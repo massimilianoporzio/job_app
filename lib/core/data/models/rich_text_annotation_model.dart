@@ -1,15 +1,23 @@
 import 'dart:convert';
 
-import 'package:job_app/core/domain/entities/rich_text_annotation.dart';
+import 'package:equatable/equatable.dart';
 
-class RichTextAnnotationModel extends RichTextAnnotation {
-  RichTextAnnotationModel(
-      {required super.bold,
-      required super.italic,
-      required super.strikethrough,
-      required super.underline,
-      required super.code,
-      colorString});
+class RichTextAnnotationModel extends Equatable {
+  final bool bold;
+  final bool italic;
+  final bool strikethrough;
+  final bool underline;
+  final bool code;
+  final String? colorString;
+
+  const RichTextAnnotationModel({
+    required this.bold,
+    required this.italic,
+    required this.strikethrough,
+    required this.underline,
+    required this.code,
+    this.colorString,
+  });
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
@@ -38,4 +46,16 @@ class RichTextAnnotationModel extends RichTextAnnotation {
   }
 
   String toJson() => json.encode(toMap());
+
+  @override
+  List<Object?> get props {
+    return [
+      bold,
+      italic,
+      strikethrough,
+      underline,
+      code,
+      colorString,
+    ];
+  }
 }

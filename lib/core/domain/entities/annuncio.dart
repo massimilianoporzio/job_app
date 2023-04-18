@@ -1,11 +1,12 @@
 import 'package:equatable/equatable.dart';
 
-import 'package:job_app/core/domain/entities/contratto_entity.dart';
-import 'package:job_app/core/domain/entities/rich_text_entity.dart';
-import 'package:job_app/core/domain/entities/seniority_enitity.dart';
-import 'package:job_app/core/domain/entities/weblink.dart';
+import 'package:job_app/core/domain/enums/tipologia_annunci.dart';
 
+import 'contratto_entity.dart';
+import 'seniority_enitity.dart';
 import 'team_entity.dart';
+import 'typedefs.dart';
+import 'weblink.dart';
 
 class Annuncio extends Equatable {
   final String id;
@@ -16,12 +17,13 @@ class Annuncio extends Equatable {
   final ContrattoEntity? contratto;
   final SeniorityEntity? seniority;
   final String? retribuzione;
-  final List<RichTextTextEntity> descrizioneOfferta;
+  final RichTextList descrizioneOfferta;
   final Weblink comeCandidarsi;
   final String? localita;
   final String? emoji;
   final DateTime jobPosted;
   final bool archived;
+  final TipoAnnuncio tipoAnnuncio;
 
   String get plainDescrizioneOfferta {
     String result = "";
@@ -46,6 +48,7 @@ class Annuncio extends Equatable {
     this.emoji,
     required this.jobPosted,
     required this.archived,
+    required this.tipoAnnuncio,
   });
 
   @override
@@ -65,6 +68,7 @@ class Annuncio extends Equatable {
       emoji,
       jobPosted,
       archived,
+      tipoAnnuncio,
     ];
   }
 }
