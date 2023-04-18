@@ -9,7 +9,7 @@ import 'package:job_app/features/aziende/data/datasources/aziende_datasource.dar
 import 'package:job_app/features/aziende/data/datasources/aziende_datasource_impl.dart';
 import 'package:job_app/features/aziende/data/repositories/aziende_repository_impl.dart';
 import 'package:job_app/features/aziende/domain/repositories/aziende_repository.dart';
-import 'package:job_app/features/aziende/domain/usecases/fetch_annunci_azienda.dart';
+import 'package:job_app/features/aziende/domain/usecases/fetch_all_annunci.dart';
 import 'package:job_app/features/aziende/presentation/cubit/aziende_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -52,7 +52,7 @@ Future<void> init() async {
 
   //*third party
   //DIO
-  sl.registerSingleton<Dio>(await DioClient.createDio());
+  sl.registerSingleton<Dio>(await DioClient.createDio(isMock: false));
   //shared prefs
   SharedPreferences prefs = await SharedPreferences.getInstance();
   sl.registerSingleton<SharedPreferences>(prefs);

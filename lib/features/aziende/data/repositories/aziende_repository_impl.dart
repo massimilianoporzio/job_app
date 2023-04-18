@@ -6,8 +6,7 @@ import 'package:job_app/core/domain/errors/failures.dart';
 import 'package:job_app/core/log/repository_logger.dart';
 import 'package:job_app/features/aziende/data/datasources/aziende_datasource.dart';
 import 'package:job_app/features/aziende/domain/repositories/aziende_repository.dart';
-import 'package:job_app/features/aziende/domain/usecases/fetch_annunci_azienda.dart';
-import 'package:loggy/loggy.dart';
+import 'package:job_app/features/aziende/domain/usecases/fetch_all_annunci.dart';
 
 import '../../../../app/resources/string_constants.dart';
 
@@ -23,36 +22,31 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
   });
 
   @override
-  Future<Either<Failure, dynamic>> fetchAnnunciAziende(
+  Future<Either<Failure, List<RichTextTextEntity>>> fetchAnnunciAziende(
       AnnunciAzParams params) async {
-    bool? askingNextPage =
-        params.askNextPage; //se c'è chiedo la pagina successiva
-    bool? askFirstPage =
-        params.askFirstPage; //se c'è chiedo la paginazione altrimenti tutte
-    bool askingAll = false;
-    if (askingNextPage == null && askFirstPage == null) {
-      askingAll =
-          true; //se non ho i due bool vuol dire che chiedo tutti gli annunci
-    }
+    String path = StringConsts.baseUrlAziende;
+    loggy.debug("REPO: askingAll");
     try {
-      if (askingAll) {
-        String path = StringConsts.baseUrlAziende;
-        loggy.debug("REPO: askingAll");
+      final lista = await remoteDS.fetchAll();
 
-        try {
-          remoteDS.fetchAll();
-        } on Exception {
-          rethrow;
-        }
-
-        return const Right(<RichTextTextEntity>[]);
-      } else {
-        return const Right(<RichTextTextEntity>[]);
-      }
-    } on NetworkException {
-      return Left(NetworkFailure());
+      return const Right(<RichTextTextEntity>[]);
     } catch (e) {
+      loggy.error(e.toString());
       return Left(GenericFailure());
     }
+  }
+
+  @override
+  Future<Either<Failure, dynamic>> fetchPrimaPaginaAnnunci(
+      AnnunciAzParams params) {
+    // TODO: implement fetchPrimaPaginaAnnunci
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, dynamic>> fetchProssimaPaginaAnnunci(
+      AnnunciAzParams params) {
+    // TODO: implement fetchProssimaPaginaAnnunci
+    throw UnimplementedError();
   }
 }

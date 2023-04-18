@@ -16,12 +16,18 @@
             "name": "job_app (profile mode)",
             "request": "launch",
             "type": "dart",
+            "args": [
+                "--dart-define-from-file=lib\\config.json"
+            ],
             "flutterMode": "profile"
         },
         {
             "name": "job_app (release mode)",
             "request": "launch",
             "type": "dart",
+            "args": [
+                "--dart-define-from-file=lib\\config.json"
+            ],
             "flutterMode": "release"
         }
     ]

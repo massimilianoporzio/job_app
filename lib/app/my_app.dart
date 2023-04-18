@@ -1,4 +1,3 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,6 @@ import 'package:loggy/loggy.dart';
 import 'presentation/cubit/dark_mode/dark_mode_cubit.dart';
 import 'resources/color_manager.dart';
 import 'resources/font_manager.dart';
-import 'tools/connection/connectivity_plus_repository.dart';
 
 class JobApp extends StatelessWidget {
   const JobApp({super.key});

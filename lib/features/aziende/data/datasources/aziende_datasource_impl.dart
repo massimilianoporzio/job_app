@@ -23,18 +23,19 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
 
   @override
   Future<List<AnnuncioAzienda>> fetchAll() async {
-    final connectivityResult = await (connectivity.checkConnectivity());
-    if (connectivityResult == ConnectivityResult.none) {
+    try {
+      final response =
+          await dio.post(StringConsts.baseUrlAziende, data: {"page_size": 2});
+      loggy.debug("REPONSE FROM NORTION: $response");
+
+      if (response.data != null) {
+        loggy.debug(response.data["next_cursor"]);
+      }
+      //TODO parser della risposta e lista
+      return ([]); //return lista vuota
+    } catch (e) {
       throw NetworkException();
     }
-    final response =
-        await dio.post(StringConsts.baseUrlAziende, data: {"page_size": 2});
-    loggy.debug("REPONSE FROM NORTION: $response");
-    if (response.data != null) {
-      loggy.debug(response.data["next_cursor"]);
-    }
-    //TODO parser della risposta e lista
-    return Future.value([]); //return lista vuota
   }
 
   @override

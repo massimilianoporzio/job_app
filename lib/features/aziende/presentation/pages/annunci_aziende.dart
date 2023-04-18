@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:job_app/app/presentation/pages/widgets/error_dialog.dart';
 import 'package:job_app/app/presentation/pages/widgets/search_bar.dart';
-import 'package:job_app/core/presentation/widgets/error_dialog.dart';
 
 import '../cubit/aziende_cubit.dart';
 import '../widgets/horizontal_list_aziende.dart';
@@ -24,7 +24,7 @@ class AnnunciAziende extends StatelessWidget {
     return BlocConsumer<AziendeCubit, AziendeState>(
       listener: (context, state) {
         if (state is AziendeStateError) {
-          errorDialog(context, errorMsg: "ERRORE");
+          showSnackbar(context: context, message: "Errore di connessione.");
         }
       },
       builder: (context, state) {
