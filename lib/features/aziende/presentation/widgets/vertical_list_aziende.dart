@@ -2,6 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_emoji/flutter_emoji.dart';
+import 'package:intl/intl.dart';
 import 'package:job_app/app/resources/color_manager.dart';
 import 'package:job_app/core/domain/entities/typedefs.dart';
 import 'package:job_app/features/aziende/presentation/cubit/aziende_cubit.dart';
@@ -36,7 +38,7 @@ class VerticalList extends StatelessWidget {
             'Aziende'), //mi tiene la posizione in cui ero
         itemCount: listaAnnunci.length,
         itemBuilder: (context, index) => SizedBox(
-          height: 0.2 * mHeigth,
+          height: 0.25 * mHeigth,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: CardAzienda(
@@ -61,6 +63,9 @@ class CardAzienda extends StatelessWidget with UiLoggy {
 
   @override
   Widget build(BuildContext context) {
+    var serverParser = EmojiParser(init: true);
+    var emoji = serverParser.get(annuncio.emoji);
+    print(emoji.code);
     return InkWell(
       onTap: () {
         loggy.debug('tapped on annuncio: $index');
@@ -88,13 +93,30 @@ class CardAzienda extends StatelessWidget with UiLoggy {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Row(
-                    children: [],
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          emoji.code,
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        Expanded(
+                          child: AutoSizeText(annuncio.titolo,
+                              textAlign: TextAlign.right,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelSmall!
+                                  .copyWith(fontSize: 14)),
+                        )
+                      ],
+                    ),
                   ),
-                  Text(annuncio.localita ?? ""),
-                  Text(annuncio.retribuzione ?? ""),
+                  Text(annuncio.nomeAzienda),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -112,11 +134,79 @@ class CardAzienda extends StatelessWidget with UiLoggy {
                         child: const AutoSizeText('Full Time'),
                       )
                     ],
-                  ),
+                  ), //fine riga dei tag
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("job posted"), Text(annuncio.localita ?? "...")
+                      //   JobPosted(annuncio: annuncio),
+                      //   Expanded(child: Text("prova"))
+                      //   // Localita(annuncio: annuncio)
+                    ],
+                  ), //riga data e località
                 ],
               ),
             )),
       ),
+    );
+  }
+}
+
+class Localita extends StatelessWidget {
+  const Localita({
+    super.key,
+    required this.annuncio,
+  });
+
+  final Annuncio annuncio;
+
+  @override
+  Widget build(BuildContext context) {
+    String testoLocalita = "";
+    if (annuncio.localita != null) {
+      var splitLoc = annuncio.localita!.split("(");
+      print(splitLoc);
+
+      if (testoLocalita.isEmpty) {
+        testoLocalita = annuncio.localita!.split(",")[0];
+        print(testoLocalita);
+      }
+    }
+    return Expanded(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const Icon(Icons.pin_drop),
+          Expanded(
+            child: Text(
+              testoLocalita,
+              softWrap: false,
+              maxLines: 1,
+              overflow: TextOverflow.fade,
+              style: TextStyle(fontSize: 12),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class JobPosted extends StatelessWidget {
+  const JobPosted({
+    super.key,
+    required this.annuncio,
+  });
+
+  final Annuncio annuncio;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(Icons.schedule_sharp),
+        Text(DateFormat('dd/MM/yyyy HH:mm').format(annuncio.jobPosted)),
+      ],
     );
   }
 }
