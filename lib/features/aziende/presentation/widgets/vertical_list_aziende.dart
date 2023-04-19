@@ -1,8 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:job_app/app/resources/color_manager.dart';
 import 'package:job_app/core/domain/entities/typedefs.dart';
+import 'package:job_app/features/aziende/presentation/cubit/aziende_cubit.dart';
 import 'package:job_app/features/aziende/presentation/pages/dettagli_annuncio_aziende.dart';
 import 'package:loggy/loggy.dart';
 
@@ -19,20 +21,28 @@ class VerticalList extends StatelessWidget {
   final double mHeigth;
   final AnnuncioList listaAnnunci;
 
+  Future<void> _refresh(BuildContext context) {
+    context.read<AziendeCubit>().fetchAllAnnunci();
+    return Future.value();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: ListView.builder(
-      key: const PageStorageKey<String>(
-          'Aziende'), //mi tiene la posizione in cui ero
-      itemCount: listaAnnunci.length,
-      itemBuilder: (context, index) => SizedBox(
-        height: 0.2 * mHeigth,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: CardAzienda(
-            index: index,
-            annuncio: listaAnnunci[index],
+        child: RefreshIndicator(
+      onRefresh: () => _refresh(context),
+      child: ListView.builder(
+        key: const PageStorageKey<String>(
+            'Aziende'), //mi tiene la posizione in cui ero
+        itemCount: listaAnnunci.length,
+        itemBuilder: (context, index) => SizedBox(
+          height: 0.2 * mHeigth,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: CardAzienda(
+              index: index,
+              annuncio: listaAnnunci[index],
+            ),
           ),
         ),
       ),

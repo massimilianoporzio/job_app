@@ -25,7 +25,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
     List<AnnuncioModel> listaAnnunci = [];
     try {
       final Response response =
-          await dio.post(StringConsts.baseUrlAziende, data: {"page_size": 2});
+          await dio.post(StringConsts.baseUrlAziende, data: {});
       loggy.debug("REPONSE FROM NOTION: $response");
 
       loggy.debug(response.data["next_cursor"]);
@@ -45,7 +45,8 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
         nextCursor: nextCursor,
       );
     } on DioError catch (e) {
-      if (e.type == DioErrorType.connectionError) {
+      if (e.type == DioErrorType.connectionError ||
+          e.type == DioErrorType.unknown) {
         throw NetworkException();
       }
       rethrow;

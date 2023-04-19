@@ -51,7 +51,7 @@ Future<void> init() async {
 
   //*third party
   //DIO
-  sl.registerSingleton<Dio>(await DioClient.createDio(isMock: true));
+  sl.registerSingleton<Dio>(await DioClient.createDio(isMock: false));
   //shared prefs
   SharedPreferences prefs = await SharedPreferences.getInstance();
   sl.registerSingleton<SharedPreferences>(prefs);

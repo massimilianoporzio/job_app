@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:job_app/app/resources/string_constants.dart';
@@ -16,7 +18,7 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
   AziendeCubit({required this.fectAnnunciUsecase})
       : super(const AziendeStateInitial());
 
-  void fetchAllAnnunci() async {
+  FutureOr<void> fetchAllAnnunci() async {
     emit(AziendeStateLoading());
     final response = await fectAnnunciUsecase(const AnnunciAzParams());
     response.fold(
