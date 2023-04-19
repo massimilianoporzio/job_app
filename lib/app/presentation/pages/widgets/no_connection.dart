@@ -12,55 +12,54 @@ class NoConnection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Image.asset(
-            'assets/images/sfondi/Connection_Lost.png',
-            fit: BoxFit.cover,
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-          ),
-          const Positioned(
-            bottom: 200,
-            left: 30,
-            child: Text(
-              'No Connection',
-              style: kTitleTextStyle,
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Image.asset(
+              'assets/images/sfondi/connection_failed.png',
+              fit: BoxFit.fill,
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
             ),
-          ),
-          const Positioned(
-            bottom: 150,
-            left: 30,
-            child: Text(
-              'Controlla la tua connessione a Internet\ne riprova.',
-              style: kSubtitleTextStyle,
-              textAlign: TextAlign.start,
-            ),
-          ),
-          Positioned(
-            bottom: 50,
-            left: 40,
-            right: 40,
-            child: BlocBuilder<NavigationCubit, NavigationState>(
-              builder: (context, state) {
-                return ReusablePrimaryButton(
-                  childText: 'Riprova',
-                  buttonColor: Theme.of(context).colorScheme.error,
-                  childTextColor: Theme.of(context).colorScheme.onError,
-                  onPressed: () {
-                    int pageIndex = state.selectedIndex;
-                    switch (pageIndex) {
-                      case 0:
-                        context.read<AziendeCubit>().fetchAllAnnunci();
-                        break;
-                      default:
-                    }
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const Text(
+                  'No Connection',
+                  style: kTitleTextStyle,
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                Text(
+                  'Controlla la tua connessione a Internet e riprova.',
+                  style: kSubtitleTextStyle.copyWith(color: Colors.black),
+                  textAlign: TextAlign.center,
+                ),
+                BlocBuilder<NavigationCubit, NavigationState>(
+                  builder: (context, state) {
+                    return ReusablePrimaryButton(
+                      childText: 'Riprova',
+                      buttonColor: Theme.of(context).colorScheme.error,
+                      childTextColor: Theme.of(context).colorScheme.onError,
+                      onPressed: () {
+                        int pageIndex = state.selectedIndex;
+                        switch (pageIndex) {
+                          case 0:
+                            context.read<AziendeCubit>().fetchAllAnnunci();
+                            break;
+                          default:
+                        }
+                      },
+                    );
                   },
-                );
-              },
+                ),
+              ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
