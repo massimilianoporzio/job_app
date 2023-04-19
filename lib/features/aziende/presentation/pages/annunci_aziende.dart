@@ -55,8 +55,8 @@ class AnnunciAziende extends StatelessWidget {
                 ),
               ));
             } else {
-              final AnnuncioList listaAnnunci = [];
-              // (state as AziendeStateLoaded).listaAnnunci;
+              final AnnuncioList listaAnnunci =
+                  (state as AziendeStateLoaded).listaAnnunci;
 
               if (listaAnnunci.isEmpty) {
                 return const AnnunciNotFound();
