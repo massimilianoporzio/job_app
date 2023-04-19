@@ -1,14 +1,13 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:job_app/app/presentation/pages/widgets/annunci_not_found.dart';
-import 'package:job_app/app/presentation/pages/widgets/certain_error.dart';
-import 'package:job_app/app/presentation/pages/widgets/error_dialog.dart';
-import 'package:job_app/app/presentation/pages/widgets/no_connection.dart';
-import 'package:job_app/app/presentation/pages/widgets/search_bar.dart';
-import 'package:job_app/core/domain/entities/typedefs.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
+import '../../../../app/presentation/pages/widgets/annunci_not_found.dart';
+import '../../../../app/presentation/pages/widgets/certain_error.dart';
+import '../../../../app/presentation/pages/widgets/no_connection.dart';
+import '../../../../app/presentation/pages/widgets/search_bar.dart';
+import '../../../../core/domain/entities/typedefs.dart';
 import '../cubit/aziende_cubit.dart';
 import '../widgets/horizontal_list_aziende.dart';
 import '../widgets/horizontal_stats.dart';
