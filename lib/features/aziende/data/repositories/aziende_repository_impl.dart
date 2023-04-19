@@ -27,21 +27,15 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
       AnnunciAzParams params) async {
     loggy.debug("REPO: recupero tutti gli annunci");
     try {
-      final NotionResponseDTO? notionResponse = await remoteDS.fetchAll();
-      if (notionResponse != null) {
-        return Right(notionResponse.listaAnnunci.annuncioList);
-      } else {
-        throw const FetchDataException();
-      }
-    } catch (e) {
-      loggy.error(e.toString());
-      if (e is NetworkException) {
-        return Left(NetworkFailure());
-      } else if (e is FetchDataException) {
-        return Left(ServerFailure());
-      } else {
-        return Left(GenericFailure());
-      }
+      final NotionResponseDTO notionResponse = await remoteDS.fetchAll();
+
+      return Right(notionResponse.listaAnnunci.annuncioList);
+    } on NetworkException {
+      return Left(NetworkFailure());
+    } on RestApiException {
+      return Left(ServerFailure());
+    } on Exception {
+      return Left(GenericFailure());
     }
   }
 

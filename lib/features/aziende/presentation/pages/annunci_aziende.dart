@@ -1,6 +1,7 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:job_app/app/presentation/pages/widgets/certain_error.dart';
 import 'package:job_app/app/presentation/pages/widgets/error_dialog.dart';
 import 'package:job_app/app/presentation/pages/widgets/no_connection.dart';
 import 'package:job_app/app/presentation/pages/widgets/search_bar.dart';
@@ -25,20 +26,15 @@ class AnnunciAziende extends StatelessWidget {
     //salvo larghezza e altezza
     var mWidth = mSize.width; //Larghezza
     var mHeight = mSize.height; //Altezza
-    return BlocConsumer<AziendeCubit, AziendeState>(
-      listener: (context, state) {
-        if (state is AziendeStateError) {
-          showSnackbar(context: context, message: "Errore di connessione.");
-        }
-      },
+    return BlocBuilder<AziendeCubit, AziendeState>(
       builder: (context, state) {
         return BlocBuilder<AziendeCubit, AziendeState>(
           builder: (context, state) {
             if (state is AziendeStateInitial) {
               return const SizedBox.shrink();
             } else if (state is AziendeStateError) {
-              return Center(
-                child: Text("OOPS!"),
+              return CertainError(
+                message: state.message,
               );
             } else if (state is AziendeStateNoConnection) {
               return const NoConnection();
@@ -61,6 +57,7 @@ class AnnunciAziende extends StatelessWidget {
             } else {
               final AnnuncioList listaAnnunci =
                   (state as AziendeStateLoaded).listaAnnunci;
+              //TODO no results
               return OrientationBuilder(
                 builder: (context, orientation) => SafeArea(
                   child: Padding(
