@@ -192,6 +192,7 @@ List<AnnuncioModel> parseNotionResponseAziende(Response response) {
       //*LOCALITA
       if (properties.containsKey("Località")) {
         if ((properties["Località"]["rich_text"] as List).isNotEmpty) {
+          //TODO NO! check che non sia lista vuota
           localita =
               properties["Località"]["rich_text"][0]["plain_text"] as String?;
         }
