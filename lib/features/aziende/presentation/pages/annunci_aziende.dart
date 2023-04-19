@@ -105,10 +105,13 @@ class AnnunciAziende extends StatelessWidget {
                             ),
                           ),
                           if (orientation == Orientation.portrait)
-                            VerticalList(
-                              mHeigth: mHeight,
-                              listaAnnunci: listaAnnunci,
-                            )
+                            const SizedBox(
+                              height: 10,
+                            ),
+                          VerticalList(
+                            mHeigth: mHeight,
+                            listaAnnunci: listaAnnunci,
+                          )
                         ],
                       ),
                     ),
