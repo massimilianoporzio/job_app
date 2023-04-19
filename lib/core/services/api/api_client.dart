@@ -14,7 +14,7 @@ class DioClient with ApiClientLoggy {
     if (isMock) {
       final dioAdapter = DioAdapter(dio: dio);
 
-      final data = await rootBundle.load('assets/json/dummy_page1.json');
+      final data = await rootBundle.load('assets/json/dummy_annunci.json');
 
       dioAdapter.onPost(StringConsts.baseUrlAziende, (server) {
         final map = jsonDecode(

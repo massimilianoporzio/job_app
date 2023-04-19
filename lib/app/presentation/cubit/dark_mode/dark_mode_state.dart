@@ -8,8 +8,12 @@ class DarkModeState extends Equatable {
   });
 
   factory DarkModeState.initial() {
-    var state = const DarkModeState(mode: ThemeMode.light);
-    return state;
+    //leggo da prefs
+    final SharedPreferences prefs = sl<SharedPreferences>();
+    if (prefs.containsKey("isDark")) {
+      return const DarkModeState(mode: ThemeMode.dark);
+    }
+    return const DarkModeState(mode: ThemeMode.light);
   }
 
   @override

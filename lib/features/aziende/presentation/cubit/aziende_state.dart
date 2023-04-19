@@ -14,6 +14,10 @@ class AziendeStateInitial extends AziendeState {
   });
 }
 
+class AziendeStateLoading extends AziendeState {}
+
+class AziendeStateNoConnection extends AziendeState {}
+
 class AziendeStateLoaded extends AziendeState with UiLoggy {
   final AnnuncioList listaAnnunci;
   const AziendeStateLoaded({

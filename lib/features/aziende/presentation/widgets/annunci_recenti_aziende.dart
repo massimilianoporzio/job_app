@@ -24,32 +24,36 @@ class AnnunciRecenti extends StatelessWidget {
             Theme.of(context).colorScheme.onPrimaryContainer.withOpacity(0.75),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              BlocBuilder<AziendeCubit, AziendeState>(
-                builder: (context, state) {
-                  String num = "0";
-                  if (state is AziendeStateLoaded) {
-                    num = state.numeroAnnunciRecenti;
-                  }
-                  return Text(num,
+          child: BlocBuilder<AziendeCubit, AziendeState>(
+            builder: (context, state) {
+              String stringAnnunci = "annunci\nrecenti";
+              String num = "0";
+              if (state is AziendeStateLoaded) {
+                num = state.numeroAnnunciRecenti;
+              }
+              if (int.parse(num) == 1) {
+                stringAnnunci = "annuncio\nrecente";
+              }
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(num,
                       style: Theme.of(context).textTheme.labelLarge!.copyWith(
                             color: Theme.of(context).colorScheme.onPrimary,
                             fontWeight: FontWeight.bold,
                             fontSize: 22,
-                          ));
-                },
-              ),
-              Text(
-                "annunci\nrecenti",
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                    fontSize: orientation == Orientation.portrait ? 12 : 9,
-                    fontWeight: FontWeight.bold),
-              ),
-            ],
+                          )),
+                  Text(
+                    stringAnnunci,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        fontSize: orientation == Orientation.portrait ? 12 : 9,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),

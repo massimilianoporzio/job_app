@@ -15,14 +15,16 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
       : super(const AziendeStateInitial());
 
   void fetchAllAnnunci() async {
+    emit(AziendeStateLoading());
     final response = await fectAnnunciUsecase(const AnnunciAzParams());
-    response.fold(
-      (l) => emit(const AziendeStateError(message: "ERRORE")),
-      (r) {
-        loggy.debug("AL CUBIT è arrivato:");
-        loggy.debug(r as List<Annuncio>);
-        return emit(AziendeStateLoaded(listaAnnunci: r));
-      },
-    );
+    // response.fold(
+    //   (l) => emit(const AziendeStateError(message: "ERRORE")),
+    //   (r) {
+    //     loggy.debug("AL CUBIT è arrivato:");
+    //     loggy.debug(r as List<Annuncio>);
+    //     return emit(AziendeStateLoaded(listaAnnunci: r));
+    //   },
+    // );
+    emit(AziendeStateNoConnection());
   }
 }
