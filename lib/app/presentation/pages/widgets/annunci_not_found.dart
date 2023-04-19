@@ -13,6 +13,7 @@ class AnnunciNotFound extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var orientation = MediaQuery.of(context).orientation;
     return Scaffold(
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
@@ -20,17 +21,34 @@ class AnnunciNotFound extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             Image.asset(
-              'assets/images/sfondi/article_not_found.png',
-              fit: BoxFit.cover,
+              orientation == Orientation.landscape
+                  ? 'assets/images/sfondi/article_not_found-hor.png'
+                  : 'assets/images/sfondi/article_not_found.png',
+              fit: BoxFit.fitWidth,
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const Text(
-                  StringConsts.notFound,
-                  style: kTitleTextStyle,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      orientation == Orientation.landscape
+                          ? StringConsts.notHor
+                          : StringConsts.not,
+                      style: kTitleTextStyle,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 40),
+                      child: Text(
+                        StringConsts.found,
+                        style: kTitleTextStyle,
+                      ),
+                    ),
+                  ],
                 ),
                 Text(
                   'Oops! Non sono stati trovati\nannunci.',

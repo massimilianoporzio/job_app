@@ -16,11 +16,13 @@ class ReusablePrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var orientation = MediaQuery.of(context).orientation;
     return InkWell(
       onTap: onPressed as VoidCallback,
       child: Container(
         height: 40,
-        width: MediaQuery.of(context).size.width / 2,
+        width: MediaQuery.of(context).size.width /
+            (orientation == Orientation.landscape ? 4 : 2),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
           color: buttonColor,

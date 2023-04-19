@@ -17,11 +17,15 @@ class NoConnection extends StatelessWidget {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            Image.asset(
-              'assets/images/sfondi/connection_failed.png',
-              fit: BoxFit.fill,
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
+            OrientationBuilder(
+              builder: (context, orientation) => Image.asset(
+                orientation == Orientation.landscape
+                    ? 'assets/images/sfondi/connection_failed-hor.png'
+                    : 'assets/images/sfondi/connection_failed.png',
+                fit: BoxFit.fill,
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+              ),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

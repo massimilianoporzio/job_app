@@ -44,7 +44,7 @@ class CertainError extends StatelessWidget {
                 BlocBuilder<NavigationCubit, NavigationState>(
                   builder: (context, state) {
                     return ReusablePrimaryButton(
-                      childText: 'Try Again',
+                      childText: StringConsts.tryAgain,
                       buttonColor: Colors.green.harmonizeWith(
                           Theme.of(context).colorScheme.background),
                       childTextColor:

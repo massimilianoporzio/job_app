@@ -50,5 +50,9 @@ class StringConsts {
   static const String tryAgain = "Prova ancora";
   static const String reloadThePage = "Ricarica la pagina";
 
-  static const String notFound = "Not           Found.";
+  static const String notFound = "Not          Found.";
+  static const String not = "  Not";
+  static const String found = "     Found.";
+  static const String notHor = "      Not";
+  static const String foundHor = "   Found.";
 }
