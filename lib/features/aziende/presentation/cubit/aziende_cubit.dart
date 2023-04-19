@@ -38,7 +38,7 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
         return emit(AziendeStateLoaded(listaAnnunci: r));
       },
     );
-    emit(AziendeStateNoConnection());
+    // emit(AziendeStateNoConnection());
     // const AziendeStateError(message: StringConsts.serverError)); //per debug
     // const AziendeStateError(
     //     message: StringConsts.genericError)); //per debug

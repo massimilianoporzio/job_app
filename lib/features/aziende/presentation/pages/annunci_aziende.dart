@@ -1,6 +1,7 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:job_app/app/presentation/pages/widgets/annunci_not_found.dart';
 import 'package:job_app/app/presentation/pages/widgets/certain_error.dart';
 import 'package:job_app/app/presentation/pages/widgets/error_dialog.dart';
 import 'package:job_app/app/presentation/pages/widgets/no_connection.dart';
@@ -55,9 +56,12 @@ class AnnunciAziende extends StatelessWidget {
                 ),
               ));
             } else {
-              final AnnuncioList listaAnnunci =
-                  (state as AziendeStateLoaded).listaAnnunci;
-              //TODO no results
+              final AnnuncioList listaAnnunci = [];
+              // (state as AziendeStateLoaded).listaAnnunci;
+
+              if (listaAnnunci.isEmpty) {
+                return const AnnunciNotFound();
+              }
               return OrientationBuilder(
                 builder: (context, orientation) => SafeArea(
                   child: Padding(

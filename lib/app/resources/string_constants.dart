@@ -47,6 +47,8 @@ class StringConsts {
   static const String connectivtyError =
       "Non sei connesso a Internet. Controlla la connessione";
   static const String serverError = "Errore nel recupero dati\n dal Server";
-  static const String tryAgain = "Prova ancora.";
+  static const String tryAgain = "Prova ancora";
   static const String reloadThePage = "Ricarica la pagina";
+
+  static const String notFound = "Not           Found.";
 }
