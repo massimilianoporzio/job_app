@@ -11,11 +11,16 @@ class ServerException extends Equatable implements Exception {
 }
 
 class FetchDataException extends ServerException {
-  const FetchDataException([message]) : super("Error During Communication");
+  const FetchDataException([message])
+      : super("Errore nella comunicazione con il server");
 }
 
 class NetworkException implements Exception {}
 
+class RestApiException implements Exception {}
+
 class ParsingException implements Exception {}
 
 class CacheException implements Exception {}
+
+class GenericException implements Exception {}

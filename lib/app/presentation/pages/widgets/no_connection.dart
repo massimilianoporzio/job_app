@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:job_app/features/aziende/presentation/cubit/aziende_cubit.dart';
 
 import '../../../resources/app_consts.dart';
+import '../../cubit/navbar/navigation_cubit.dart';
 import 'reusable_primary_button.dart';
 
 class NoConnection extends StatelessWidget {
@@ -38,11 +41,23 @@ class NoConnection extends StatelessWidget {
             bottom: 50,
             left: 40,
             right: 40,
-            child: ReusablePrimaryButton(
-              childText: 'Riprova',
-              buttonColor: Theme.of(context).colorScheme.error,
-              childTextColor: Theme.of(context).colorScheme.onError,
-              onPressed: () {},
+            child: BlocBuilder<NavigationCubit, NavigationState>(
+              builder: (context, state) {
+                return ReusablePrimaryButton(
+                  childText: 'Riprova',
+                  buttonColor: Theme.of(context).colorScheme.error,
+                  childTextColor: Theme.of(context).colorScheme.onError,
+                  onPressed: () {
+                    int pageIndex = state.selectedIndex;
+                    switch (pageIndex) {
+                      case 0:
+                        context.read<AziendeCubit>().fetchAllAnnunci();
+                        break;
+                      default:
+                    }
+                  },
+                );
+              },
             ),
           ),
         ],

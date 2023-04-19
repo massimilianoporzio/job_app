@@ -31,7 +31,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
   });
 
   @override
-  Future<NotionResponseDTO> fetchAll() async {
+  Future<NotionResponseDTO?> fetchAll() async {
     try {
       final Response response =
           await dio.post(StringConsts.baseUrlAziende, data: {"page_size": 2});
@@ -271,8 +271,15 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
         hasMore: hasMore,
         nextCursor: nextCursor,
       ); //return lista vuota
+    } on DioError catch (e) {
+      if (e.type == DioErrorType.connectionError ||
+          e.type == DioErrorType.connectionTimeout) {
+        throw NetworkException();
+      } else if (e.response != null) {
+        throw const FetchDataException();
+      }
     } catch (e) {
-      throw NetworkException();
+      throw GenericException();
     }
   }
 

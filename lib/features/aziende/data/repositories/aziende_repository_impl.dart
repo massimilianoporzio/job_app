@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:job_app/core/domain/errors/exceptions.dart';
 
 import '../../../../core/data/mappers/annuncio_mapper.dart';
 import '../../../../core/data/models/notion_response.dart';
@@ -26,12 +27,21 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
       AnnunciAzParams params) async {
     loggy.debug("REPO: recupero tutti gli annunci");
     try {
-      final NotionResponseDTO notionResponse = await remoteDS.fetchAll();
-
-      return Right(notionResponse.listaAnnunci.annuncioList);
+      final NotionResponseDTO? notionResponse = await remoteDS.fetchAll();
+      if (notionResponse != null) {
+        return Right(notionResponse.listaAnnunci.annuncioList);
+      } else {
+        throw const FetchDataException();
+      }
     } catch (e) {
       loggy.error(e.toString());
-      return Left(GenericFailure());
+      if (e is NetworkException) {
+        return Left(NetworkFailure());
+      } else if (e is FetchDataException) {
+        return Left(ServerFailure());
+      } else {
+        return Left(GenericFailure());
+      }
     }
   }
 
