@@ -14,7 +14,7 @@ class HorizontalStats extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 5),
@@ -29,19 +29,20 @@ class HorizontalStats extends StatelessWidget {
         SizedBox(
           // color: Colors.lime,
           height: 0.4 * mHeigth,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: StatAziende(
+          child: Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                StatAziende(
                   mWidth: mWidth,
                   orientation: Orientation.landscape,
                 ),
-              ),
-              AnnunciRecenti(mWidth: mWidth, orientation: Orientation.landscape)
-            ],
+                AnnunciRecenti(
+                    mWidth: mWidth, orientation: Orientation.landscape)
+              ],
+            ),
           ),
         )
       ],
