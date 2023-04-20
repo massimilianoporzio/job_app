@@ -1,17 +1,15 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:intl/intl.dart';
-import 'package:job_app/app/resources/color_manager.dart';
-import 'package:job_app/core/domain/entities/typedefs.dart';
-import 'package:job_app/features/aziende/presentation/cubit/aziende_cubit.dart';
-import 'package:job_app/features/aziende/presentation/pages/dettagli_annuncio_aziende.dart';
 import 'package:loggy/loggy.dart';
 
+import '../../../../app/resources/color_manager.dart';
 import '../../../../core/domain/entities/annuncio.dart';
+import '../../../../core/domain/entities/typedefs.dart';
 import '../../../../core/domain/enums/seniority.dart';
+import '../pages/dettagli_annuncio_aziende.dart';
 
 class VerticalList extends StatelessWidget {
   const VerticalList({
@@ -31,7 +29,7 @@ class VerticalList extends StatelessWidget {
           'Aziende'), //mi tiene la posizione in cui ero
       itemCount: listaAnnunci.length,
       itemBuilder: (context, index) => SizedBox(
-        height: 0.2 * mHeigth,
+        height: 0.25 * mHeigth,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: CardAzienda(
@@ -88,7 +86,8 @@ class CardAzienda extends StatelessWidget with UiLoggy {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Padding(
+                  Container(
+                    margin: EdgeInsets.zero,
                     padding: const EdgeInsets.only(top: 4.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -103,12 +102,22 @@ class CardAzienda extends StatelessWidget with UiLoggy {
                               style: Theme.of(context)
                                   .textTheme
                                   .labelSmall!
-                                  .copyWith(fontSize: 14)),
+                                  .copyWith(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600)),
                         )
                       ],
                     ),
                   ),
                   Text(annuncio.nomeAzienda),
+                  if (annuncio.retribuzione != null)
+                    Text(annuncio.retribuzione!),
+                  IconButton(
+                      onPressed: () {
+                        loggy.debug("${annuncio.id} FAVORITO?");
+                      },
+                      icon: Icon(Icons.bookmark_outline)),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -170,14 +179,18 @@ class Localita extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                if (testoLocalita.isNotEmpty) const Icon(Icons.pin_drop),
+                if (testoLocalita.isNotEmpty)
+                  const Icon(
+                    Icons.pin_drop,
+                    size: 12,
+                  ),
                 Text(
                   testoLocalita,
                   textAlign: TextAlign.end,
                   softWrap: false,
                   maxLines: 1,
                   overflow: TextOverflow.fade,
-                  style: TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: 12),
                 ),
               ],
             ),
@@ -201,11 +214,17 @@ class JobPosted extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Icon(Icons.schedule_sharp),
+        const Icon(
+          Icons.schedule_sharp,
+          size: 12,
+        ),
         const SizedBox(
           width: 4,
         ),
-        Text(DateFormat('dd/MM/yyyy HH:mm').format(annuncio.jobPosted)),
+        Text(
+          DateFormat('dd/MM/yyyy HH:mm').format(annuncio.jobPosted),
+          style: TextStyle(fontSize: 12),
+        ),
       ],
     );
   }
