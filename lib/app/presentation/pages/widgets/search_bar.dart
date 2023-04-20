@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:job_app/core/utils/sound_utils.dart';
 import 'package:loggy/loggy.dart';
 
 import '../../../../features/aziende/presentation/cubit/aziende_cubit.dart';
@@ -61,6 +62,7 @@ class MySearchBar extends StatelessWidget with UiLoggy {
                   IconButton(
                     onPressed: () {
                       loggy.debug("REFRESH!");
+                      playSound(file: 'refresh.mp3');
                       _refresh(context);
                     },
                     icon: const Icon(Icons.refresh, size: 24),

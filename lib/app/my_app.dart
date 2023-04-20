@@ -3,8 +3,10 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_patterns/connection.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 import 'package:job_app/app/presentation/cubit/navbar/navigation_cubit.dart';
+import 'package:job_app/app/presentation/cubit/sound/sound_cubit.dart';
 import 'package:job_app/app/resources/theme_manager.dart';
 import 'package:job_app/app/presentation/pages/splash_screen.dart';
 import 'package:job_app/core/services/service_locator.dart';
@@ -54,6 +56,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
+      BlocProvider<SoundCubit>(
+        create: (context) => sl<SoundCubit>(),
+      ),
       BlocProvider<DarkModeCubit>(
         create: (context) => sl<DarkModeCubit>(),
       ),

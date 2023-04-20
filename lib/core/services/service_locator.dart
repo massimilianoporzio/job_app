@@ -1,9 +1,11 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc_patterns/connection.dart';
 import 'package:get_it/get_it.dart';
 
 import 'package:job_app/app/presentation/cubit/navbar/navigation_cubit.dart';
+import 'package:job_app/app/presentation/cubit/sound/sound_cubit.dart';
 import 'package:job_app/core/services/api/api_client.dart';
 import 'package:job_app/features/aziende/data/datasources/aziende_datasource.dart';
 import 'package:job_app/features/aziende/data/datasources/aziende_datasource_impl.dart';
@@ -38,8 +40,10 @@ Future<void> init() async {
 
   //*BLOCS / CUBITS
 
-  //dark mode cubit
+  //sound cubit
+  sl.registerFactory<SoundCubit>(() => SoundCubit());
 
+  //dark mode cubit
   sl.registerFactory<DarkModeCubit>(() => DarkModeCubit());
 
   //bottom navigation cubit
@@ -50,6 +54,11 @@ Future<void> init() async {
       () => AziendeCubit(fectAnnunciUsecase: sl<FetchAnnunciAzienda>()));
 
   //*third party
+
+  //AUDIOPLAYER
+  AudioPlayer player = AudioPlayer()..setReleaseMode(ReleaseMode.stop);
+  sl.registerSingleton<AudioPlayer>(player);
+
   //DIO
   sl.registerSingleton<Dio>(await DioClient.createDio(
       isMock: true)); //is mock è per leggere da un json per fare test

@@ -1,14 +1,17 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_patterns/connection.dart';
 import 'package:loggy/loggy.dart';
+import '../../../core/services/service_locator.dart';
 import '../../tools/connection/connectivity_utils.dart';
 import '../cubit/navbar/navigation_cubit.dart';
 
 import '../../resources/string_constants.dart';
 
 import '../cubit/dark_mode/dark_mode_cubit.dart';
+import '../cubit/sound/sound_cubit.dart';
 import 'widgets/bottom_nav_bar.dart';
 
 class HomePage extends StatelessWidget with UiLoggy {
@@ -16,6 +19,12 @@ class HomePage extends StatelessWidget with UiLoggy {
 
   //lista delle pagine da mostrare
   final List<Widget> pages;
+
+  void _playSound({required String file}) async {
+    var player = sl<AudioPlayer>();
+
+    player.play(AssetSource(file));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +44,15 @@ class HomePage extends StatelessWidget with UiLoggy {
           title: const AutoSizeText(StringConsts.appbarTitle,
               style: TextStyle(fontWeight: FontWeight.bold)),
           actions: [
-            IconButton(
-                onPressed: () {
-                  loggy.debug("MUTE/UNMUTE");
-                },
-                icon: Icon(Icons.volume_off)),
+            IconButton(onPressed: () {
+              loggy.debug("TOGGLE sound on/off");
+              context.read<SoundCubit>().toggleMute();
+              _playSound(file: 'unmute.mp3');
+            }, icon: BlocBuilder<SoundCubit, SoundState>(
+              builder: (context, state) {
+                return Icon(state.muted ? Icons.volume_off : Icons.volume_mute);
+              },
+            )),
             IconButton(
                 onPressed: () {
                   context.read<DarkModeCubit>().toggleDarkMode();

@@ -80,6 +80,8 @@ flutter:
     - assets/images/
     - assets/json/
     - assets/images/sfondi/
+    - assets/unmute.mp3
+    - assets/refresh.mp3
 
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
