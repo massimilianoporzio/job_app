@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  audioplayers: ^4.0.1
   auto_size_text: ^3.0.0
   awesome_snackbar_content: ^0.1.2
   connectivity_plus: ^3.0.3

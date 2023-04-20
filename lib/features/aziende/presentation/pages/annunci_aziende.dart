@@ -66,6 +66,7 @@ class AnnunciAziende extends StatelessWidget {
               }
               return OrientationBuilder(
                 builder: (context, orientation) => SafeArea(
+                  bottom: true,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.start,

@@ -39,34 +39,32 @@ class StatAziende extends StatelessWidget {
                 if (state is AziendeStateLoaded) {
                   numAziende = (state).numeroAziende;
                 }
-                return Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      BlocBuilder<AziendeCubit, AziendeState>(
-                        builder: (context, state) {
-                          return AutoSizeText(numAziende,
-                              presetFontSizes: const [22],
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelLarge!
-                                  .copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ));
-                        },
-                      ),
-                      AutoSizeText(
-                        int.parse(numAziende) == 1 ? "azienda" : "aziende",
-                        presetFontSizes: [
-                          orientation == Orientation.portrait ? 14 : 10,
-                        ],
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelMedium!
-                            .copyWith(fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    BlocBuilder<AziendeCubit, AziendeState>(
+                      builder: (context, state) {
+                        return AutoSizeText(numAziende,
+                            presetFontSizes: const [22],
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge!
+                                .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ));
+                      },
+                    ),
+                    AutoSizeText(
+                      int.parse(numAziende) == 1 ? "azienda" : "aziende",
+                      presetFontSizes: [
+                        orientation == Orientation.portrait ? 14 : 10,
+                      ],
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelMedium!
+                          .copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 );
               }),
             )),

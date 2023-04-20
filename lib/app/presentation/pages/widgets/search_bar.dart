@@ -16,9 +16,10 @@ class MySearchBar extends StatelessWidget with UiLoggy {
 
   @override
   Widget build(BuildContext context) {
+    var orientation = MediaQuery.of(context).orientation;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 0),
-
+      height: orientation == Orientation.landscape ? 50 : 60,
       // color: Colors.amber,
       child: Padding(
         padding: const EdgeInsets.all(8),
@@ -30,7 +31,7 @@ class MySearchBar extends StatelessWidget with UiLoggy {
           style: TextStyle(
             fontWeight: FontWeight.w400,
             fontStyle: FontStyle.normal,
-            fontSize: 14,
+            fontSize: orientation == Orientation.landscape ? 12 : 14,
             color: Theme.of(context).colorScheme.primary,
           ),
           decoration: InputDecoration(
