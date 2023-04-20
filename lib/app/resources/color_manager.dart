@@ -29,6 +29,7 @@ class ColorManager {
   static const Color onNotionLightBlue = Color(0xff506879);
   static const Color notionLightGrey = Color(0xffdfdfde);
   static const Color onNotionLightGrey = Color(0xff606b83);
+  static const Color notionLightBoxGrey = Color(0xfff1f1ef);
 
   //DARK WEB PAGE TAGS
   static const Color onNotionDark = Color(0xffe2d8ca);
