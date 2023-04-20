@@ -42,8 +42,9 @@ class HomePage extends StatelessWidget with UiLoggy {
           surfaceTintColor: Colors.transparent,
           scrolledUnderElevation: 0,
           centerTitle: false,
-          title: const AutoSizeText(StringConsts.appbarTitle,
-              style: TextStyle(fontWeight: FontWeight.bold)),
+          title: AutoSizeText(StringConsts.appbarTitle,
+              overflow: TextOverflow.fade,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
           actions: [
             IconButton(onPressed: () {
               loggy.debug("TOGGLE sound on/off");
