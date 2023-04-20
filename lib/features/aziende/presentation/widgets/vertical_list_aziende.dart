@@ -64,8 +64,11 @@ class CardAzienda extends StatelessWidget with UiLoggy {
       },
       child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
+        elevation: 2,
         child: Container(
             decoration: BoxDecoration(
+              // color: ColorManager.notionLightBoxGrey,
+
               borderRadius: BorderRadius.circular(12),
               gradient: LinearGradient(
                 colors: [
@@ -94,7 +97,7 @@ class CardAzienda extends StatelessWidget with UiLoggy {
                       children: [
                         Text(
                           emoji.code,
-                          style: const TextStyle(fontSize: 16),
+                          style: const TextStyle(fontSize: 18),
                         ),
                         Expanded(
                           child: AutoSizeText(annuncio.titolo,
@@ -111,7 +114,11 @@ class CardAzienda extends StatelessWidget with UiLoggy {
                   ),
                   Text(annuncio.nomeAzienda, style: TextStyle(fontSize: 14)),
                   if (annuncio.retribuzione != null)
-                    Text(annuncio.retribuzione!),
+                    AutoSizeText(
+                      annuncio.retribuzione!,
+                      maxLines: 2,
+                      style: TextStyle(fontSize: 14),
+                    ),
                   IconButton(
                       onPressed: () {
                         loggy.debug("${annuncio.id} FAVORITO?");
