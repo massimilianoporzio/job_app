@@ -4,9 +4,9 @@ import 'package:job_app/features/freelancers/presentation/pages/annunci_freelanc
 import 'package:job_app/features/preferiti/presentation/pages/annunci_preferiti.dart';
 
 class PagesManager {
-  static const List<Widget> pages = [
+  static List<Widget> pages = [
     AnnunciAziende(),
-    AnnunciPreferiti(),
-    AnnunciFreelancers(),
+    const AnnunciPreferiti(),
+    const AnnunciFreelancers(),
   ];
 }

@@ -1,6 +1,7 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import '../../../../app/presentation/pages/widgets/annunci_not_found.dart';
@@ -15,9 +16,16 @@ import '../widgets/vertical_list_aziende.dart';
 import '../widgets/vertical_stats.dart';
 
 class AnnunciAziende extends StatelessWidget {
-  const AnnunciAziende({
+  AnnunciAziende({
     super.key,
-  });
+  }) {
+    initializeDateFormatting();
+  }
+
+  Future<void> _refresh(BuildContext context) {
+    context.read<AziendeCubit>().fetchAllAnnunci();
+    return Future.value();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,58 +69,61 @@ class AnnunciAziende extends StatelessWidget {
               if (listaAnnunci.isEmpty) {
                 return const AnnunciNotFound();
               }
-              return OrientationBuilder(
-                builder: (context, orientation) => SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      // color: Colors.lime,
-                      height: double.infinity,
-                      width: mWidth,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        // mainAxisSize: MainAxisSize.max,
+              return RefreshIndicator.adaptive(
+                onRefresh: () => _refresh(context),
+                child: OrientationBuilder(
+                  builder: (context, orientation) => SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        // color: Colors.lime,
+                        height: double.infinity,
+                        width: mWidth,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          // mainAxisSize: MainAxisSize.max,
 
-                        children: [
-                          const MySearchBar(),
-                          SizedBox(
-                            height:
-                                orientation == Orientation.landscape ? 8 : 0,
-                          ),
-                          SizedBox(
-                            // color: Colors.red,
-                            width: double.infinity,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                if (orientation == Orientation.portrait)
-                                  VerticalStats(
-                                    mWidth: mWidth,
-                                    mHeight: mHeight,
-                                  )
-                                else
-                                  HorizontalStats(
-                                    mWidth: mWidth,
-                                    mHeigth: mHeight,
-                                  ),
-                                if (orientation == Orientation.landscape)
-                                  HorizontalList(
-                                    mHeigth: mHeight,
-                                  )
-                              ],
+                          children: [
+                            const MySearchBar(),
+                            SizedBox(
+                              height:
+                                  orientation == Orientation.landscape ? 8 : 0,
                             ),
-                          ),
-                          if (orientation == Orientation.portrait)
-                            const SizedBox(
-                              height: 10,
+                            SizedBox(
+                              // color: Colors.red,
+                              width: double.infinity,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  if (orientation == Orientation.portrait)
+                                    VerticalStats(
+                                      mWidth: mWidth,
+                                      mHeight: mHeight,
+                                    )
+                                  else
+                                    HorizontalStats(
+                                      mWidth: mWidth,
+                                      mHeigth: mHeight,
+                                    ),
+                                  if (orientation == Orientation.landscape)
+                                    HorizontalList(
+                                      mHeigth: mHeight,
+                                    )
+                                ],
+                              ),
                             ),
-                          VerticalList(
-                            mHeigth: mHeight,
-                            listaAnnunci: listaAnnunci,
-                          )
-                        ],
+                            if (orientation == Orientation.portrait)
+                              const SizedBox(
+                                height: 10,
+                              ),
+                            VerticalList(
+                              mHeigth: mHeight,
+                              listaAnnunci: listaAnnunci,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),

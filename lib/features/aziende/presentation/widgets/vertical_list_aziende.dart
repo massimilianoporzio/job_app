@@ -23,28 +23,20 @@ class VerticalList extends StatelessWidget {
   final double mHeigth;
   final AnnuncioList listaAnnunci;
 
-  Future<void> _refresh(BuildContext context) {
-    context.read<AziendeCubit>().fetchAllAnnunci();
-    return Future.value();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: RefreshIndicator(
-      onRefresh: () => _refresh(context),
-      child: ListView.builder(
-        key: const PageStorageKey<String>(
-            'Aziende'), //mi tiene la posizione in cui ero
-        itemCount: listaAnnunci.length,
-        itemBuilder: (context, index) => SizedBox(
-          height: 0.25 * mHeigth,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: CardAzienda(
-              index: index,
-              annuncio: listaAnnunci[index],
-            ),
+        child: ListView.builder(
+      key: const PageStorageKey<String>(
+          'Aziende'), //mi tiene la posizione in cui ero
+      itemCount: listaAnnunci.length,
+      itemBuilder: (context, index) => SizedBox(
+        height: 0.3 * mHeigth,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: CardAzienda(
+            index: index,
+            annuncio: listaAnnunci[index],
           ),
         ),
       ),
@@ -138,10 +130,10 @@ class CardAzienda extends StatelessWidget with UiLoggy {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("job posted"), Text(annuncio.localita ?? "...")
-                      //   JobPosted(annuncio: annuncio),
-                      //   Expanded(child: Text("prova"))
-                      //   // Localita(annuncio: annuncio)
+                      // Text("job posted"), Text(annuncio.localita ?? "...")
+                      JobPosted(annuncio: annuncio),
+                      // Text("prova")
+                      Localita(annuncio: annuncio)
                     ],
                   ), //riga data e località
                 ],
@@ -164,26 +156,30 @@ class Localita extends StatelessWidget {
   Widget build(BuildContext context) {
     String testoLocalita = "";
     if (annuncio.localita != null) {
-      var splitLoc = annuncio.localita!.split("(");
-      print(splitLoc);
+      testoLocalita = annuncio.localita!.split("(")[0];
 
       if (testoLocalita.isEmpty) {
         testoLocalita = annuncio.localita!.split(",")[0];
-        print(testoLocalita);
       }
     }
+
     return Expanded(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const Icon(Icons.pin_drop),
           Expanded(
-            child: Text(
-              testoLocalita,
-              softWrap: false,
-              maxLines: 1,
-              overflow: TextOverflow.fade,
-              style: TextStyle(fontSize: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                if (testoLocalita.isNotEmpty) const Icon(Icons.pin_drop),
+                Text(
+                  testoLocalita,
+                  textAlign: TextAlign.end,
+                  softWrap: false,
+                  maxLines: 1,
+                  overflow: TextOverflow.fade,
+                  style: TextStyle(fontSize: 14),
+                ),
+              ],
             ),
           ),
         ],
@@ -203,8 +199,12 @@ class JobPosted extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Icon(Icons.schedule_sharp),
+        const Icon(Icons.schedule_sharp),
+        const SizedBox(
+          width: 4,
+        ),
         Text(DateFormat('dd/MM/yyyy HH:mm').format(annuncio.jobPosted)),
       ],
     );

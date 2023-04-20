@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> with UiLoggy {
       context,
       MaterialPageRoute(
         // builder: (context) => const MyHomePage(title: "da splash"),
-        builder: (context) => const HomePage(pages: PagesManager.pages),
+        builder: (context) => HomePage(pages: PagesManager.pages),
       ),
     );
   }
