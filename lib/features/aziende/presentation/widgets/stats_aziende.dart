@@ -24,34 +24,49 @@ class StatAziende extends StatelessWidget {
       child: SizedBox(
         height: 60,
         child: Card(
-            color: Theme.of(context).colorScheme.secondaryContainer,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                BlocBuilder<AziendeCubit, AziendeState>(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            child: Container(
+              margin: EdgeInsets.zero,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  gradient: LinearGradient(colors: [
+                    Theme.of(context).colorScheme.primary.withOpacity(0.2),
+                    Theme.of(context).colorScheme.tertiaryContainer,
+                  ], begin: Alignment.topRight, end: Alignment.bottomLeft)),
+              child: BlocBuilder<AziendeCubit, AziendeState>(
                   builder: (context, state) {
-                    String numAziende = "0";
-                    if (state is AziendeStateLoaded) {
-                      numAziende = (state).numeroAziende;
-                    }
-                    return AutoSizeText(numAziende,
-                        presetFontSizes: const [22],
-                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ));
-                  },
-                ),
-                AutoSizeText(
-                  "aziende",
-                  presetFontSizes: [
-                    orientation == Orientation.portrait ? 14 : 10,
+                String numAziende = "0";
+                if (state is AziendeStateLoaded) {
+                  numAziende = (state).numeroAziende;
+                }
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    BlocBuilder<AziendeCubit, AziendeState>(
+                      builder: (context, state) {
+                        return AutoSizeText(numAziende,
+                            presetFontSizes: const [22],
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge!
+                                .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ));
+                      },
+                    ),
+                    AutoSizeText(
+                      int.parse(numAziende) == 1 ? "azienda" : "aziende",
+                      presetFontSizes: [
+                        orientation == Orientation.portrait ? 14 : 10,
+                      ],
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelMedium!
+                          .copyWith(fontWeight: FontWeight.bold),
+                    ),
                   ],
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelMedium!
-                      .copyWith(fontWeight: FontWeight.bold),
-                ),
-              ],
+                );
+              }),
             )),
       ),
     );

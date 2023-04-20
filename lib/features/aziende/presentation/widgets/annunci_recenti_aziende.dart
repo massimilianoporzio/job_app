@@ -20,9 +20,15 @@ class AnnunciRecenti extends StatelessWidget {
           horizontal: orientation == Orientation.portrait ? 10 : 0),
       width: orientation == Orientation.portrait ? 0.9 * mWidth : 0.1 * mWidth,
       child: Card(
-        color:
-            Theme.of(context).colorScheme.onPrimaryContainer.withOpacity(0.75),
-        child: Padding(
+        // color:
+        //     Theme.of(context).colorScheme.onPrimaryContainer.withOpacity(0.75),
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              gradient: LinearGradient(colors: [
+                Theme.of(context).colorScheme.error.withOpacity(0.7),
+                Theme.of(context).colorScheme.primary,
+              ], begin: Alignment.bottomCenter, end: Alignment.topCenter)),
           padding: const EdgeInsets.symmetric(vertical: 4),
           child: BlocBuilder<AziendeCubit, AziendeState>(
             builder: (context, state) {
