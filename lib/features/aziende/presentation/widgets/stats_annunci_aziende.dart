@@ -18,7 +18,7 @@ class StatAnnunci extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
 
       // height: 0.15 * mHeight,
       // color: Colors.pink,

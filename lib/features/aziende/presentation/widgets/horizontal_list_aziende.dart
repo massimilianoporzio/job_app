@@ -7,9 +7,9 @@ class HorizontalList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: SizedBox(
+        child: Container(
       height: 0.4 * mHeigth,
-      // color: Colors.lime,
+      // color: Colors.purple,
       child: ListView.separated(
         separatorBuilder: (context, index) => const SizedBox(
           width: 3,

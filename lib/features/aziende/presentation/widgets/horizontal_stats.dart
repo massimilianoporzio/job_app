@@ -12,40 +12,38 @@ class HorizontalStats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 5),
-          // color: Colors.amber,
-          height: 0.4 * mHeigth,
-          width: 0.3 * mWidth,
-          child: StatAnnunci(
+    return Container(
+      // color: Colors.amber,
+      margin: const EdgeInsets.symmetric(horizontal: 5),
+      height: 0.4 * mHeigth,
+      width: 0.35 * mWidth,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          StatAnnunci(
             orientation: Orientation.landscape,
             mWidth: mWidth,
           ),
-        ),
-        SizedBox(
-          // color: Colors.lime,
-          height: 0.4 * mHeigth,
-          child: Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                StatAziende(
-                  mWidth: mWidth,
-                  orientation: Orientation.landscape,
-                ),
-                AnnunciRecenti(
-                    mWidth: mWidth, orientation: Orientation.landscape)
-              ],
+          Container(
+            // color: Colors.lime,
+            child: Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  StatAziende(
+                    mWidth: mWidth,
+                    orientation: Orientation.landscape,
+                  ),
+                  AnnunciRecenti(
+                      mWidth: mWidth, orientation: Orientation.landscape)
+                ],
+              ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }

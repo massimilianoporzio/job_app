@@ -16,7 +16,7 @@ class VerticalStats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: 0.2 * mHeight,
       width: 0.9 * mWidth,
       //height: 160,
@@ -34,21 +34,24 @@ class VerticalStats extends StatelessWidget {
           ),
           Expanded(
             flex: 1,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Expanded(
-                  child: StatAziende(
+            child: Container(
+              // color: Colors.amber,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: StatAziende(
+                      mWidth: mWidth,
+                      orientation: Orientation.portrait,
+                    ),
+                  ),
+                  AnnunciRecenti(
                     mWidth: mWidth,
                     orientation: Orientation.portrait,
                   ),
-                ),
-                AnnunciRecenti(
-                  mWidth: mWidth,
-                  orientation: Orientation.portrait,
-                ),
-              ],
+                ],
+              ),
             ),
           )
         ],

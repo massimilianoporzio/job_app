@@ -65,41 +65,44 @@ class AnnunciAziende extends StatelessWidget {
                 return const AnnunciNotFound();
               }
               return OrientationBuilder(
-                builder: (context, orientation) => Column(
-                  children: [
-                    const MySearchBar(),
-                    SizedBox(
-                      height: orientation == Orientation.landscape ? 8 : 0,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if (orientation == Orientation.portrait)
-                          VerticalStats(
-                            mWidth: mWidth,
-                            mHeight: mHeight,
-                          )
-                        else
-                          HorizontalStats(
-                            mWidth: mWidth,
-                            mHeigth: mHeight,
-                          ),
-                        if (orientation == Orientation.landscape)
-                          HorizontalList(
-                            mHeigth: mHeight,
-                          )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    if (orientation == Orientation.portrait)
-                      VerticalList(
-                        mHeigth: mHeight,
-                        listaAnnunci: listaAnnunci,
-                      )
-                  ],
+                builder: (context, orientation) => Container(
+                  // color: Colors.lime,
+                  child: Column(
+                    children: [
+                      const MySearchBar(),
+                      SizedBox(
+                        height: orientation == Orientation.landscape ? 8 : 0,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          if (orientation == Orientation.portrait)
+                            VerticalStats(
+                              mWidth: mWidth,
+                              mHeight: mHeight,
+                            )
+                          else
+                            HorizontalStats(
+                              mWidth: mWidth,
+                              mHeigth: mHeight,
+                            ),
+                          if (orientation == Orientation.landscape)
+                            HorizontalList(
+                              mHeigth: mHeight,
+                            )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      if (orientation == Orientation.portrait)
+                        VerticalList(
+                          mHeigth: mHeight,
+                          listaAnnunci: listaAnnunci,
+                        )
+                    ],
+                  ),
                 ),
               );
             }
