@@ -24,6 +24,7 @@ class MyBottomNavBar extends StatelessWidget {
     return SafeArea(
       child: Container(
         padding: EdgeInsets.zero,
+        color: Theme.of(context).colorScheme.background,
         height: orientation == Orientation.landscape ? 75 : 80,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
