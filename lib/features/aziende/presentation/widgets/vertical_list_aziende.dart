@@ -29,7 +29,7 @@ class VerticalList extends StatelessWidget {
           'Aziende'), //mi tiene la posizione in cui ero
       itemCount: listaAnnunci.length,
       itemBuilder: (context, index) => SizedBox(
-        height: 0.25 * mHeigth,
+        height: 0.3 * mHeigth,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: CardAzienda(
@@ -109,7 +109,7 @@ class CardAzienda extends StatelessWidget with UiLoggy {
                       ],
                     ),
                   ),
-                  Text(annuncio.nomeAzienda),
+                  Text(annuncio.nomeAzienda, style: TextStyle(fontSize: 14)),
                   if (annuncio.retribuzione != null)
                     Text(annuncio.retribuzione!),
                   IconButton(

@@ -79,25 +79,27 @@ class AnnunciAziende extends StatelessWidget {
                       SizedBox(
                         // color: Colors.red,
                         width: double.infinity,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            if (orientation == Orientation.portrait)
-                              VerticalStats(
-                                mWidth: mWidth,
-                                mHeight: mHeight,
-                              )
-                            else
-                              HorizontalStats(
-                                mWidth: mWidth,
-                                mHeigth: mHeight,
-                              ),
-                            if (orientation == Orientation.landscape)
-                              HorizontalList(
-                                mHeigth: mHeight,
-                              )
-                          ],
+                        child: Expanded(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              if (orientation == Orientation.portrait)
+                                VerticalStats(
+                                  mWidth: mWidth,
+                                  mHeight: mHeight,
+                                )
+                              else
+                                HorizontalStats(
+                                  mWidth: mWidth,
+                                  mHeigth: mHeight,
+                                ),
+                              if (orientation == Orientation.landscape)
+                                HorizontalList(
+                                  mHeigth: mHeight,
+                                )
+                            ],
+                          ),
                         ),
                       ),
                       const SizedBox(
