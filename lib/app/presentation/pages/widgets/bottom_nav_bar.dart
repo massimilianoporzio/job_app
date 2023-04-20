@@ -22,7 +22,7 @@ class MyBottomNavBar extends StatelessWidget {
     int selectedIndex = context.watch<NavigationCubit>().state.selectedIndex;
     return Container(
       padding: const EdgeInsets.all(0),
-      height: 85,
+      height: 80,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -32,7 +32,7 @@ class MyBottomNavBar extends StatelessWidget {
             unselectedFontSize: 12,
             elevation: 0,
             currentIndex: selectedIndex,
-            iconSize: 28,
+            iconSize: 22,
             onTap: (index) {
               context.read<NavigationCubit>().setPageIndex(index);
             },
