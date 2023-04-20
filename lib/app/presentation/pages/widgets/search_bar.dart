@@ -20,7 +20,7 @@ class MySearchBar extends StatelessWidget with UiLoggy {
     var orientation = MediaQuery.of(context).orientation;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 0),
-      height: orientation == Orientation.landscape ? 50 : 60,
+      height: orientation == Orientation.landscape ? 54 : 60,
       // color: Colors.amber,
       child: Padding(
         padding: const EdgeInsets.all(8),
@@ -53,11 +53,13 @@ class MySearchBar extends StatelessWidget with UiLoggy {
             isDense: true,
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-            prefixIcon: const Icon(Icons.search, size: 24),
+            prefixIcon: Icon(Icons.search,
+                size: orientation == Orientation.landscape ? 20 : 24),
             suffixIcon: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   IconButton(
                     onPressed: () {
@@ -65,9 +67,11 @@ class MySearchBar extends StatelessWidget with UiLoggy {
                       playSound(file: 'refresh.mp3');
                       _refresh(context);
                     },
-                    icon: const Icon(Icons.refresh, size: 24),
+                    icon: Icon(Icons.refresh,
+                        size: orientation == Orientation.landscape ? 20 : 24),
                   ),
-                  const Icon(Icons.filter_alt_outlined, size: 24),
+                  Icon(Icons.filter_alt_outlined,
+                      size: orientation == Orientation.landscape ? 20 : 24),
                 ],
               ),
             ),
