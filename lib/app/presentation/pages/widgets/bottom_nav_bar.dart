@@ -30,8 +30,9 @@ class MyBottomNavBar extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             BottomNavigationBar(
-              selectedFontSize: 12,
-              unselectedFontSize: 12,
+              selectedFontSize: 14,
+              selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+              unselectedFontSize: 14,
               elevation: 0,
               currentIndex: selectedIndex,
               iconSize: 22,
