@@ -65,54 +65,41 @@ class AnnunciAziende extends StatelessWidget {
                 return const AnnunciNotFound();
               }
               return OrientationBuilder(
-                builder: (context, orientation) => SafeArea(
-                  bottom: true,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    // mainAxisSize: MainAxisSize.max,
-
-                    children: [
-                      const MySearchBar(),
-                      SizedBox(
-                        height: orientation == Orientation.landscape ? 8 : 0,
-                      ),
-                      SizedBox(
-                        // color: Colors.red,
-                        width: double.infinity,
-                        child: Expanded(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              if (orientation == Orientation.portrait)
-                                VerticalStats(
-                                  mWidth: mWidth,
-                                  mHeight: mHeight,
-                                )
-                              else
-                                HorizontalStats(
-                                  mWidth: mWidth,
-                                  mHeigth: mHeight,
-                                ),
-                              if (orientation == Orientation.landscape)
-                                HorizontalList(
-                                  mHeigth: mHeight,
-                                )
-                            ],
+                builder: (context, orientation) => Column(
+                  children: [
+                    const MySearchBar(),
+                    SizedBox(
+                      height: orientation == Orientation.landscape ? 8 : 0,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (orientation == Orientation.portrait)
+                          VerticalStats(
+                            mWidth: mWidth,
+                            mHeight: mHeight,
+                          )
+                        else
+                          HorizontalStats(
+                            mWidth: mWidth,
+                            mHeigth: mHeight,
                           ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      if (orientation == Orientation.portrait)
-                        VerticalList(
-                          mHeigth: mHeight,
-                          listaAnnunci: listaAnnunci,
-                        )
-                    ],
-                  ),
+                        if (orientation == Orientation.landscape)
+                          HorizontalList(
+                            mHeigth: mHeight,
+                          )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    if (orientation == Orientation.portrait)
+                      VerticalList(
+                        mHeigth: mHeight,
+                        listaAnnunci: listaAnnunci,
+                      )
+                  ],
                 ),
               );
             }
