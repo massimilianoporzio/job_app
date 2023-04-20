@@ -82,6 +82,8 @@ flutter:
     - assets/images/sfondi/
     - assets/unmute.mp3
     - assets/refresh.mp3
+    - assets/mattina.mp3
+    - assets/grilli.mp3
 
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see

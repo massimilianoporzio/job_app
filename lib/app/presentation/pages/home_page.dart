@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_patterns/connection.dart';
 import 'package:loggy/loggy.dart';
 import '../../../core/services/service_locator.dart';
+import '../../../core/utils/sound_utils.dart';
 import '../../tools/connection/connectivity_utils.dart';
 import '../cubit/navbar/navigation_cubit.dart';
 
@@ -20,11 +21,11 @@ class HomePage extends StatelessWidget with UiLoggy {
   //lista delle pagine da mostrare
   final List<Widget> pages;
 
-  void _playSound({required String file}) async {
-    var player = sl<AudioPlayer>();
+  // void _playSound({required String file}) async {
+  //   var player = sl<AudioPlayer>();
 
-    player.play(AssetSource(file));
-  }
+  //   player.play(AssetSource(file));
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class HomePage extends StatelessWidget with UiLoggy {
             IconButton(onPressed: () {
               loggy.debug("TOGGLE sound on/off");
               context.read<SoundCubit>().toggleMute();
-              _playSound(file: 'unmute.mp3');
+              playSound(file: 'unmute.mp3');
             }, icon: BlocBuilder<SoundCubit, SoundState>(
               builder: (context, state) {
                 return Icon(state.muted ? Icons.volume_off : Icons.volume_mute);
@@ -55,7 +56,13 @@ class HomePage extends StatelessWidget with UiLoggy {
             )),
             IconButton(
                 onPressed: () {
+                  loggy.debug("TOGGLE THEME Mode");
                   context.read<DarkModeCubit>().toggleDarkMode();
+                  String soundFile =
+                      context.read<DarkModeCubit>().state.mode == ThemeMode.dark
+                          ? 'grilli.mp3'
+                          : 'mattina.mp3';
+                  playSound(file: soundFile);
                 },
                 icon: Icon(themeMode == ThemeMode.light
                     ? Icons.dark_mode
