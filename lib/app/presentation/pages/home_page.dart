@@ -18,12 +18,6 @@ class HomePage extends StatelessWidget with UiLoggy {
   //lista delle pagine da mostrare
   final List<Widget> pages;
 
-  // void _playSound({required String file}) async {
-  //   var player = sl<AudioPlayer>();
-
-  //   player.play(AssetSource(file));
-  // }
-
   @override
   Widget build(BuildContext context) {
     var themeMode = context.watch<DarkModeCubit>().state.mode;
