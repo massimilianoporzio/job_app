@@ -22,11 +22,6 @@ class AnnunciAziende extends StatelessWidget {
     initializeDateFormatting();
   }
 
-  Future<void> _refresh(BuildContext context) {
-    context.read<AziendeCubit>().fetchAllAnnunci();
-    return Future.value();
-  }
-
   @override
   Widget build(BuildContext context) {
     //ottengo le dimensioni del dispositivo:
@@ -69,51 +64,51 @@ class AnnunciAziende extends StatelessWidget {
               if (listaAnnunci.isEmpty) {
                 return const AnnunciNotFound();
               }
-              return RefreshIndicator.adaptive(
-                onRefresh: () => _refresh(context),
-                child: OrientationBuilder(
-                  builder: (context, orientation) => SafeArea(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      // mainAxisSize: MainAxisSize.max,
+              return OrientationBuilder(
+                builder: (context, orientation) => SafeArea(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    // mainAxisSize: MainAxisSize.max,
 
-                      children: [
-                        const MySearchBar(),
-                        SizedBox(
-                          height: orientation == Orientation.landscape ? 8 : 0,
+                    children: [
+                      const MySearchBar(),
+                      SizedBox(
+                        height: orientation == Orientation.landscape ? 8 : 0,
+                      ),
+                      SizedBox(
+                        // color: Colors.red,
+                        width: double.infinity,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            if (orientation == Orientation.portrait)
+                              VerticalStats(
+                                mWidth: mWidth,
+                                mHeight: mHeight,
+                              )
+                            else
+                              HorizontalStats(
+                                mWidth: mWidth,
+                                mHeigth: mHeight,
+                              ),
+                            if (orientation == Orientation.landscape)
+                              HorizontalList(
+                                mHeigth: mHeight,
+                              )
+                          ],
                         ),
-                        SizedBox(
-                          // color: Colors.red,
-                          width: double.infinity,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              if (orientation == Orientation.portrait)
-                                VerticalStats(
-                                  mWidth: mWidth,
-                                  mHeight: mHeight,
-                                )
-                              else
-                                HorizontalStats(
-                                  mWidth: mWidth,
-                                  mHeigth: mHeight,
-                                ),
-                              if (orientation == Orientation.landscape)
-                                HorizontalList(
-                                  mHeigth: mHeight,
-                                )
-                            ],
-                          ),
-                        ),
-                        if (orientation == Orientation.portrait)
-                          VerticalList(
-                            mHeigth: mHeight,
-                            listaAnnunci: listaAnnunci,
-                          )
-                      ],
-                    ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      if (orientation == Orientation.portrait)
+                        VerticalList(
+                          mHeigth: mHeight,
+                          listaAnnunci: listaAnnunci,
+                        )
+                    ],
                   ),
                 ),
               );
