@@ -25,6 +25,8 @@ class HomePage extends StatelessWidget {
       onOnline: showOnlineSnackbar,
       onOffline: showOfflineSnackbar,
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        extendBody: true,
         appBar: AppBar(
           surfaceTintColor: Colors.transparent,
           scrolledUnderElevation: 0,

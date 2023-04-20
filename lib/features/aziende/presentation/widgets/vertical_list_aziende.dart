@@ -31,7 +31,7 @@ class VerticalList extends StatelessWidget {
           'Aziende'), //mi tiene la posizione in cui ero
       itemCount: listaAnnunci.length,
       itemBuilder: (context, index) => SizedBox(
-        height: 0.3 * mHeigth,
+        height: 0.2 * mHeigth,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: CardAzienda(

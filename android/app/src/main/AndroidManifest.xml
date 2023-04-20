@@ -1,6 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.massimilianoporzio.job_app">
     <uses-permission android:name="android.permission.INTERNET"/>
+    <queries>
+     <!-- If your app checks for MAILTO support -->
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="mailto" />
+  </intent>
+    </queries> 
    <application
         android:label="job_app"
         android:name="${applicationName}"
@@ -33,4 +40,5 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    
 </manifest>

@@ -74,7 +74,7 @@ class AnnunciAziende extends StatelessWidget {
                 child: OrientationBuilder(
                   builder: (context, orientation) => SafeArea(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(2.0),
                       child: SizedBox(
                         // color: Colors.lime,
                         height: double.infinity,
