@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dynamic_color/dynamic_color.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
@@ -64,8 +65,8 @@ class CardAzienda extends StatelessWidget with UiLoggy {
     return InkWell(
       onTap: () {
         loggy.debug('tapped on annuncio: $index');
-        Navigator.of(context).pushNamed(DettaglioAnnunciAziende.routeName,
-            arguments: AnnuncioAziendeArguments(index.toString()));
+        // Navigator.of(context).pushNamed(DettaglioAnnunciAziende.routeName,
+        //     arguments: AnnuncioAziendeArguments(index.toString()));
       },
       child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -125,11 +126,7 @@ class CardAzienda extends StatelessWidget with UiLoggy {
                       maxLines: 2,
                       style: const TextStyle(fontSize: 14),
                     ),
-                  IconButton(
-                      onPressed: () {
-                        loggy.debug("${annuncio.id} FAVORITO?");
-                      },
-                      icon: const Icon(Icons.bookmark_outline)),
+                  AnnuncioActions(loggy: loggy, annuncio: annuncio),
 
                   BlocBuilder<DarkModeCubit, DarkModeState>(
                     builder: (context, state) {
@@ -166,6 +163,69 @@ class CardAzienda extends StatelessWidget with UiLoggy {
               ),
             )),
       ),
+    );
+  }
+}
+
+class AnnuncioActions extends StatefulWidget {
+  const AnnuncioActions({
+    super.key,
+    required this.loggy,
+    required this.annuncio,
+  });
+
+  final Loggy<UiLoggy> loggy;
+  final Annuncio annuncio;
+
+  @override
+  State<AnnuncioActions> createState() => _AnnuncioActionsState();
+}
+
+class _AnnuncioActionsState extends State<AnnuncioActions>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 3500),
+    )
+      ..reverse()
+      ..repeat();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        IconButton(
+          onPressed: () {
+            widget.loggy.debug("${widget.annuncio.id} FAVORITO?");
+          },
+          icon: const Icon(Icons.bookmark_outline),
+        ),
+        IconButton(
+            onPressed: () {
+              widget.loggy.debug("VAI AL DETTAGLIO");
+              Navigator.of(context).pushNamed(DettaglioAnnunciAziende.routeName,
+                  arguments:
+                      AnnuncioAziendeArguments(widget.annuncio.id.toString()));
+            },
+            // icon: const Icon(CupertinoIcons.ellipsis),
+            icon: AnimatedIcon(
+              icon: AnimatedIcons.search_ellipsis,
+              progress: _animationController,
+            )),
+      ],
     );
   }
 }
