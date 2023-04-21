@@ -15,7 +15,7 @@ class StringConsts {
 
   static const String notionTeamInSede = "In sede";
   static const String notionTeamIbrido = "Ibrido";
-  static const String notionTeamFullRemote = "Full remote";
+  static const String notionTeamFullRemote = "Full Remote";
 
   static const String teamInSede = "In sede";
   static const String teamIbrido = "Ibrido";

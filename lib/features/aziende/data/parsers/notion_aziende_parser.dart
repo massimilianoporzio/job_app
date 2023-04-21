@@ -218,7 +218,10 @@ List<AnnuncioModel> parseNotionResponseAziende(Response response) {
           tipoAnnuncio:
               TipoAnnuncio.aziende)); //aggiunto di annuncioModel alla lista
     } //fine giro sugli annunciNotion
-
+    listaAnnunci.sort(
+      (b, a) =>
+          a.jobPosted.compareTo(b.jobPosted), //discendente per Data annuncio
+    );
     return listaAnnunci;
   } catch (e) {
     throw ParsingException();
