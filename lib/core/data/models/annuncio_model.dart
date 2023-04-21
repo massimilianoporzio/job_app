@@ -14,7 +14,7 @@ class AnnuncioModel extends Equatable {
   final String id;
   final String titolo;
   final String? qualifica;
-  final String nomeAzienda;
+  final WebLinkModel nomeAzienda;
   final TeamModel? team;
   final ContrattoModel? contratto;
   final SeniorityModel? seniority;
@@ -53,7 +53,7 @@ class AnnuncioModel extends Equatable {
     if (qualifica != null) {
       result.addAll({'qualifica': qualifica});
     }
-    result.addAll({'nomeAzienda': nomeAzienda});
+
     if (team != null) {
       result.addAll({'team': team!.toMap()});
     }
@@ -70,6 +70,7 @@ class AnnuncioModel extends Equatable {
       'descrizioneOfferta': (descrizioneOfferta).map((x) => x.toMap()).toList()
     });
     result.addAll({'comeCandidarsi': (comeCandidarsi).toMap()});
+    result.addAll({'nomeAzienda': (nomeAzienda).toMap()});
     if (localita != null) {
       result.addAll({'localita': localita});
     }
@@ -89,7 +90,6 @@ class AnnuncioModel extends Equatable {
         id: map['id'] ?? '',
         titolo: map['titolo'] ?? '',
         qualifica: map['qualifica'],
-        nomeAzienda: map['nomeAzienda'] ?? '',
         team: map["team"] != null ? TeamModel.fromJson(map["team"]) : null,
         contratto: map['contratto'] != null
             ? ContrattoModel.fromJson(map['contratto'])
@@ -101,6 +101,7 @@ class AnnuncioModel extends Equatable {
         descrizioneOfferta: List<RichTextModel>.from(
             map['descrizioneOfferta']?.map((x) => RichTextModel.fromJson(x))),
         comeCandidarsi: WebLinkModel.fromJson(map['comeCandidarsi']),
+        nomeAzienda: WebLinkModel.fromJson(map['nomeAzienda']),
         localita: map['localita'],
         emoji: map['emoji'],
         jobPosted: DateTime.fromMillisecondsSinceEpoch(map['jobPosted']),

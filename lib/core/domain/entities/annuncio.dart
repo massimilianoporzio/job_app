@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-
 import 'package:job_app/core/domain/enums/tipologia_annunci.dart';
 
 import 'contratto_entity.dart';
@@ -12,7 +11,7 @@ class Annuncio extends Equatable {
   final String id;
   final String titolo;
   final String? qualifica;
-  final String nomeAzienda;
+  final Weblink nomeAzienda;
   final TeamEntity? team;
   final ContrattoEntity? contratto;
   final SeniorityEntity? seniority;

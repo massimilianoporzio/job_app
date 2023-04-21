@@ -33,7 +33,7 @@ List<AnnuncioModel> parseNotionResponseAziende(Response response) {
       final List<RichTextModel> descrizioneOfferta = [];
       WebLinkModel comeCandidarsi;
       String? localita;
-      final String nomeAzienda;
+      WebLinkModel nomeAzienda;
       if (annuncioNotion.containsKey("icon")) {
         if (annuncioNotion["icon"]["type"] == "emoji") {
           try {
@@ -197,8 +197,15 @@ List<AnnuncioModel> parseNotionResponseAziende(Response response) {
         }
       } //fine parsing località
       //*NOME AZIENDA!
-      nomeAzienda =
-          properties["Nome azienda"]["rich_text"][0]["plain_text"] as String;
+      String? urlAzienda;
+      if (properties["Nome azienda"]["rich_text"][0]["href"] != null) {
+        urlAzienda =
+            properties["Nome azienda"]["rich_text"][0]["href"] as String;
+      }
+      nomeAzienda = WebLinkModel(
+          content: properties["Nome azienda"]["rich_text"][0]["plain_text"]
+              as String,
+          url: urlAzienda);
 
       listaAnnunci.add(AnnuncioModel(
           id: id,

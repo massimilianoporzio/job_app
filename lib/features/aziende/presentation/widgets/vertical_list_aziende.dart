@@ -118,7 +118,7 @@ class CardAzienda extends StatelessWidget with UiLoggy {
                       ],
                     ),
                   ),
-                  Text(annuncio.nomeAzienda,
+                  Text(annuncio.nomeAzienda.content,
                       style: const TextStyle(fontSize: 14)),
                   if (annuncio.retribuzione != null)
                     AutoSizeText(

@@ -10,7 +10,7 @@ import '../../tools/connection/connectivity_utils.dart';
 import '../cubit/dark_mode/dark_mode_cubit.dart';
 import '../cubit/navbar/navigation_cubit.dart';
 import '../cubit/sound/sound_cubit.dart';
-import 'widgets/bottom_nav_bar.dart';
+import '../widgets/bottom_nav_bar.dart';
 
 class HomePage extends StatelessWidget with UiLoggy {
   const HomePage({super.key, required this.pages});

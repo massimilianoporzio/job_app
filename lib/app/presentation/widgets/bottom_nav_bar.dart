@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:job_app/app/presentation/cubit/navbar/navigation_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../resources/string_constants.dart';
+import '../../resources/string_constants.dart';
 
 class MyBottomNavBar extends StatelessWidget {
   const MyBottomNavBar({

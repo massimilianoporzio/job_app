@@ -47,7 +47,8 @@ class AziendeStateLoaded extends AziendeState with UiLoggy {
     }
     Set<String> setAziende = {};
     for (var annuncio in listaAnnunci) {
-      setAziende.add(annuncio.nomeAzienda);
+      setAziende.add(
+          annuncio.nomeAzienda.content); //uso come elem il content del Weblink
     }
     return setAziende.length.toString();
   }

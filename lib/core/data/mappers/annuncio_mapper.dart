@@ -1,4 +1,3 @@
-
 import 'package:job_app/core/data/mappers/base_mapper.dart';
 import 'package:job_app/core/data/mappers/rich_text_mapper.dart';
 import 'package:job_app/core/data/models/annuncio_model.dart';
@@ -29,7 +28,10 @@ class AnnuncioMapper extends EntityMapper<AnnuncioModel, Annuncio> {
       id: model.id,
       titolo: model.titolo,
       qualifica: model.qualifica,
-      nomeAzienda: model.nomeAzienda,
+      nomeAzienda: Weblink(
+        content: model.nomeAzienda.content,
+        url: model.nomeAzienda.url,
+      ),
       team: _teamMapper.toEntity(model.team),
       contratto: _contrattoMapper.toEntity(model.contratto),
       seniority: _seniorityMapper.toEntity(model.seniority),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:job_app/features/aziende/presentation/cubit/aziende_cubit.dart';
 
-import '../../../resources/app_consts.dart';
-import '../../cubit/navbar/navigation_cubit.dart';
+import '../../resources/app_consts.dart';
+import '../cubit/navbar/navigation_cubit.dart';
 import 'reusable_primary_button.dart';
 
 class NoConnection extends StatelessWidget {

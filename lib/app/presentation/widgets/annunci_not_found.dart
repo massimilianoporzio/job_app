@@ -1,19 +1,19 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:job_app/app/presentation/pages/widgets/reusable_primary_button.dart';
+import 'package:job_app/app/presentation/widgets/reusable_primary_button.dart';
 import 'package:job_app/app/resources/string_constants.dart';
 
-import '../../../../features/aziende/presentation/cubit/aziende_cubit.dart';
-import '../../../resources/app_consts.dart';
-import '../../cubit/navbar/navigation_cubit.dart';
+import '../../../features/aziende/presentation/cubit/aziende_cubit.dart';
+import '../../resources/app_consts.dart';
+import '../cubit/navbar/navigation_cubit.dart';
 
-class CertainError extends StatelessWidget {
-  final String message;
-  const CertainError({Key? key, required this.message}) : super(key: key);
+class AnnunciNotFound extends StatelessWidget {
+  const AnnunciNotFound({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var orientation = MediaQuery.of(context).orientation;
     return Scaffold(
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
@@ -21,23 +21,37 @@ class CertainError extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             Image.asset(
-              'assets/images/sfondi/certain_error.png',
-              fit: BoxFit.cover,
+              orientation == Orientation.landscape
+                  ? 'assets/images/sfondi/article_not_found-hor.png'
+                  : 'assets/images/sfondi/article_not_found.png',
+              fit: BoxFit.fitWidth,
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
             ),
             Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const Text(
-                  StringConsts.oops,
-                  style: kTitleTextStyle,
-                ),
-                const SizedBox(
-                  height: 40,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      orientation == Orientation.landscape
+                          ? StringConsts.notHor
+                          : StringConsts.not,
+                      style: kTitleTextStyle,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 40),
+                      child: const Text(
+                        StringConsts.found,
+                        style: kTitleTextStyle,
+                      ),
+                    ),
+                  ],
                 ),
                 Text(
-                  message,
+                  'Oops! Non sono stati trovati\nannunci.',
                   style: kSubtitleTextStyle.copyWith(color: Colors.black),
                   textAlign: TextAlign.center,
                 ),

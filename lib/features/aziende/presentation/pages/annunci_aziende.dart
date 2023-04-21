@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
-import '../../../../app/presentation/pages/widgets/annunci_not_found.dart';
-import '../../../../app/presentation/pages/widgets/certain_error.dart';
-import '../../../../app/presentation/pages/widgets/no_connection.dart';
-import '../../../../app/presentation/pages/widgets/search_bar.dart';
+import '../../../../app/presentation/widgets/annunci_not_found.dart';
+import '../../../../app/presentation/widgets/certain_error.dart';
+import '../../../../app/presentation/widgets/no_connection.dart';
+import '../../../../app/presentation/widgets/search_bar.dart';
 import '../../../../core/domain/entities/typedefs.dart';
 import '../cubit/aziende_cubit.dart';
 import '../widgets/horizontal_list_aziende.dart';

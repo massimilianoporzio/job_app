@@ -47,7 +47,7 @@ void main() async {
       final List<RichTextTextEntity> descrizioneOfferta = [];
       Weblink comeCandidarsi;
       String? localita;
-      final String nomeAzienda;
+      final Weblink nomeAzienda;
 
       if (annuncio.containsKey("icon")) {
         if (annuncio["icon"]["type"] == "emoji") {
@@ -208,8 +208,15 @@ void main() async {
               properties["Località"]["rich_text"][0]["plain_text"] as String?;
         }
       } //fine parsing località
-      nomeAzienda =
-          properties["Nome azienda"]["rich_text"][0]["plain_text"] as String;
+      String? urlAzienda;
+      if (properties["Nome azienda"]["rich_text"][0]["href"] != null) {
+        urlAzienda =
+            properties["Nome azienda"]["rich_text"][0]["href"] as String;
+      }
+      nomeAzienda = Weblink(
+          content: properties["Nome azienda"]["rich_text"][0]["plain_text"]
+              as String,
+          url: urlAzienda);
 
       //*ora creo l'annuncio
 
