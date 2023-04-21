@@ -9,7 +9,7 @@
   </intent>
     </queries> 
    <application
-        android:label="job_app"
+        android:label="Flutter Jobs"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
        
