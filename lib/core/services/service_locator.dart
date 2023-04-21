@@ -2,6 +2,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc_patterns/connection.dart';
+import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:get_it/get_it.dart';
 
 import 'package:job_app/app/presentation/cubit/navbar/navigation_cubit.dart';
@@ -54,6 +55,10 @@ Future<void> init() async {
       () => AziendeCubit(fectAnnunciUsecase: sl<FetchAnnunciAzienda>()));
 
   //*third party
+
+  //Emoji parser
+  var serverParser = EmojiParser(init: true);
+  sl.registerSingleton<EmojiParser>(serverParser);
 
   //AUDIOPLAYER
   AudioPlayer player = AudioPlayer()..setReleaseMode(ReleaseMode.stop);
