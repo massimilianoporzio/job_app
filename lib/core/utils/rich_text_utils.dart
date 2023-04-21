@@ -20,7 +20,18 @@ import '../domain/enums/seniority.dart';
 import '../domain/enums/team.dart';
 import '../services/service_locator.dart';
 
-// import 'package:easy_rich_text/easy_rich_text.dart';
+import 'package:easy_rich_text/easy_rich_text.dart';
+
+EasyRichText? getWidgetFromRichTextEntity(
+    RichTextTextEntity richTextTextEntity) {
+  var patternList = <EasyRichTextPattern>[];
+
+  var result = EasyRichText(
+    richTextTextEntity.plainText,
+    patternList: patternList,
+  );
+  return result;
+}
 
 void main() async {
   final dio = sl<Dio>();

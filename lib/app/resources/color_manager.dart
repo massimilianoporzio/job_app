@@ -37,6 +37,6 @@ class ColorManager {
   static const Color notionDarkRed = Color(0xff6e3630);
   static const Color notionDarkPurple = Color(0xff492f64);
   static const Color notionDarkGreen = Color(0xff2b593f);
-  static const Color notionDarkBlue = Color(0xff2b593f);
+  static const Color notionDarkBlue = Color(0xff28456c);
   static const Color notionDarkGrey = Color(0xff606b83);
 }

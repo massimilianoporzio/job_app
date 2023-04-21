@@ -3,10 +3,13 @@ import 'dart:ui';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
+import 'package:job_app/features/aziende/presentation/widgets/chips.dart';
 import 'package:loggy/loggy.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
 import '../../../../core/domain/entities/annuncio.dart';
 import '../../../../core/services/service_locator.dart';
 
@@ -22,6 +25,7 @@ class DettaglioAnnunciAziende extends StatelessWidget with UiLoggy {
 
   @override
   Widget build(BuildContext context) {
+    final mode = context.read<DarkModeCubit>().state.mode;
     final args =
         ModalRoute.of(context)!.settings.arguments as AnnuncioAziendeArguments;
     final annuncio = args.annuncio;
@@ -94,7 +98,73 @@ class DettaglioAnnunciAziende extends StatelessWidget with UiLoggy {
                           text: annuncio.nomeAzienda.url ?? "",
                           url: annuncio.nomeAzienda.url ?? "",
                         ),
-                      )
+                      ), // URL sito web
+                      RigaDettaglio(
+                        annuncio: annuncio,
+                        iconData: Icons.subject,
+                        descrizione: "Qualifica",
+                        valore: Text(
+                          annuncio.qualifica ?? "",
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                      ),
+                      const Divider(), //Qualifica
+                      RigaDettaglio(
+                        annuncio: annuncio,
+                        iconData: Icons.arrow_drop_down_circle_outlined,
+                        descrizione: "Seniority",
+                        valore: annuncio.seniority == null
+                            ? const Text("")
+                            : Align(
+                                alignment: Alignment.centerLeft,
+                                child: SeniorityChip(
+                                    seniorityEntity: annuncio.seniority!,
+                                    mode: mode),
+                              ),
+                      ), //seniority
+                      RigaDettaglio(
+                        annuncio: annuncio,
+                        iconData: Icons.arrow_drop_down_circle_outlined,
+                        descrizione: "Team",
+                        valore: annuncio.team == null
+                            ? const Text("")
+                            : Align(
+                                alignment: Alignment.centerLeft,
+                                child: TeamChip(
+                                  teamEntity: annuncio.team!,
+                                  mode: mode,
+                                ),
+                              ),
+                      ),
+                      RigaDettaglio(
+                        annuncio: annuncio,
+                        iconData: Icons.arrow_drop_down_circle_outlined,
+                        descrizione: "Contratto",
+                        valore: annuncio.contratto == null
+                            ? const Text("")
+                            : Align(
+                                alignment: Alignment.centerLeft,
+                                child: ContrattoChip(
+                                  contrattoEntity: annuncio.contratto!,
+                                  mode: mode,
+                                ),
+                              ),
+                      ), //contratto
+                      RigaDettaglio(
+                        annuncio: annuncio,
+                        descrizione: "Retribuzione",
+                        iconData: Icons.subject,
+                        valore: Text(
+                          annuncio.retribuzione ?? "",
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                      ),
+                      Divider(),
+                      RigaDettaglio(
+                          annuncio: annuncio,
+                          descrizione: "Descrizione offerta",
+                          iconData: Icons.subject,
+                          valore: Text("")), //descrizione Offerta
                     ],
                   ),
                 )
@@ -119,26 +189,16 @@ class LinkText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    return InkWell(
+      onTap: () async {
+        launchUrl(Uri.parse(url));
+      },
       child: Text(
         text,
         style: const TextStyle(
           decoration: TextDecoration.underline,
         ),
       ),
-      onPressed: () async {
-        String scheme = url.startsWith('https') ? 'https' : 'http';
-        Uri webUri = Uri(
-          scheme: scheme,
-          path: url,
-        );
-
-        if (await canLaunchUrl(webUri)) {
-          await launchUrl(webUri);
-        } else {
-          throw "Errore nell'apertura"; //TODO: gestire con messaggio UI
-        }
-      },
     );
   }
 }
@@ -161,11 +221,13 @@ class RigaDettaglio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
         Expanded(
-            flex: 3,
+            flex: 4,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Icon(
                   iconData,
@@ -177,7 +239,13 @@ class RigaDettaglio extends StatelessWidget {
                 AutoSizeText(descrizione, maxFontSize: 12, maxLines: 2),
               ],
             )),
-        Expanded(flex: 5, child: valore)
+        Expanded(
+          flex: 6,
+          child: Padding(
+            padding: EdgeInsets.zero,
+            child: valore,
+          ),
+        )
       ],
     );
   }
