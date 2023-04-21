@@ -18,6 +18,15 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
   AziendeCubit({required this.fectAnnunciUsecase})
       : super(const AziendeStateInitial());
 
+  Annuncio? getAnnuncioById(String id) {
+    if (state is AziendeStateLoaded) {
+      return (state as AziendeStateLoaded)
+          .listaAnnunci
+          .firstWhere((element) => element.id == id);
+    }
+    return null;
+  }
+
   FutureOr<void> fetchAllAnnunci() async {
     emit(AziendeStateLoading());
     final response = await fectAnnunciUsecase(const AnnunciAzParams());

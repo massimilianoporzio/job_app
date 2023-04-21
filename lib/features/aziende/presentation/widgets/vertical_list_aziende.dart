@@ -217,8 +217,7 @@ class _AnnuncioActionsState extends State<AnnuncioActions>
             onPressed: () {
               widget.loggy.debug("VAI AL DETTAGLIO");
               Navigator.of(context).pushNamed(DettaglioAnnunciAziende.routeName,
-                  arguments:
-                      AnnuncioAziendeArguments(widget.annuncio.id.toString()));
+                  arguments: AnnuncioAziendeArguments(widget.annuncio));
             },
             // icon: const Icon(CupertinoIcons.ellipsis),
             icon: AnimatedIcon(
