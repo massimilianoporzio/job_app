@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
+import 'package:loggy/loggy.dart';
 
 import '../../../../core/services/service_locator.dart';
 import '../cubit/aziende_cubit.dart';
@@ -12,7 +13,7 @@ class AnnuncioAziendeArguments {
   AnnuncioAziendeArguments(this.annuncioId);
 }
 
-class DettaglioAnnunciAziende extends StatelessWidget {
+class DettaglioAnnunciAziende extends StatelessWidget with UiLoggy {
   static const String routeName = "dettaglioAnnuncioAnziende";
   const DettaglioAnnunciAziende({super.key});
 
@@ -27,6 +28,7 @@ class DettaglioAnnunciAziende extends StatelessWidget {
         var annuncio = (state as AziendeStateLoaded)
             .listaAnnunci
             .firstWhere((element) => element.id == args.annuncioId);
+
         return Scaffold(
           appBar: AppBar(
             title: AutoSizeText(
@@ -41,12 +43,28 @@ class DettaglioAnnunciAziende extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (annuncio.emoji != null)
-                    Text(
-                      sl<EmojiParser>().get(annuncio.emoji).code,
-                      textAlign: TextAlign.start,
-                      style: const TextStyle(fontSize: 28),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      if (annuncio.emoji != null)
+                        Text(
+                          sl<EmojiParser>().get(annuncio.emoji).code,
+                          textAlign: TextAlign.start,
+                          style: const TextStyle(fontSize: 28),
+                        ),
+                      if (annuncio.emoji == null)
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                        ),
+                      IconButton(
+                          iconSize: 28,
+                          onPressed: () {
+                            loggy.debug(
+                                "TOGGLE FAVORITO"); //TODO pensare al bloc FavoriteCubit
+                          },
+                          icon: const Icon(Icons.bookmark_add_outlined))
+                    ],
+                  ),
                   AutoSizeText(
                     annuncio.titolo,
                     textAlign: TextAlign.start,
