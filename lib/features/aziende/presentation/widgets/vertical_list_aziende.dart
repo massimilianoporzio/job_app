@@ -112,18 +112,18 @@ class CardAzienda extends StatelessWidget with UiLoggy {
                       ],
                     ),
                   ),
-                  Text(annuncio.nomeAzienda, style: TextStyle(fontSize: 14)),
+                  Text(annuncio.nomeAzienda, style: const TextStyle(fontSize: 14)),
                   if (annuncio.retribuzione != null)
                     AutoSizeText(
                       annuncio.retribuzione!,
                       maxLines: 2,
-                      style: TextStyle(fontSize: 14),
+                      style: const TextStyle(fontSize: 14),
                     ),
                   IconButton(
                       onPressed: () {
                         loggy.debug("${annuncio.id} FAVORITO?");
                       },
-                      icon: Icon(Icons.bookmark_outline)),
+                      icon: const Icon(Icons.bookmark_outline)),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -197,7 +197,7 @@ class Localita extends StatelessWidget {
                   softWrap: false,
                   maxLines: 1,
                   overflow: TextOverflow.fade,
-                  style: TextStyle(fontSize: 12),
+                  style: const TextStyle(fontSize: 12),
                 ),
               ],
             ),
@@ -230,7 +230,7 @@ class JobPosted extends StatelessWidget {
         ),
         Text(
           DateFormat('dd/MM/yyyy HH:mm').format(annuncio.jobPosted),
-          style: TextStyle(fontSize: 12),
+          style: const TextStyle(fontSize: 12),
         ),
       ],
     );

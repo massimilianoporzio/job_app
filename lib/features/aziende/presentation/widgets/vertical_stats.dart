@@ -16,7 +16,7 @@ class VerticalStats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 0.2 * mHeight,
       width: 0.9 * mWidth,
       //height: 160,

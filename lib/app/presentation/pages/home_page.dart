@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget with UiLoggy {
           surfaceTintColor: Colors.transparent,
           scrolledUnderElevation: 0,
           centerTitle: false,
-          title: AutoSizeText(StringConsts.appbarTitle,
+          title: const AutoSizeText(StringConsts.appbarTitle,
               overflow: TextOverflow.fade,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
           actions: [

@@ -42,8 +42,8 @@ class AnnunciNotFound extends StatelessWidget {
                       style: kTitleTextStyle,
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 40),
-                      child: Text(
+                      margin: const EdgeInsets.only(left: 40),
+                      child: const Text(
                         StringConsts.found,
                         style: kTitleTextStyle,
                       ),

@@ -7,7 +7,7 @@ class HorizontalList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: Container(
+        child: SizedBox(
       height: 0.4 * mHeigth,
       // color: Colors.purple,
       child: ListView.separated(
