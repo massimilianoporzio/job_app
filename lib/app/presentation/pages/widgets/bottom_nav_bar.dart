@@ -50,7 +50,7 @@ class MyBottomNavBar extends StatelessWidget {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.bookmark,
+                    Icons.bookmarks,
                   ),
                   label: StringConsts.bottomNavBookmarked,
                 ),
