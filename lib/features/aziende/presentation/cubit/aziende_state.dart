@@ -8,7 +8,7 @@ abstract class AziendeState extends Equatable {
 }
 
 class AziendeStateInitial extends AziendeState {
-  final AnnuncioList listaAnnunci;
+  final AnnuncioList listaAnnunci; //* CON I FILTRI!: è sempre filtrata
   const AziendeStateInitial({
     this.listaAnnunci = const [],
   });
