@@ -3,14 +3,12 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
-
 import 'package:loggy/loggy.dart';
 
 import '../../../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
 import '../../../../app/resources/color_manager.dart';
 import '../../../../core/domain/entities/annuncio.dart';
 import '../../../../core/domain/entities/typedefs.dart';
-import '../cubit/aziende_cubit.dart';
 import 'annuncio_actions.dart';
 import 'chips.dart';
 import 'job_posted.dart';
