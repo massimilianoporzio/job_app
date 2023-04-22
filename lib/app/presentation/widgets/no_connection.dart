@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:job_app/features/aziende/presentation/cubit/aziende_cubit.dart';
+import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
 
 import '../../resources/app_consts.dart';
 import '../cubit/navbar/navigation_cubit.dart';
@@ -52,7 +52,7 @@ class NoConnection extends StatelessWidget {
                         int pageIndex = state.selectedIndex;
                         switch (pageIndex) {
                           case 0:
-                            context.read<AziendeCubit>().fetchAllAnnunci();
+                            context.read<AziendeCubit>().fetchAnnunci();
                             break;
                           default:
                         }

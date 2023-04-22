@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:job_app/core/utils/sound_utils.dart';
+import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
 import 'package:loggy/loggy.dart';
 
-import '../../../features/aziende/presentation/cubit/aziende_cubit.dart';
+import '../../../core/services/service_locator.dart';
+import '../../../features/aziende/data/repositories/aziende_repository_impl.dart';
+import '../../../features/aziende/domain/repositories/aziende_repository.dart';
 
 class MySearchBar extends StatefulWidget with UiLoggy {
   const MySearchBar({
@@ -17,7 +20,12 @@ class MySearchBar extends StatefulWidget with UiLoggy {
 class _MySearchBarState extends State<MySearchBar> {
   late TextEditingController _searchController;
   Future<void> _refresh(BuildContext context) {
-    context.read<AziendeCubit>().fetchAllAnnunci();
+    //RESETTA IL REPO
+    var repo = (sl<AziendeRepository>() as AziendeRepositoryImpl);
+    repo.hasMore = true;
+    repo.nextCursor = "";
+    context.read<AziendeCubit>().reset();
+    context.read<AziendeCubit>().fetchAnnunci();
     return Future.value();
   }
 

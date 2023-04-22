@@ -3,6 +3,8 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
+import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
+
 import 'package:loggy/loggy.dart';
 
 import '../../../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
@@ -14,7 +16,7 @@ import 'chips.dart';
 import 'job_posted.dart';
 import 'localita.dart';
 
-class VerticalList extends StatelessWidget {
+class VerticalList extends StatefulWidget {
   const VerticalList({
     super.key,
     required this.mHeigth,
@@ -25,19 +27,56 @@ class VerticalList extends StatelessWidget {
   final AnnuncioList listaAnnunci;
 
   @override
+  State<VerticalList> createState() => _VerticalListState();
+}
+
+class _VerticalListState extends State<VerticalList> with UiLoggy {
+  final ScrollController _scrollController = ScrollController();
+
+  bool get _isBottom {
+    if (!_scrollController.hasClients) return false;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.offset;
+    return currentScroll >= (maxScroll * 0.99);
+  }
+
+  void _onScroll() {
+    if (_isBottom) {
+      context.read<AziendeCubit>().fetchAnnunci(); //carico altri annunci
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController
+      ..removeListener(_onScroll)
+      ..dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Expanded(
         child: ListView.builder(
+      controller: _scrollController,
       key: const PageStorageKey<String>(
           'Aziende'), //mi tiene la posizione in cui ero
-      itemCount: listaAnnunci.length,
+      itemCount: widget.listaAnnunci.length,
       itemBuilder: (context, index) => SizedBox(
-        height: 0.275 * mHeigth,
+        height: 0.275 * widget.mHeigth,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: CardAzienda(
             index: index,
-            annuncio: listaAnnunci[index],
+            annuncio: widget.listaAnnunci[index],
           ),
         ),
       ),

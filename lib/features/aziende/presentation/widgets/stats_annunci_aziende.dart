@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
 
 import '../../../../app/resources/styles_manager.dart';
-import '../cubit/aziende_cubit.dart';
+
 import 'bar_chart.dart';
 
 class StatAnnunci extends StatelessWidget {
@@ -27,7 +28,7 @@ class StatAnnunci extends StatelessWidget {
       child: BlocBuilder<AziendeCubit, AziendeState>(
         builder: (context, state) {
           String numAnnunci = "";
-          if (state is AziendeStateLoaded) {
+          if (state.status == AziendeStateStatus.loaded) {
             numAnnunci = state.listaAnnunci.length.toString();
           }
           return Card(

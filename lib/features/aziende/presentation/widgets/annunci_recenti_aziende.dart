@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../cubit/aziende_cubit.dart';
+import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
 
 class AnnunciRecenti extends StatelessWidget {
   const AnnunciRecenti({
@@ -34,7 +33,7 @@ class AnnunciRecenti extends StatelessWidget {
             builder: (context, state) {
               String stringAnnunci = "annunci\nrecenti";
               String num = "0";
-              if (state is AziendeStateLoaded) {
+              if (state.status == AziendeStateStatus.loaded) {
                 num = state.numeroAnnunciRecenti;
               }
               if (int.parse(num) == 1) {

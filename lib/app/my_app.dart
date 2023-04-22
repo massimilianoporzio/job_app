@@ -3,10 +3,10 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_patterns/connection.dart';
+import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
 import 'package:loggy/loggy.dart';
 
 import '../core/services/service_locator.dart';
-import '../features/aziende/presentation/cubit/aziende_cubit.dart';
 import '../features/aziende/presentation/pages/dettagli_annuncio_aziende.dart';
 import 'presentation/cubit/dark_mode/dark_mode_cubit.dart';
 import 'presentation/cubit/navbar/navigation_cubit.dart';
@@ -72,12 +72,10 @@ class MyApp extends StatelessWidget {
         create: (context) {
           var aziendeCubit = sl<AziendeCubit>();
           //qui so che è initial
-          if ((aziendeCubit.state as AziendeStateInitial)
-              .listaAnnunci
-              .isEmpty) {
+          if (aziendeCubit.state.listaAnnunci.isEmpty) {
             //
             logDebug("...state is empty: fetchAllAnnunci...");
-            aziendeCubit.fetchAllAnnunci();
+            aziendeCubit.fetchAnnunci();
             logDebug("...annunci presi...");
           }
           return aziendeCubit;

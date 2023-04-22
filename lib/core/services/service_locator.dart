@@ -13,7 +13,8 @@ import 'package:job_app/features/aziende/data/datasources/aziende_datasource_imp
 import 'package:job_app/features/aziende/data/repositories/aziende_repository_impl.dart';
 import 'package:job_app/features/aziende/domain/repositories/aziende_repository.dart';
 import 'package:job_app/features/aziende/domain/usecases/fetch_all_annunci.dart';
-import 'package:job_app/features/aziende/presentation/cubit/aziende_cubit.dart';
+import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
@@ -51,8 +52,9 @@ Future<void> init() async {
   sl.registerFactory<NavigationCubit>(() => NavigationCubit());
 
   //annunci anziende cubit
-  sl.registerFactory<AziendeCubit>(
-      () => AziendeCubit(fectAnnunciUsecase: sl<FetchAnnunciAzienda>()));
+  sl.registerFactory<AziendeCubit>(() => AziendeCubit(
+        fetchAnnunciUsecase: sl<FetchAnnunciAzienda>(),
+      ));
 
   //*third party
 
@@ -66,7 +68,7 @@ Future<void> init() async {
 
   //DIO
   sl.registerSingleton<Dio>(await DioClient.createDio(
-      isMock: true)); //is mock è per leggere da un json per fare test
+      isMock: false)); //is mock è per leggere da un json per fare test
   //shared prefs
   SharedPreferences prefs = await SharedPreferences.getInstance();
   sl.registerSingleton<SharedPreferences>(prefs);

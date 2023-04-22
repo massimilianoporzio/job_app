@@ -19,8 +19,8 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
   });
 
   @override
-  Future<NotionResponseDTO> fetchAll() async {
-    bool? hasMore;
+  Future<NotionResponseDTO> fetchAnnunci() async {
+    bool hasMore = true;
     String? nextCursor;
     List<AnnuncioModel> listaAnnunci = [];
     try {
@@ -56,14 +56,90 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
   }
 
   @override
-  Future<NotionResponseDTO> fetchPaginaSuccessiva() {
-    // TODO: implement fetchPaginaSuccessiva
-    throw UnimplementedError();
+  Future<NotionResponseDTO> fetchProssimaPaginaAnnunci(
+      String startCursor) async {
+    List<AnnuncioModel> listaAnnunci = [];
+    try {
+      Map<String, dynamic> payload = {
+        "page_size":
+            2 //per provare la paginazione se no default è 100 per notion
+      };
+
+      payload["start_cursor"] = startCursor;
+
+      final Response response =
+          await dio.post(StringConsts.baseUrlAziende, data: payload);
+      loggy.debug("REPONSE FROM NOTION: $response");
+
+      loggy.debug(response.data["next_cursor"]);
+      loggy.debug(response.data[""]);
+      bool hasMore = true; //c'è sempre fino a prova contraria
+      String? nextCursor;
+      if (response.data["next_cursor"] != null) {
+        nextCursor = response.data["next_cursor"] as String;
+      } else {
+        hasMore = false;
+      }
+      if (response.data["has_more"] != null) {
+        hasMore = response.data["has_more"] as bool;
+      }
+      listaAnnunci = parseNotionResponseAziende(response);
+
+      // loggy.debug("ECCO LA LISTA DEGLI ANNUNCI MODEL:\n$listaAnnunci");
+      return NotionResponseDTO(
+        listaAnnunci: listaAnnunci,
+        hasMore: hasMore,
+        nextCursor: nextCursor,
+      );
+    } on DioError catch (e) {
+      if (e.type == DioErrorType.connectionError ||
+          e.type == DioErrorType.unknown) {
+        throw NetworkException();
+      }
+      rethrow;
+    } on Exception {
+      throw RestApiException();
+    }
   }
 
   @override
-  Future<NotionResponseDTO> fetchPrimaPagina() {
-    // TODO: implement fetchPrimaPagina
-    throw UnimplementedError();
+  Future<NotionResponseDTO> fetchPrimaPaginaAnnunci() async {
+    bool hasMore = true;
+    String? nextCursor;
+    List<AnnuncioModel> listaAnnunci = [];
+    try {
+      Map<String, dynamic> payload = {
+        "page_size":
+            2 //per provare la paginazione se no default è 100 per notion
+      };
+      final Response response =
+          await dio.post(StringConsts.baseUrlAziende, data: payload);
+      loggy.debug("REPONSE FROM NOTION: $response");
+
+      loggy.debug(response.data["next_cursor"]);
+      loggy.debug(response.data[""]);
+      if (response.data["next_cursor"] != null) {
+        nextCursor = response.data["next_cursor"] as String;
+      }
+      if (response.data["has_more"] != null) {
+        hasMore = response.data["has_more"] as bool;
+      }
+      listaAnnunci = parseNotionResponseAziende(response);
+
+      // loggy.debug("ECCO LA LISTA DEGLI ANNUNCI MODEL:\n$listaAnnunci");
+      return NotionResponseDTO(
+        listaAnnunci: listaAnnunci,
+        hasMore: hasMore,
+        nextCursor: nextCursor,
+      );
+    } on DioError catch (e) {
+      if (e.type == DioErrorType.connectionError ||
+          e.type == DioErrorType.unknown) {
+        throw NetworkException();
+      }
+      rethrow;
+    } on Exception {
+      throw RestApiException();
+    }
   }
 }

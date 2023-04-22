@@ -565,6 +565,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.15"
+  infinite_widgets:
+    dependency: "direct main"
+    description:
+      name: infinite_widgets
+      sha256: "717bb85ef4a50d2550050afda3291d776780b2bd350069624c9e8028bb4aa613"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.2"
   intl:
     dependency: "direct main"
     description:

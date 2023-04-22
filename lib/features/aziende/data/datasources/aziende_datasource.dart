@@ -1,7 +1,7 @@
 import 'package:job_app/core/data/models/notion_response.dart';
 
 abstract class AziendeDatasource {
-  Future<NotionResponseDTO> fetchAll();
-  Future<NotionResponseDTO> fetchPrimaPagina();
-  Future<NotionResponseDTO> fetchPaginaSuccessiva();
+  Future<NotionResponseDTO> fetchAnnunci();
+  Future<NotionResponseDTO> fetchPrimaPaginaAnnunci();
+  Future<NotionResponseDTO> fetchProssimaPaginaAnnunci(String startCursor);
 }

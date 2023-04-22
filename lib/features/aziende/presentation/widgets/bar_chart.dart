@@ -2,11 +2,11 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
 
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../core/domain/enums/contratto.dart';
-import '../cubit/aziende_cubit.dart';
 
 class _ChartData {
   _ChartData(this.x, this.y);
@@ -22,7 +22,7 @@ class StatBarChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AziendeCubit, AziendeState>(
       builder: (context, state) {
-        if (state is! AziendeStateLoaded) {
+        if (state.status != AziendeStateStatus.loaded) {
           return const SizedBox.shrink();
         } else {
           Map<String, int> conteggiContratto = {"part time": 0, "full time": 0};
