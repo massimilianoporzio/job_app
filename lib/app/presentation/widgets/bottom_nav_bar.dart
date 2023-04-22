@@ -25,7 +25,7 @@ class MyBottomNavBar extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.zero,
         color: Theme.of(context).colorScheme.background,
-        height: orientation == Orientation.landscape ? 75 : 80,
+        height: orientation == Orientation.landscape ? 70 : 80,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,

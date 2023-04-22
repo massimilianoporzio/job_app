@@ -15,8 +15,8 @@ class HorizontalStats extends StatelessWidget {
     return Container(
       // color: Colors.amber,
       margin: const EdgeInsets.symmetric(horizontal: 5),
-      height: 0.4 * mHeigth,
-      width: 0.35 * mWidth,
+      height: 0.45 * mHeigth,
+      width: 0.4 * mWidth,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,

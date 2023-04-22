@@ -22,8 +22,7 @@ class StatAnnunci extends StatelessWidget {
 
       // height: 0.15 * mHeight,
       // color: Colors.pink,
-      width:
-          orientation == Orientation.landscape ? 0.25 * mWidth : 0.6 * mWidth,
+      width: orientation == Orientation.landscape ? 0.3 * mWidth : 0.6 * mWidth,
 
       child: BlocBuilder<AziendeCubit, AziendeState>(
         builder: (context, state) {

@@ -58,6 +58,7 @@ EasyRichText getWidgetFromRichTextEntity(RichTextList richTextList) {
       }
     }
   }
+  plainText += "\n\n\n\n\n\n";
 
   var result = EasyRichText(
     plainText,

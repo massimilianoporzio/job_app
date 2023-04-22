@@ -90,6 +90,7 @@ class AnnunciAziende extends StatelessWidget {
                           if (orientation == Orientation.landscape)
                             HorizontalList(
                               mHeigth: mHeight,
+                              listaAnnunci: listaAnnunci,
                             )
                         ],
                       ),
