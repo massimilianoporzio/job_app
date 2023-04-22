@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
+import 'package:job_app/core/domain/entities/typedefs.dart';
 import 'package:job_app/core/domain/enums/tipologia_annunci.dart';
 import 'package:loggy/loggy.dart';
 
@@ -22,12 +25,43 @@ import '../services/service_locator.dart';
 
 import 'package:easy_rich_text/easy_rich_text.dart';
 
-EasyRichText? getWidgetFromRichTextEntity(
-    RichTextTextEntity richTextTextEntity) {
+EasyRichText getWidgetFromRichTextEntity(RichTextList richTextList) {
+  String plainText = '';
   var patternList = <EasyRichTextPattern>[];
+  for (var richTextEntity in richTextList) {
+    if (richTextEntity.plainText.isNotEmpty) {
+      plainText += richTextEntity.plainText;
+      if (!richTextEntity.annotation.isPlain()) {
+        var annotation = richTextEntity.annotation;
+        var listDecoration = <TextDecoration>[];
+        if (annotation.strikethrough) {
+          listDecoration.add(TextDecoration.lineThrough);
+        }
+        if (annotation.underline) {
+          listDecoration.add(TextDecoration.underline);
+        }
+        var listFeatures = <FontFeature>[];
+        if (annotation.code) {
+          listFeatures.add(const FontFeature.tabularFigures());
+        }
+        var style = TextStyle(
+          fontWeight: annotation.bold ? FontWeight.bold : FontWeight.normal,
+          fontStyle: annotation.italic ? FontStyle.italic : FontStyle.normal,
+          decoration: TextDecoration.combine(listDecoration),
+          fontFeatures: listFeatures,
+        );
+
+        patternList.add(EasyRichTextPattern(
+            hasSpecialCharacters: true,
+            targetString: richTextEntity.plainText,
+            style: style));
+      }
+    }
+  }
 
   var result = EasyRichText(
-    richTextTextEntity.plainText,
+    plainText,
+    textAlign: TextAlign.left,
     patternList: patternList,
   );
   return result;

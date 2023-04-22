@@ -14,4 +14,11 @@ class RichTextAnnotation {
     required this.code,
     this.colorString,
   });
+
+  bool isPlain() {
+    if (bold || italic || strikethrough || underline || code) {
+      return false;
+    }
+    return true;
+  }
 }
