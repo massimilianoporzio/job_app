@@ -5,14 +5,26 @@ import 'package:loggy/loggy.dart';
 
 import '../../../features/aziende/presentation/cubit/aziende_cubit.dart';
 
-class MySearchBar extends StatelessWidget with UiLoggy {
+class MySearchBar extends StatefulWidget with UiLoggy {
   const MySearchBar({
     super.key,
   });
 
+  @override
+  State<MySearchBar> createState() => _MySearchBarState();
+}
+
+class _MySearchBarState extends State<MySearchBar> {
+  late TextEditingController _searchController;
   Future<void> _refresh(BuildContext context) {
     context.read<AziendeCubit>().fetchAllAnnunci();
     return Future.value();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController = TextEditingController();
   }
 
   @override
@@ -25,7 +37,7 @@ class MySearchBar extends StatelessWidget with UiLoggy {
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: TextField(
-          controller: TextEditingController(),
+          controller: _searchController,
           obscureText: false,
           textAlign: TextAlign.start,
           maxLines: 1,
@@ -33,7 +45,7 @@ class MySearchBar extends StatelessWidget with UiLoggy {
             fontWeight: FontWeight.w400,
             fontStyle: FontStyle.normal,
             fontSize: orientation == Orientation.landscape ? 12 : 14,
-            color: Theme.of(context).colorScheme.primary,
+            color: Theme.of(context).colorScheme.onBackground,
           ),
           decoration: InputDecoration(
             border: OutlineInputBorder(
@@ -44,35 +56,40 @@ class MySearchBar extends StatelessWidget with UiLoggy {
               ),
             ),
             hintText: "Ricerca annunci",
-            hintStyle: const TextStyle(
-              fontWeight: FontWeight.w600,
-              fontStyle: FontStyle.normal,
-              fontSize: 14,
-            ),
+            hintStyle: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontStyle: FontStyle.normal,
+                fontSize: 14,
+                color: Theme.of(context).colorScheme.onBackground),
             filled: false,
             isDense: true,
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-            prefixIcon: Icon(Icons.search,
-                size: orientation == Orientation.landscape ? 20 : 24),
-            suffixIcon: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      loggy.debug("REFRESH!");
-                      playSound(file: 'refresh.mp3');
-                      _refresh(context);
-                    },
-                    icon: Icon(Icons.refresh,
+            prefixIcon: Container(
+              // color: Colors.amber,
+              child: Icon(Icons.search,
+                  size: orientation == Orientation.landscape ? 20 : 24),
+            ),
+            suffixIcon: Container(
+              width: 100,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        playSound(file: 'refresh.mp3');
+                        _refresh(context);
+                      },
+                      icon: Icon(Icons.refresh,
+                          size: orientation == Orientation.landscape ? 20 : 24),
+                    ),
+                    Icon(Icons.filter_alt_outlined,
                         size: orientation == Orientation.landscape ? 20 : 24),
-                  ),
-                  Icon(Icons.filter_alt_outlined,
-                      size: orientation == Orientation.landscape ? 20 : 24),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
