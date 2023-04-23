@@ -19,8 +19,9 @@ class DioClient with ApiClientLoggy {
     dio.interceptors.add(
       DioCacheInterceptor(
         options: CacheOptions(
-          store: HiveCacheStore(AppPathProvider.path),
-          policy: CachePolicy.forceCache,
+          // store: HiveCacheStore(AppPathProvider.path),
+          store: MemCacheStore(maxSize: 10485760, maxEntrySize: 1048576),
+          policy: CachePolicy.refreshForceCache,
           keyBuilder: (request) {
             return request.uri.toString();
           },
