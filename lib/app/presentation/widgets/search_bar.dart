@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:job_app/core/utils/sound_utils.dart';
@@ -13,13 +15,21 @@ class MySearchBar extends StatefulWidget with UiLoggy {
   State<MySearchBar> createState() => _MySearchBarState();
 }
 
-class _MySearchBarState extends State<MySearchBar> {
+class _MySearchBarState extends State<MySearchBar> with UiLoggy {
   late TextEditingController _searchController;
+  Timer? _debounce;
+
+  Future<void> _resetSearch(BuildContext context) {
+    loggy.debug("...Riprendo la lista originaria...");
+    return Future.value();
+  }
+
+  Future<void> _doSearch(BuildContext context) {
+    loggy.debug("...TRIGGER SEARCH on Notion...");
+    return Future.value();
+  }
+
   Future<void> _refresh(BuildContext context) {
-    // //RESETTA IL REPO
-    // var repo = (sl<AziendeRepository>() as AziendeRepositoryImpl);
-    // repo.hasMore = true;
-    // repo.nextCursor = "";
     context.read<AziendeCubit>().reset();
 
     return Future.value();
@@ -32,6 +42,13 @@ class _MySearchBarState extends State<MySearchBar> {
   }
 
   @override
+  void dispose() {
+    _searchController.dispose();
+    _debounce?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var orientation = MediaQuery.of(context).orientation;
     return Container(
@@ -41,6 +58,22 @@ class _MySearchBarState extends State<MySearchBar> {
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: TextField(
+          onChanged: (value) {
+            setState(() {});
+            loggy.debug('utente ha scritto');
+            if (_debounce?.isActive ?? false) _debounce?.cancel();
+            _debounce = Timer(const Duration(milliseconds: 700), () {
+              // do something with query
+              loggy.debug('ora chiamo il cubit');
+
+              if (_searchController.text.isEmpty) {
+                //dammi lista originaria?
+                _resetSearch(context);
+              } else {
+                _doSearch(context);
+              }
+            });
+          },
           controller: _searchController,
           obscureText: false,
           textAlign: TextAlign.start,
@@ -75,13 +108,31 @@ class _MySearchBarState extends State<MySearchBar> {
                   size: orientation == Orientation.landscape ? 20 : 24),
             ),
             suffixIcon: SizedBox(
-              width: 100,
+              width: 150,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: _searchController.text.isEmpty
+                          ? null
+                          : IconButton(
+                              onPressed: () {
+                                _searchController.clear();
+                                // Call setState to update the UI
+                                setState(() {});
+                                // chiamo cubit per lista originaria
+                              },
+                              icon: Icon(Icons.clear,
+                                  size: orientation == Orientation.landscape
+                                      ? 20
+                                      : 24),
+                            ),
+                    ),
                     IconButton(
                       onPressed: () {
                         playSound(file: 'refresh.mp3');
