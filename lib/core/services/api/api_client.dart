@@ -20,7 +20,7 @@ class DioClient with ApiClientLoggy {
       DioCacheInterceptor(
         options: CacheOptions(
           store: HiveCacheStore(AppPathProvider.path),
-          policy: CachePolicy.refreshForceCache,
+          policy: CachePolicy.forceCache,
           keyBuilder: (request) {
             return request.uri.toString();
           },

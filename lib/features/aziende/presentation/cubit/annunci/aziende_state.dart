@@ -35,7 +35,7 @@ class AziendeState extends Equatable with BlocLoggy {
     for (var annuncio in listaAnnunci) {
       var oggi = DateTime.now();
       var dataAnnuncio = annuncio.jobPosted;
-      loggy.debug("dataAnnuncio: $dataAnnuncio");
+      // loggy.debug("dataAnnuncio: $dataAnnuncio");
       int giorniDiDifferenza = oggi.difference(dataAnnuncio).inDays;
       if (giorniDiDifferenza < 7) {
         numAnnunciRecenti += 1;
