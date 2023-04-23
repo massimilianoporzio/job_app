@@ -4,10 +4,6 @@ import 'package:job_app/core/utils/sound_utils.dart';
 import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
 import 'package:loggy/loggy.dart';
 
-import '../../../core/services/service_locator.dart';
-import '../../../features/aziende/data/repositories/aziende_repository_impl.dart';
-import '../../../features/aziende/domain/repositories/aziende_repository.dart';
-
 class MySearchBar extends StatefulWidget with UiLoggy {
   const MySearchBar({
     super.key,
@@ -20,12 +16,12 @@ class MySearchBar extends StatefulWidget with UiLoggy {
 class _MySearchBarState extends State<MySearchBar> {
   late TextEditingController _searchController;
   Future<void> _refresh(BuildContext context) {
-    //RESETTA IL REPO
-    var repo = (sl<AziendeRepository>() as AziendeRepositoryImpl);
-    repo.hasMore = true;
-    repo.nextCursor = "";
+    // //RESETTA IL REPO
+    // var repo = (sl<AziendeRepository>() as AziendeRepositoryImpl);
+    // repo.hasMore = true;
+    // repo.nextCursor = "";
     context.read<AziendeCubit>().reset();
-    context.read<AziendeCubit>().fetchAnnunci();
+
     return Future.value();
   }
 
@@ -78,7 +74,7 @@ class _MySearchBarState extends State<MySearchBar> {
               child: Icon(Icons.search,
                   size: orientation == Orientation.landscape ? 20 : 24),
             ),
-            suffixIcon: Container(
+            suffixIcon: SizedBox(
               width: 100,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),

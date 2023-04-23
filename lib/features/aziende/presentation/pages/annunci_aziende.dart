@@ -56,8 +56,6 @@ class _AnnunciAziendeState extends State<AnnunciAziende> {
       },
       builder: (context, state) {
         switch (state.status) {
-          case AziendeStateStatus.initial:
-            return const SizedBox.shrink();
           case AziendeStateStatus.error:
             return CertainError(
               message: state.message!,
@@ -68,7 +66,7 @@ class _AnnunciAziendeState extends State<AnnunciAziende> {
             return CertainError(
               message: state.message!,
             );
-          case AziendeStateStatus.loading:
+          case AziendeStateStatus.initial:
             if (state.listaAnnunci.isEmpty) {
               return Center(
                   child: SleekCircularSlider(

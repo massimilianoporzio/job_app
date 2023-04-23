@@ -11,7 +11,11 @@ import '../../../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
 import '../../../../app/resources/color_manager.dart';
 import '../../../../core/domain/entities/annuncio.dart';
 import '../../../../core/domain/entities/typedefs.dart';
+import '../../../../core/services/service_locator.dart';
+import '../../data/repositories/aziende_repository_impl.dart';
+import '../../domain/repositories/aziende_repository.dart';
 import 'annuncio_actions.dart';
+import 'bottom_loader.dart';
 import 'chips.dart';
 import 'job_posted.dart';
 import 'localita.dart';
@@ -37,7 +41,7 @@ class _VerticalListState extends State<VerticalList> with UiLoggy {
     if (!_scrollController.hasClients) return false;
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.offset;
-    return currentScroll >= (maxScroll * 0.99);
+    return currentScroll >= (maxScroll);
   }
 
   void _onScroll() {
@@ -64,20 +68,25 @@ class _VerticalListState extends State<VerticalList> with UiLoggy {
 
   @override
   Widget build(BuildContext context) {
+    bool hasMore = (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMore;
     return Expanded(
         child: ListView.builder(
       controller: _scrollController,
-      key: const PageStorageKey<String>(
-          'Aziende'), //mi tiene la posizione in cui ero
-      itemCount: widget.listaAnnunci.length,
+      // key: const PageStorageKey<String>(
+      //     'Aziende'), //mi tiene la posizione in cui ero
+      itemCount: hasMore
+          ? widget.listaAnnunci.length + 1
+          : widget.listaAnnunci.length, //+ 1 per il bottomLoader
       itemBuilder: (context, index) => SizedBox(
         height: 0.275 * widget.mHeigth,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: CardAzienda(
-            index: index,
-            annuncio: widget.listaAnnunci[index],
-          ),
+          child: index >= widget.listaAnnunci.length
+              ? const BottomLoader()
+              : CardAzienda(
+                  index: index,
+                  annuncio: widget.listaAnnunci[index],
+                ),
         ),
       ),
     ));

@@ -24,12 +24,17 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
 
   reset() {
     emit(AziendeState.initial());
+    (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMore = true;
+    (sl<AziendeRepository>() as AziendeRepositoryImpl).nextCursor = "";
+    fetchAnnunci();
   }
 
   fetchAnnunci() async {
     bool hasMore = (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMore;
-    if (hasMore) {
-      emit(state.copyWith(status: AziendeStateStatus.loading));
+    if (!hasMore) {
+      return;
+    } else {
+      // emit(state.copyWith(status: AziendeStateStatus.loading));
 
       final response = await fetchAnnunciUsecase(const AnnunciAzParams());
       response.fold(
