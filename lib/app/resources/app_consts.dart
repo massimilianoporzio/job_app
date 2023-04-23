@@ -23,4 +23,5 @@ class AppConsts {
     StringConsts.notionTeamFullRemote,
     StringConsts.notionTeamInSede,
   ];
+  static const int cacheDays = 1;
 }

@@ -1,14 +1,46 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:dio/io.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
 import 'package:flutter/services.dart';
 
 import 'package:dio/dio.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
+import 'package:job_app/app/resources/app_consts.dart';
 import 'package:job_app/app/resources/string_constants.dart';
 import 'package:job_app/core/log/api_client_logger.dart';
+
+import '../../../app/tools/paths/app_paths.dart';
 
 class DioClient with ApiClientLoggy {
   static Future<Dio> createDio({bool isMock = false}) async {
     final dio = Dio(BaseOptions());
+    dio.interceptors.add(
+      DioCacheInterceptor(
+        options: CacheOptions(
+          store: HiveCacheStore(AppPathProvider.path),
+          policy: CachePolicy.refreshForceCache,
+          hitCacheOnErrorExcept: [],
+          maxStale: const Duration(
+            days: AppConsts.cacheDays,
+          ),
+          //increase number of days for loger cache
+          priority: CachePriority.high,
+          allowPostMethod: true,
+        ),
+      ),
+    );
+    //this is for avoiding certificates error cause by dio
+    //https://issueexplorer.com/issue/flutterchina/dio/1285
+
+    (dio.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate =
+        (HttpClient client) {
+      client.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      return client;
+    };
+
     dio.options.headers["authorization"] = StringConsts.authToken;
     dio.options.headers["Notion-Version"] = "2022-06-28";
     if (isMock) {
