@@ -21,6 +21,9 @@ class DioClient with ApiClientLoggy {
         options: CacheOptions(
           store: HiveCacheStore(AppPathProvider.path),
           policy: CachePolicy.refreshForceCache,
+          keyBuilder: (request) {
+            return request.uri.toString();
+          },
           hitCacheOnErrorExcept: [],
           maxStale: const Duration(
             days: AppConsts.cacheDays,
