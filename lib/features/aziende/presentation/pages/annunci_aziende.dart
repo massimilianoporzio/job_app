@@ -6,6 +6,7 @@ import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import '../../../../app/presentation/widgets/certain_error.dart';
 import '../../../../app/presentation/widgets/no_connection.dart';
+import '../../../../core/domain/entities/annuncio.dart';
 import '../cubit/annunci/aziende_cubit.dart';
 
 import '../widgets/aziende_search_bar.dart';
@@ -41,20 +42,8 @@ class _AnnunciAziendeState extends State<AnnunciAziende> {
     //salvo larghezza e altezza
     var mWidth = mSize.width; //Larghezza
     var mHeight = mSize.height; //Altezza
-    return BlocConsumer<AziendeCubit, AziendeState>(
-      listener: (context, state) {
-        if (state.status == AziendeStateStatus.loading) {
-          if (state.listaAnnunci.isNotEmpty) {
-            setState(() {
-              _isLoadingNext = true;
-            });
-          }
-        } else {
-          setState(() {
-            _isLoadingNext = false;
-          });
-        }
-      },
+    var orientation = MediaQuery.of(context).orientation;
+    return BlocBuilder<AziendeCubit, AziendeState>(
       builder: (context, state) {
         switch (state.status) {
           case AziendeStateStatus.error:
@@ -89,52 +78,87 @@ class _AnnunciAziendeState extends State<AnnunciAziende> {
             }
 
           case AziendeStateStatus.loaded:
-            return OrientationBuilder(
-              builder: (context, orientation) => Container(
-                // color: Colors.lime,
-                child: Column(
-                  children: [
-                    const AziendeSearchBar(),
-                    SizedBox(
-                      height: orientation == Orientation.landscape ? 8 : 8,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if (orientation == Orientation.portrait)
-                          VerticalStats(
-                            mWidth: mWidth,
-                            mHeight: mHeight,
-                          )
-                        else
-                          HorizontalStats(
-                            mWidth: mWidth,
-                            mHeigth: mHeight,
-                          ),
-                        if (orientation == Orientation.landscape)
-                          HorizontalList(
-                            mHeigth: mHeight,
-                            listaAnnunci: state.listaAnnunci,
-                          )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    if (orientation == Orientation.portrait)
-                      VerticalList(
-                        mHeigth: mHeight,
-                        listaAnnunci: state.listaAnnunci,
-                      ),
-                  ],
+            if (orientation == Orientation.landscape)
+              return SingleChildScrollView(
+                child: Container(
+                  // color: Colors.lime,
+                  child: MainContent(
+                    orientation: orientation,
+                    mWidth: mWidth,
+                    mHeight: mHeight,
+                    lista: state.listaAnnunci,
+                  ),
                 ),
-              ),
-            );
+              );
+            else
+              return Container(
+                // color: Colors.lime,
+                child: MainContent(
+                  orientation: orientation,
+                  mWidth: mWidth,
+                  mHeight: mHeight,
+                  lista: state.listaAnnunci,
+                ),
+              );
           default:
             return const SizedBox.shrink();
         }
       },
+    );
+  }
+}
+
+class MainContent extends StatelessWidget {
+  const MainContent(
+      {super.key,
+      required this.orientation,
+      required this.mWidth,
+      required this.mHeight,
+      required this.lista});
+
+  final Orientation orientation;
+  final double mWidth;
+  final double mHeight;
+  final List<Annuncio> lista;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const AziendeSearchBar(),
+        SizedBox(
+          height: orientation == Orientation.landscape ? 8 : 8,
+        ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (orientation == Orientation.portrait)
+              VerticalStats(
+                mWidth: mWidth,
+                mHeight: mHeight,
+              )
+            else
+              HorizontalStats(
+                mWidth: mWidth,
+                mHeigth: mHeight,
+              ),
+            if (orientation == Orientation.landscape)
+              HorizontalList(
+                mHeigth: mHeight,
+                listaAnnunci: lista,
+              )
+          ],
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        if (orientation == Orientation.portrait)
+          VerticalList(
+            mHeigth: mHeight,
+            listaAnnunci: lista,
+          ),
+      ],
     );
   }
 }
