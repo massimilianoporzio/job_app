@@ -17,4 +17,12 @@ class AnnunciAzParams extends Equatable {
 
   @override
   List<Object?> get props => [searchTerm];
+
+  AnnunciAzParams copyWith({
+    String? searchTerm,
+  }) {
+    return AnnunciAzParams(
+      searchTerm: searchTerm ?? this.searchTerm,
+    );
+  }
 }

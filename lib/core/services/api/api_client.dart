@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dio/io.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
-import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
 import 'package:flutter/services.dart';
 
 import 'package:dio/dio.dart';
@@ -11,7 +10,6 @@ import 'package:job_app/app/resources/app_consts.dart';
 import 'package:job_app/app/resources/string_constants.dart';
 import 'package:job_app/core/log/api_client_logger.dart';
 
-import '../../../app/tools/paths/app_paths.dart';
 
 class DioClient with ApiClientLoggy {
   static Future<Dio> createDio({bool isMock = false}) async {
