@@ -9,6 +9,7 @@ import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import '../../../../app/presentation/widgets/certain_error.dart';
 import '../../../../app/presentation/widgets/no_connection.dart';
 
+import '../cubit/cubit/aziende_filter_cubit.dart';
 import '../widgets/horizontal_list_aziende.dart';
 import '../widgets/horizontal_stats.dart';
 import '../widgets/vertical_list_aziende.dart';
@@ -27,6 +28,7 @@ class AnnunciAziende extends StatefulWidget {
 
 class _AnnunciAziendeState extends State<AnnunciAziende> {
   late bool _isLoadingNext;
+
   @override
   void initState() {
     super.initState();

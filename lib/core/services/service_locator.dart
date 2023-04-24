@@ -14,6 +14,7 @@ import 'package:job_app/features/aziende/data/repositories/aziende_repository_im
 import 'package:job_app/features/aziende/domain/repositories/aziende_repository.dart';
 import 'package:job_app/features/aziende/domain/usecases/fetch_all_annunci.dart';
 import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
+import 'package:job_app/features/aziende/presentation/cubit/cubit/aziende_filter_cubit.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -50,6 +51,9 @@ Future<void> init() async {
 
   //bottom navigation cubit
   sl.registerFactory<NavigationCubit>(() => NavigationCubit());
+
+  //filtri e ricerca per aziende
+  sl.registerFactory<AziendeFilterCubit>(() => AziendeFilterCubit());
 
   //annunci anziende cubit
   sl.registerFactory<AziendeCubit>(() => AziendeCubit(

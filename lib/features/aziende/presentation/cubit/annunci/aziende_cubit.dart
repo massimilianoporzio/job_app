@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,7 +31,8 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
     fetchAnnunci();
   }
 
-  fetchAnnunci() async {
+  fetchAnnunci([String searchTerm = ""]) async {
+    loggy.info("IL TERMINE DI RICERCA è: $searchTerm");
     bool hasMore = (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMore;
     if (!hasMore) {
       return;
