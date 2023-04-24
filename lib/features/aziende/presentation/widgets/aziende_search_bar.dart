@@ -158,7 +158,7 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
                         context: context,
                         builder: (context) {
                           return Container(
-                              color: Colors.amber,
+                              // color: Colors.amber,
                               height: MediaQuery.of(context).size.height,
                               child: BlocBuilder<DarkModeCubit, DarkModeState>(
                                 builder: (context, themeState) {
@@ -172,24 +172,39 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
                                                 MainAxisAlignment.spaceAround,
                                             children: [
                                               FilterChip(
+                                                shadowColor: Colors.transparent,
+                                                // labelPadding: EdgeInsets.zero,
+                                                materialTapTargetSize:
+                                                    MaterialTapTargetSize
+                                                        .shrinkWrap,
+
                                                 shape: RoundedRectangleBorder(
+                                                    side: BorderSide(
+                                                        color:
+                                                            Colors.transparent),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             3)),
-                                                backgroundColor: Colors.green,
-                                                selectedColor: Colors.green,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                selectedColor:
+                                                    Colors.transparent,
                                                 selected:
                                                     state.juniorSeniorityFilter,
-                                                label: Text(
-                                                  "${Seniority.junior}",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .labelSmall!
-                                                      .copyWith(
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: Colors.black),
+                                                label: FilterSeniorityChip(
+                                                  mode: themeState.mode,
+                                                  seniority: Seniority.junior,
                                                 ),
+                                                // label: Text(
+                                                //   "${Seniority.junior}",
+                                                //   style: Theme.of(context)
+                                                //       .textTheme
+                                                //       .labelSmall!
+                                                //       .copyWith(
+                                                //           fontWeight:
+                                                //               FontWeight.w600,
+                                                //           color: Colors.black),
+                                                // ),
                                                 onSelected: (value) {
                                                   context
                                                       .read<
