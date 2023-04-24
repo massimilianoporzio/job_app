@@ -58,7 +58,7 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: TextField(
-          onChanged: (value) {
+          onSubmitted: (value) {
             setState(() {});
             loggy.debug('utente ha scritto');
             if (_debounce?.isActive ?? false) _debounce?.cancel();

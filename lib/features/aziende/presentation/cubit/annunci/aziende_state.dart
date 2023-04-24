@@ -15,6 +15,8 @@ class AziendeState extends Equatable with BlocLoggy {
   final String? message;
   final AnnuncioList listaAnnunci; //* CON I FILTRI!: è sempre filtrata
 
+  
+
   const AziendeState({
     required this.status,
     this.message,
