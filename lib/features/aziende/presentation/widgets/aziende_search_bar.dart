@@ -1,19 +1,19 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:job_app/app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
-import 'package:job_app/core/domain/entities/seniority_enitity.dart';
-import 'package:job_app/core/domain/enums/seniority.dart';
-import 'package:job_app/core/utils/sound_utils.dart';
-import 'package:job_app/features/aziende/domain/entities/aziende_filter.dart';
-import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
-import 'package:job_app/features/aziende/presentation/widgets/chips.dart';
-import 'package:job_app/features/aziende/presentation/widgets/filter_chips.dart';
 import 'package:loggy/loggy.dart';
 
-import '../cubit/cubit/aziende_filter_cubit.dart';
+import 'package:badges/badges.dart' as badges;
+
+import '../../../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
+import '../../../../core/domain/enums/seniority.dart';
+import '../../../../core/utils/sound_utils.dart';
+import '../../domain/entities/aziende_filter.dart';
+import '../cubit/annunci/aziende_cubit.dart';
+import '../cubit/filters/aziende_filter_cubit.dart';
+import 'filter_chips.dart';
 
 class AziendeSearchBar extends StatefulWidget with UiLoggy {
   const AziendeSearchBar({
@@ -69,6 +69,11 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: TextField(
+          onChanged: (value) {
+            setState(() {});
+            loggy.debug("sto digitando");
+            context.read<AziendeFilterCubit>().setSearchTerm(value);
+          },
           onSubmitted: (value) {
             setState(() {});
             loggy.debug('utente ha scritto');
@@ -119,7 +124,7 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
                   size: orientation == Orientation.landscape ? 20 : 24),
             ),
             suffixIcon: SizedBox(
-              width: 150,
+              width: 180,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Row(
@@ -133,9 +138,15 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
                           ? null
                           : IconButton(
                               onPressed: () {
+                                //pulisco il textfield controller
                                 _searchController.clear();
+                                //tolgo il focus così se ne va la tastiera
+                                FocusManager.instance.primaryFocus?.unfocus();
                                 // Call setState to update the UI
                                 setState(() {});
+                                context
+                                    .read<AziendeFilterCubit>()
+                                    .setSearchTerm("");
                                 // chiamo cubit per lista originaria?
                               },
                               icon: Icon(Icons.clear,
@@ -155,85 +166,10 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
                     IconButton(onPressed: () async {
                       //USO quello che torna da bottomSheet
                       final result = await showModalBottomSheet(
+                        isDismissible: true,
                         context: context,
                         builder: (context) {
-                          return Container(
-                              color: Theme.of(context).colorScheme.background,
-                              height: MediaQuery.of(context).size.height,
-                              child: BlocBuilder<DarkModeCubit, DarkModeState>(
-                                builder: (context, themeState) {
-                                  return BlocBuilder<AziendeFilterCubit,
-                                      AziendeFilterState>(
-                                    builder: (context, state) {
-                                      return ListView(
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              FilterChip(
-                                                side: const BorderSide(
-                                                  color: Colors.transparent,
-                                                  width: 0.0,
-                                                ),
-                                                labelPadding: EdgeInsets.all(4),
-                                                shadowColor: Colors.transparent,
-                                                // labelPadding: EdgeInsets.zero,
-                                                materialTapTargetSize:
-                                                    MaterialTapTargetSize
-                                                        .shrinkWrap,
-
-                                                // shape: RoundedRectangleBorder(
-                                                //     side: BorderSide(
-                                                //         color:
-                                                //             Colors.transparent),
-                                                //     borderRadius:
-                                                //         BorderRadius.circular(
-                                                //             3)),
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                selectedColor:
-                                                    Colors.transparent,
-                                                selected:
-                                                    state.juniorSeniorityFilter,
-                                                label: FilterSeniorityChip(
-                                                  mode: themeState.mode,
-                                                  seniority: Seniority.junior,
-                                                ),
-                                                // label: Text(
-                                                //   "${Seniority.junior}",
-                                                //   style: Theme.of(context)
-                                                //       .textTheme
-                                                //       .labelSmall!
-                                                //       .copyWith(
-                                                //           fontWeight:
-                                                //               FontWeight.w600,
-                                                //           color: Colors.black),
-                                                // ),
-                                                onSelected: (value) {
-                                                  context
-                                                      .read<
-                                                          AziendeFilterCubit>()
-                                                      .setJuniorSeniorityFilter(
-                                                          value);
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                          Center(
-                                            child: ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.of(context)
-                                                      .pop(state);
-                                                },
-                                                child: Text("submit")),
-                                          )
-                                        ],
-                                      );
-                                    },
-                                  );
-                                },
-                              ));
+                          return buildAziendeFilterSheet(context);
                         },
                       );
                       // ).whenComplete(
@@ -243,13 +179,42 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
                     }, icon:
                         BlocBuilder<AziendeFilterCubit, AziendeFilterState>(
                       builder: (context, state) {
-                        return Icon(
-                            state.isEmpty
-                                ? Icons.filter_alt_outlined
-                                : Icons.filter_alt,
-                            // color: Theme.of(context).colorScheme.error,
-                            size:
-                                orientation == Orientation.landscape ? 20 : 24);
+                        return state.isEmpty
+                            ? Icon(Icons.filter_alt_outlined,
+
+                                // color: Theme.of(context).colorScheme.error,
+                                size: orientation == Orientation.landscape
+                                    ? 20
+                                    : 24)
+                            : badges.Badge(
+                                badgeAnimation: badges.BadgeAnimation.scale(
+                                  loopAnimation: !state.isEmpty,
+                                ),
+                                badgeContent: Container(
+                                  margin: const EdgeInsets.all(2),
+                                  child: Text(
+                                    "${state.numberOfActiveFilters}",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w600,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onError),
+                                  ),
+                                ),
+                                position: badges.BadgePosition.topEnd(
+                                    top: -14, end: -10),
+                                badgeStyle: badges.BadgeStyle(
+                                    badgeColor: Colors.red.harmonizeWith(
+                                        Theme.of(context)
+                                            .colorScheme
+                                            .background)),
+                                child: Icon(Icons.filter_alt,
+                                    // color: Theme.of(context).colorScheme.error,
+                                    size: orientation == Orientation.landscape
+                                        ? 20
+                                        : 24),
+                              );
                       },
                     )),
                   ],
@@ -259,6 +224,185 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildAziendeFilterSheet(BuildContext context) {
+    return Container(
+        color: Theme.of(context).colorScheme.background,
+        height: MediaQuery.of(context).size.height,
+        child: BlocBuilder<DarkModeCubit, DarkModeState>(
+          builder: (context, themeState) {
+            return BlocBuilder<AziendeFilterCubit, AziendeFilterState>(
+              builder: (context, state) {
+                return ListView(
+                  padding: const EdgeInsets.all(4),
+                  children: [
+                    if (state.searchTerm.isNotEmpty)
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          SizedBox(
+                            // color: Colors.lime,
+                            width: MediaQuery.of(context).size.width,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  // color: Colors.amber,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: const [
+                                          Icon(Icons.subject),
+                                          Text("Termine di ricerca: "),
+                                          SizedBox(
+                                            width: 8,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                InputChip(
+                                    tooltip: "termine di ricerca",
+                                    onDeleted: () {
+                                      _searchController.clear();
+                                      context
+                                          .read<AziendeFilterCubit>()
+                                          .setSearchTerm("");
+                                    },
+                                    avatar: const Icon(Icons.search),
+                                    visualDensity: const VisualDensity(
+                                        vertical: -4, horizontal: -4),
+                                    label: Text(
+                                      state.searchTerm,
+                                    )),
+                              ],
+                            ),
+                          ),
+                          const Divider(),
+                        ],
+                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: const [
+                        Icon(Icons.business_center),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        Text("Seniority")
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        juniorFilter(context, themeState, state),
+                        midFilter(context, themeState, state),
+                        seniorFilter(context, themeState, state),
+                      ],
+                    ),
+                    Center(
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(state);
+                          },
+                          child: const Text("submit")),
+                    )
+                  ],
+                );
+              },
+            );
+          },
+        ));
+  }
+
+  FilterChip juniorFilter(BuildContext context, DarkModeState themeState,
+      AziendeFilterState state) {
+    return buildFilterChip(
+      context: context,
+      label: FilterSeniorityChip(
+        mode: themeState.mode,
+        seniority: Seniority.junior,
+      ),
+      state: state,
+      selected: state.juniorSeniorityFilter,
+      themeState: themeState,
+      onSelected: (value) {
+        context.read<AziendeFilterCubit>().setJuniorSeniorityFilter(value);
+      },
+    );
+  }
+
+  FilterChip midFilter(BuildContext context, DarkModeState themeState,
+      AziendeFilterState state) {
+    return buildFilterChip(
+      context: context,
+      label: FilterSeniorityChip(
+        mode: themeState.mode,
+        seniority: Seniority.mid,
+      ),
+      state: state,
+      selected: state.midSeniorityFilter,
+      themeState: themeState,
+      onSelected: (value) {
+        context.read<AziendeFilterCubit>().setMidSeniorityFilter(value);
+      },
+    );
+  }
+
+  FilterChip seniorFilter(BuildContext context, DarkModeState themeState,
+      AziendeFilterState state) {
+    return buildFilterChip(
+      context: context,
+      label: FilterSeniorityChip(
+        mode: themeState.mode,
+        seniority: Seniority.senior,
+      ),
+      selected: state.seniorSeniorityFilter,
+      state: state,
+      themeState: themeState,
+      onSelected: (value) {
+        context.read<AziendeFilterCubit>().setSeniorSeniorityFilter(value);
+      },
+    );
+  }
+
+  FilterChip buildFilterChip({
+    required AziendeFilterState state,
+    required DarkModeState themeState,
+    required BuildContext context,
+    required Widget label,
+    required bool selected,
+    required void Function(bool)? onSelected,
+  }) {
+    return FilterChip(
+      side: const BorderSide(
+        color: Colors.transparent,
+        width: 0.0,
+      ),
+      labelPadding: const EdgeInsets.all(4),
+      shadowColor: Colors.transparent,
+
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+
+      backgroundColor: Colors.transparent,
+      selectedColor: Colors.transparent,
+      selected: selected,
+      label: label,
+      // label: Text(
+      //   "${Seniority.junior}",
+      //   style: Theme.of(context)
+      //       .textTheme
+      //       .labelSmall!
+      //       .copyWith(
+      //           fontWeight:
+      //               FontWeight.w600,
+      //           color: Colors.black),
+      // ),
+      onSelected: onSelected,
     );
   }
 }

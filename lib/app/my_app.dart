@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_patterns/connection.dart';
 import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
-import 'package:job_app/features/aziende/presentation/cubit/cubit/aziende_filter_cubit.dart';
+import 'package:job_app/features/aziende/presentation/cubit/filters/aziende_filter_cubit.dart';
 import 'package:loggy/loggy.dart';
 
 import '../core/services/service_locator.dart';

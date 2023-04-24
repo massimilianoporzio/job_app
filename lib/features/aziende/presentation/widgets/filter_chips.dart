@@ -2,7 +2,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../app/resources/color_manager.dart';
-import '../../../../core/domain/entities/seniority_enitity.dart';
 import '../../../../core/domain/enums/seniority.dart';
 
 class FilterSeniorityChip extends StatelessWidget {

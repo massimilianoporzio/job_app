@@ -14,7 +14,8 @@ import 'package:job_app/features/aziende/data/repositories/aziende_repository_im
 import 'package:job_app/features/aziende/domain/repositories/aziende_repository.dart';
 import 'package:job_app/features/aziende/domain/usecases/fetch_all_annunci.dart';
 import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
-import 'package:job_app/features/aziende/presentation/cubit/cubit/aziende_filter_cubit.dart';
+
+import 'package:job_app/features/aziende/presentation/cubit/filters/aziende_filter_cubit.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 

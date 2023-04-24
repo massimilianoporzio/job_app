@@ -2,14 +2,13 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:job_app/features/aziende/presentation/widgets/aziende_search_bar.dart';
-import '../cubit/annunci/aziende_cubit.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import '../../../../app/presentation/widgets/certain_error.dart';
 import '../../../../app/presentation/widgets/no_connection.dart';
+import '../cubit/annunci/aziende_cubit.dart';
 
-import '../cubit/cubit/aziende_filter_cubit.dart';
+import '../widgets/aziende_search_bar.dart';
 import '../widgets/horizontal_list_aziende.dart';
 import '../widgets/horizontal_stats.dart';
 import '../widgets/vertical_list_aziende.dart';
@@ -97,7 +96,7 @@ class _AnnunciAziendeState extends State<AnnunciAziende> {
                   children: [
                     const AziendeSearchBar(),
                     SizedBox(
-                      height: orientation == Orientation.landscape ? 8 : 0,
+                      height: orientation == Orientation.landscape ? 8 : 8,
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -128,7 +127,6 @@ class _AnnunciAziendeState extends State<AnnunciAziende> {
                         mHeigth: mHeight,
                         listaAnnunci: state.listaAnnunci,
                       ),
-                    if (_isLoadingNext) const Text("loading next"),
                   ],
                 ),
               ),

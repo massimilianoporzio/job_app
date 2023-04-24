@@ -165,10 +165,10 @@ class VerticalSplash extends StatelessWidget {
       ),
       alignment: Alignment.center,
       padding: const EdgeInsets.only(top: 40),
-      child: const Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+        children: const [
           MainSplashContent(),
           IconCredit(),
         ],

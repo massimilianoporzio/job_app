@@ -1,26 +1,43 @@
 part of 'aziende_filter_cubit.dart';
 
 class AziendeFilterState extends Equatable {
-  final String? searchTerm;
+  final String searchTerm;
   final bool juniorSeniorityFilter;
   final bool midSeniorityFilter;
   final bool seniorSeniorityFilter;
 
   const AziendeFilterState({
-    this.searchTerm,
+    required this.searchTerm,
     required this.juniorSeniorityFilter,
     required this.midSeniorityFilter,
     required this.seniorSeniorityFilter,
   });
 
-  bool get isEmpty {
+  int get numberOfActiveFilters {
+    int result = 0;
+    if (juniorSeniorityFilter) result++;
+    if (midSeniorityFilter) result++;
+    if (seniorSeniorityFilter) result++;
+    if (searchTerm.isNotEmpty) result++;
+    return result;
+  }
+
+  bool get isSeniorityEmpty {
     if (juniorSeniorityFilter || midSeniorityFilter || seniorSeniorityFilter) {
       return false;
     }
     return true;
   }
 
+  bool get isEmpty {
+    if (!isSeniorityEmpty || searchTerm.isNotEmpty) {
+      return false;
+    }
+    return true;
+  }
+
   factory AziendeFilterState.initial() => const AziendeFilterState(
+      searchTerm: "",
       juniorSeniorityFilter: false,
       midSeniorityFilter: false,
       seniorSeniorityFilter: false);
