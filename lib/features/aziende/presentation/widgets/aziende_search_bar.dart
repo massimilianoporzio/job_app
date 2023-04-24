@@ -158,7 +158,7 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
                         context: context,
                         builder: (context) {
                           return Container(
-                              // color: Colors.amber,
+                              color: Theme.of(context).colorScheme.background,
                               height: MediaQuery.of(context).size.height,
                               child: BlocBuilder<DarkModeCubit, DarkModeState>(
                                 builder: (context, themeState) {
@@ -172,19 +172,24 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
                                                 MainAxisAlignment.spaceAround,
                                             children: [
                                               FilterChip(
+                                                side: const BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 0.0,
+                                                ),
+                                                labelPadding: EdgeInsets.all(4),
                                                 shadowColor: Colors.transparent,
                                                 // labelPadding: EdgeInsets.zero,
                                                 materialTapTargetSize:
                                                     MaterialTapTargetSize
                                                         .shrinkWrap,
 
-                                                shape: RoundedRectangleBorder(
-                                                    side: BorderSide(
-                                                        color:
-                                                            Colors.transparent),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            3)),
+                                                // shape: RoundedRectangleBorder(
+                                                //     side: BorderSide(
+                                                //         color:
+                                                //             Colors.transparent),
+                                                //     borderRadius:
+                                                //         BorderRadius.circular(
+                                                //             3)),
                                                 backgroundColor:
                                                     Colors.transparent,
                                                 selectedColor:
