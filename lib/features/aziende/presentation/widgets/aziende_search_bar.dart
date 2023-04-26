@@ -1,14 +1,18 @@
 import 'dart:async';
 
 import 'package:dynamic_color/dynamic_color.dart';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:job_app/core/domain/enums/contratto.dart';
 import 'package:loggy/loggy.dart';
 
 import 'package:badges/badges.dart' as badges;
 
 import '../../../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
 import '../../../../core/domain/enums/seniority.dart';
+import '../../../../core/domain/enums/team.dart';
 import '../../../../core/utils/sound_utils.dart';
 import '../../domain/entities/aziende_filter.dart';
 import '../cubit/annunci/aziende_cubit.dart';
@@ -36,7 +40,9 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
 
   Future<void> _doSearch(BuildContext context) {
     loggy.debug("...TRIGGER SEARCH on Notion...");
-    context.read<AziendeCubit>().fetchAnnunci(_searchController.text);
+    context
+        .read<AziendeCubit>()
+        .fetchAnnunci(searchTerm: _searchController.text);
     return Future.value();
   }
 
@@ -175,7 +181,13 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
                       // ).whenComplete(
                       //   () {},
                       // );
+                      FocusManager.instance.primaryFocus?.unfocus();
                       loggy.info("result is $result");
+
+                      if (result != null) {
+                        //TODO FARE LA RICERCA SUL SERVER!
+                        context.read<AziendeCubit>().fetchAnnunci();
+                      }
                     }, icon:
                         BlocBuilder<AziendeFilterCubit, AziendeFilterState>(
                       builder: (context, state) {
@@ -238,6 +250,21 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
                 return ListView(
                   padding: const EdgeInsets.all(4),
                   children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text("reset filtri"),
+                        IconButton(
+                            onPressed: () {
+                              context.read<AziendeFilterCubit>().resetFiltri();
+                            },
+                            icon: Icon(
+                              Icons.close,
+                              color: Colors.red.harmonizeWith(
+                                  Theme.of(context).colorScheme.background),
+                            ))
+                      ],
+                    ),
                     if (state.searchTerm.isNotEmpty)
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -274,7 +301,12 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
                                           .read<AziendeFilterCubit>()
                                           .setSearchTerm("");
                                     },
-                                    avatar: const Icon(Icons.search),
+                                    avatar: Icon(
+                                      Icons.search,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onBackground,
+                                    ),
                                     visualDensity: const VisualDensity(
                                         vertical: -4, horizontal: -4),
                                     label: Text(
@@ -291,9 +323,10 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
                       children: const [
                         Icon(Icons.business_center),
                         SizedBox(
-                          width: 4,
+                          width: 8,
                         ),
-                        Text("Seniority")
+                        Text("Seniority",
+                            style: TextStyle(fontWeight: FontWeight.w600))
                       ],
                     ),
                     Row(
@@ -304,12 +337,57 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
                         seniorFilter(context, themeState, state),
                       ],
                     ),
+                    const Divider(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: const [
+                        Icon(Icons.receipt_long),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text("Contratto",
+                            style: TextStyle(fontWeight: FontWeight.w600))
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        fullTimeFilter(context, themeState, state),
+                        partTimeFilter(context, themeState, state),
+                      ],
+                    ),
+                    const Divider(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: const [
+                        Icon(Icons.home_work),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text("Team",
+                            style: TextStyle(fontWeight: FontWeight.w600))
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        inSedeFilter(context, themeState, state),
+                        ibridoFilter(context, themeState, state),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        fullRemoteFilter(context, themeState, state),
+                      ],
+                    ),
+                    const Divider(),
                     Center(
                       child: ElevatedButton(
                           onPressed: () {
                             Navigator.of(context).pop(state);
                           },
-                          child: const Text("submit")),
+                          child: const Text("filtra gli annunci")),
                     )
                   ],
                 );
@@ -317,6 +395,78 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
             );
           },
         ));
+  }
+
+  FilterChip inSedeFilter(BuildContext context, DarkModeState themeState,
+      AziendeFilterState state) {
+    return buildFilterChip(
+      state: state,
+      themeState: themeState,
+      context: context,
+      label: FilterTeamChip(team: Team.inSede, mode: themeState.mode),
+      selected: state.inSedeFilter,
+      onSelected: (value) {
+        context.read<AziendeFilterCubit>().setInSedeFilter(value);
+      },
+    );
+  }
+
+  FilterChip ibridoFilter(BuildContext context, DarkModeState themeState,
+      AziendeFilterState state) {
+    return buildFilterChip(
+      state: state,
+      themeState: themeState,
+      context: context,
+      label: FilterTeamChip(team: Team.ibrido, mode: themeState.mode),
+      selected: state.ibridoFilter,
+      onSelected: (value) {
+        context.read<AziendeFilterCubit>().setIbridoFilter(value);
+      },
+    );
+  }
+
+  FilterChip fullRemoteFilter(BuildContext context, DarkModeState themeState,
+      AziendeFilterState state) {
+    return buildFilterChip(
+      state: state,
+      themeState: themeState,
+      context: context,
+      label: FilterTeamChip(team: Team.fullRemote, mode: themeState.mode),
+      selected: state.fullRemoteFilter,
+      onSelected: (value) {
+        context.read<AziendeFilterCubit>().setFullRemoteilter(value);
+      },
+    );
+  }
+
+  FilterChip fullTimeFilter(BuildContext context, DarkModeState themeState,
+      AziendeFilterState state) {
+    return buildFilterChip(
+      state: state,
+      themeState: themeState,
+      context: context,
+      label: FilterContrattoChip(
+          contratto: Contratto.fullTime, mode: themeState.mode),
+      selected: state.fullTimeFilter,
+      onSelected: (value) {
+        context.read<AziendeFilterCubit>().setFullTimeFilter(value);
+      },
+    );
+  }
+
+  FilterChip partTimeFilter(BuildContext context, DarkModeState themeState,
+      AziendeFilterState state) {
+    return buildFilterChip(
+      state: state,
+      themeState: themeState,
+      context: context,
+      label: FilterContrattoChip(
+          contratto: Contratto.partTime, mode: themeState.mode),
+      selected: state.partTimeFilter,
+      onSelected: (value) {
+        context.read<AziendeFilterCubit>().setPartTimeFilter(value);
+      },
+    );
   }
 
   FilterChip juniorFilter(BuildContext context, DarkModeState themeState,
@@ -385,7 +535,7 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
       ),
       labelPadding: const EdgeInsets.all(4),
       shadowColor: Colors.transparent,
-
+      visualDensity: const VisualDensity(vertical: -4, horizontal: -4),
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
 
       backgroundColor: Colors.transparent,

@@ -14,18 +14,24 @@ class AziendeState extends Equatable with BlocLoggy {
   final AziendeStateStatus status;
   final String? message;
   final AnnuncioAziendaList listaAnnunci; //* CON I FILTRI!: è sempre filtrata
+  final AnnuncioAziendaList
+      listaAnnunciNoFilter; //* CON I FILTRI!: è sempre filtrata
 
   const AziendeState({
     required this.status,
     this.message,
     required this.listaAnnunci,
+    required this.listaAnnunciNoFilter,
   });
 
   @override
   List<Object?> get props => [status, message, listaAnnunci];
 
-  factory AziendeState.initial() =>
-      const AziendeState(status: AziendeStateStatus.initial, listaAnnunci: []);
+  factory AziendeState.initial() => const AziendeState(
+        status: AziendeStateStatus.initial,
+        listaAnnunci: [],
+        listaAnnunciNoFilter: [],
+      );
 
   String get numeroAnnunciRecenti {
     if (listaAnnunci.isEmpty) {
@@ -60,12 +66,14 @@ class AziendeState extends Equatable with BlocLoggy {
     AziendeStateStatus? status,
     String? message,
     AnnuncioAziendaList? listaAnnunci,
+    AnnuncioAziendaList? listaAnnunciNoFilter,
   }) {
     return AziendeState(
-      status: status ?? this.status,
-      message: message ?? this.message,
-      listaAnnunci: listaAnnunci ?? this.listaAnnunci,
-    );
+        status: status ?? this.status,
+        message: message ?? this.message,
+        listaAnnunci: listaAnnunci ?? this.listaAnnunci,
+        listaAnnunciNoFilter:
+            listaAnnunciNoFilter ?? this.listaAnnunciNoFilter);
   }
 }
 

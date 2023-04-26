@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:job_app/core/domain/usecases/base_usecase.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -61,7 +62,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
 
   @override
   Future<NotionResponseDTO> fetchProssimaPaginaAnnunci(
-      String startCursor) async {
+      String startCursor, AnnunciAzParams params) async {
     List<AnnuncioAziendaModel> listaAnnunci = [];
     try {
       Map<String, dynamic> payload = {
@@ -107,7 +108,10 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
   }
 
   @override
-  Future<NotionResponseDTO> fetchPrimaPaginaAnnunci() async {
+  Future<NotionResponseDTO> fetchPrimaPaginaAnnunci(
+      AnnunciAzParams params) async {
+    //TODO DEVO USARE I PARAMS
+    //*searchTerm in OR con i FILTRI (a loro volta tutti in OR)
     bool hasMore = true;
     String? nextCursor;
     List<AnnuncioAziendaModel> listaAnnunci = [];

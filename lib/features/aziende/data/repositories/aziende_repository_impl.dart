@@ -29,15 +29,15 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
   Future<Either<Failure, AnnuncioAziendaList>> fetchAnnunciAziende(
       AnnunciAzParams params) async {
     loggy.debug("REPO: recupero TUTTI gli annunci");
-
+    //TODO devo usare params!
     try {
       late NotionResponseDTO notionResponse;
       // final NotionResponseDTO notionResponse = await remoteDS.fetchAnnunci();
       if (hasMore) {
         notionResponse = nextCursor.isEmpty
-            ? await remoteDS.fetchPrimaPaginaAnnunci()
-            : await remoteDS
-                .fetchProssimaPaginaAnnunci(nextCursor); //CON PAGINAZIONE
+            ? await remoteDS.fetchPrimaPaginaAnnunci(params)
+            : await remoteDS.fetchProssimaPaginaAnnunci(
+                nextCursor, params); //CON PAGINAZIONE
         //USO LA RISPOSTA PER AGGIORNARE STARTCURSOR e HASNEXT
         loggy.debug("notionResponse is: $notionResponse");
         if (notionResponse.hasMore) {

@@ -42,7 +42,18 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
     fetchAnnunci();
   }
 
-  fetchAnnunci([String searchTerm = "", String? annuncioId]) async {
+  fetchAnnunci(
+      //TODO usare params
+      {String searchTerm = "",
+      bool juniorSeniorityFilter = false,
+      bool midSeniorityFilter = false,
+      bool seniorSeniorityFilter = false,
+      bool fullTimeFilter = false,
+      bool partTimeFilter = false,
+      bool inSedeFilter = false,
+      bool ibridoFilter = false,
+      bool fullRemoteFilter = false,
+      String? annuncioId}) async {
     loggy.info("IL TERMINE DI RICERCA è: $searchTerm");
     bool hasMore = (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMore;
 
@@ -53,6 +64,14 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
       //costruiscio annunciAzParams
       AnnunciAzParams params = AnnunciAzParams(
         searchTerm: searchTerm,
+        juniorSeniorityFilter: juniorSeniorityFilter,
+        midSeniorityFilter: midSeniorityFilter,
+        seniorSeniorityFilter: seniorSeniorityFilter,
+        fullRemoteFilter: fullRemoteFilter,
+        fullTimeFilter: fullTimeFilter,
+        ibridoFilter: ibridoFilter,
+        inSedeFilter: inSedeFilter,
+        partTimeFilter: partTimeFilter,
       ).copyWith(annuncioId: annuncioId);
       if (state.listaAnnunci.isEmpty) {
         emit(state.copyWith(status: AziendeStateStatus.initial));

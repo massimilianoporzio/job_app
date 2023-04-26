@@ -81,7 +81,7 @@ Future<void> init() async {
 
   //DIO
   sl.registerSingleton<Dio>(await DioClient.createDio(
-      isMock: true)); //is mock è per leggere da un json per fare test
+      isMock: false)); //is mock è per leggere da un json per fare test
   //shared prefs
   SharedPreferences prefs = await SharedPreferences.getInstance();
   sl.registerSingleton<SharedPreferences>(prefs);
