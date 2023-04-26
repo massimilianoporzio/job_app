@@ -9,6 +9,7 @@ import 'package:job_app/core/domain/usecases/base_usecase.dart';
 import 'package:job_app/core/log/bloc_logger.dart';
 import 'package:job_app/features/aziende/domain/usecases/fetch_all_annunci.dart';
 
+import '../../../../../core/domain/entities/annuncio.dart';
 import '../../../../../core/services/service_locator.dart';
 import '../../../data/repositories/aziende_repository_impl.dart';
 import '../../../domain/repositories/aziende_repository.dart';
@@ -21,6 +22,17 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
   AziendeCubit({
     required this.fetchAnnunciUsecase,
   }) : super(AziendeState.initial());
+
+  togglePreferito(String id) {
+    final newListaAnnunci = state.listaAnnunci.map((Annuncio annuncio) {
+      if (annuncio.id == id) {
+        return annuncio.copyWith(preferito: !annuncio.preferito);
+      }
+      return annuncio;
+    }).toList();
+    emit(state.copyWith(
+        status: AziendeStateStatus.loaded, listaAnnunci: newListaAnnunci));
+  }
 
   reset() {
     emit(AziendeState.initial());

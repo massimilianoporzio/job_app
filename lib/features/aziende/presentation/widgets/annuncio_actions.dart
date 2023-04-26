@@ -48,13 +48,15 @@ class _AnnuncioActionsState extends State<AnnuncioActions>
           onPressed: () {
             widget.loggy.debug("${widget.annuncio.id} FAVORITO?");
           },
-          icon: const Icon(Icons.bookmark_outline),
+          icon: Icon(widget.annuncio.preferito
+              ? Icons.bookmark
+              : Icons.bookmark_outline),
         ),
         IconButton(
             onPressed: () {
               widget.loggy.debug("VAI AL DETTAGLIO");
               Navigator.of(context).pushNamed(DettaglioAnnunciAziende.routeName,
-                  arguments: AnnuncioAziendeArguments(widget.annuncio));
+                  arguments: AnnuncioAziendeArguments(widget.annuncio.id));
             },
             // icon: const Icon(CupertinoIcons.ellipsis),
             icon: AnimatedIcon(
