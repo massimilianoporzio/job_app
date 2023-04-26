@@ -8,6 +8,7 @@ import 'package:job_app/core/domain/errors/failures.dart';
 import 'package:job_app/core/domain/usecases/base_usecase.dart';
 import 'package:job_app/core/log/bloc_logger.dart';
 import 'package:job_app/features/aziende/domain/usecases/fetch_all_annunci.dart';
+import 'package:job_app/core/domain/usecases/fetch_annuncio.dart';
 
 import '../../../domain/entities/annuncio_azienda.dart';
 import '../../../../../core/services/service_locator.dart';

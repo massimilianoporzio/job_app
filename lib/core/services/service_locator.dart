@@ -7,6 +7,7 @@ import 'package:get_it/get_it.dart';
 
 import 'package:job_app/app/presentation/cubit/navbar/navigation_cubit.dart';
 import 'package:job_app/app/presentation/cubit/sound/sound_cubit.dart';
+import 'package:job_app/core/presentation/cubit/annuncio_cubit.dart';
 import 'package:job_app/core/services/api/api_client.dart';
 import 'package:job_app/features/aziende/data/datasources/aziende_datasource.dart';
 import 'package:job_app/features/aziende/data/datasources/aziende_datasource_impl.dart';
@@ -21,6 +22,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
 import '../../app/tools/connection/connectivity_plus_repository.dart';
+import '../domain/usecases/fetch_annuncio.dart';
 
 final sl = GetIt.instance;
 
@@ -42,6 +44,8 @@ Future<void> init() async {
   sl.registerLazySingleton<FetchAnnunciAzienda>(
       () => FetchAnnunciAzienda(repository: sl()));
 
+  sl.registerLazySingleton<FetchAnnuncio>(() => FetchAnnuncio());
+
   //*BLOCS / CUBITS
 
   //sound cubit
@@ -53,10 +57,14 @@ Future<void> init() async {
   //bottom navigation cubit
   sl.registerFactory<NavigationCubit>(() => NavigationCubit());
 
+  //dettaglio annuncio (Either)
+  sl.registerFactory<AnnuncioCubit>(
+      () => AnnuncioCubit(fetchAnnuncioUsecase: sl<FetchAnnuncio>()));
+
   //filtri e ricerca per aziende
   sl.registerFactory<AziendeFilterCubit>(() => AziendeFilterCubit());
 
-  //annunci anziende cubit
+  //annunci aziende cubit
   sl.registerFactory<AziendeCubit>(() => AziendeCubit(
         fetchAnnunciUsecase: sl<FetchAnnunciAzienda>(),
       ));

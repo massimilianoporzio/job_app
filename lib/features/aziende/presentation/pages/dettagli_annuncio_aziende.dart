@@ -15,22 +15,9 @@ import '../../domain/entities/annuncio_azienda.dart';
 import '../../../../core/services/service_locator.dart';
 import '../../../../core/utils/rich_text_utils.dart';
 
-class DettaglioAnnunciAziende extends StatefulWidget with UiLoggy {
+class DettaglioAnnunciAziende extends StatelessWidget with UiLoggy {
   static const String routeName = "dettaglioAnnuncioAnziende";
   const DettaglioAnnunciAziende({super.key});
-
-  @override
-  State<DettaglioAnnunciAziende> createState() =>
-      _DettaglioAnnunciAziendeState();
-}
-
-class _DettaglioAnnunciAziendeState extends State<DettaglioAnnunciAziende>
-    with UiLoggy {
-  late AnnuncioAzienda annuncio;
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

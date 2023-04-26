@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
+import 'package:job_app/features/freelancers/presentation/widgets/card_freelancer.dart';
 
 import 'package:loggy/loggy.dart';
 
@@ -70,26 +71,27 @@ class _VerticalListState extends State<VerticalList> with UiLoggy {
   Widget build(BuildContext context) {
     bool hasMore = (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMore;
     return Expanded(
-        child: ListView.builder(
-      controller: _scrollController,
-      // key: const PageStorageKey<String>(
-      //     'Aziende'), //mi tiene la posizione in cui ero
-      itemCount: hasMore
-          ? widget.listaAnnunci.length + 1
-          : widget.listaAnnunci.length, //+ 1 per il bottomLoader
-      itemBuilder: (context, index) => SizedBox(
-        height: 0.275 * widget.mHeigth,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: index >= widget.listaAnnunci.length
-              ? const BottomLoader()
-              : CardAzienda(
-                  index: index,
-                  annuncio: widget.listaAnnunci[index],
-                ),
+      child: ListView.builder(
+        controller: _scrollController,
+        // key: const PageStorageKey<String>(
+        //     'Aziende'), //mi tiene la posizione in cui ero
+        itemCount: hasMore
+            ? widget.listaAnnunci.length + 1
+            : widget.listaAnnunci.length, //+ 1 per il bottomLoader
+        itemBuilder: (context, index) => SizedBox(
+          height: 0.275 * widget.mHeigth,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: index >= widget.listaAnnunci.length
+                ? const BottomLoader()
+                : CardAzienda(
+                    index: index,
+                    annuncio: widget.listaAnnunci[index],
+                  ),
+          ),
         ),
       ),
-    ));
+    );
   }
 }
 

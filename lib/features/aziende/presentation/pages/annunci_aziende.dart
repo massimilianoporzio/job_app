@@ -27,12 +27,9 @@ class AnnunciAziende extends StatefulWidget {
 }
 
 class _AnnunciAziendeState extends State<AnnunciAziende> {
-  late bool _isLoadingNext;
-
   @override
   void initState() {
     super.initState();
-    _isLoadingNext = false;
   }
 
   @override
@@ -78,7 +75,7 @@ class _AnnunciAziendeState extends State<AnnunciAziende> {
             }
 
           case AziendeStateStatus.loaded:
-            if (orientation == Orientation.landscape)
+            if (orientation == Orientation.landscape) {
               return SingleChildScrollView(
                 child: Container(
                   // color: Colors.lime,
@@ -90,7 +87,7 @@ class _AnnunciAziendeState extends State<AnnunciAziende> {
                   ),
                 ),
               );
-            else
+            } else {
               return Container(
                 // color: Colors.lime,
                 child: MainContent(
@@ -100,6 +97,7 @@ class _AnnunciAziendeState extends State<AnnunciAziende> {
                   lista: state.listaAnnunci,
                 ),
               );
+            }
           default:
             return const SizedBox.shrink();
         }
