@@ -28,7 +28,7 @@ class VerticalList extends StatefulWidget {
   });
 
   final double mHeigth;
-  final AnnuncioList listaAnnunci;
+  final AnnuncioAziendaList listaAnnunci;
 
   @override
   State<VerticalList> createState() => _VerticalListState();
@@ -95,7 +95,7 @@ class _VerticalListState extends State<VerticalList> with UiLoggy {
 
 class CardAzienda extends StatelessWidget with UiLoggy {
   final int index;
-  final Annuncio annuncio;
+  final AnnuncioAzienda annuncio;
   const CardAzienda({
     super.key,
     required this.index,

@@ -1,9 +1,9 @@
-import 'package:job_app/core/data/models/annuncio_model.dart';
+import '../../../features/aziende/data/models/annuncio_azienda_model.dart';
 
 class NotionResponseDTO {
   bool hasMore;
   String? nextCursor;
-  List<AnnuncioModel> listaAnnunci;
+  List<AnnuncioAziendaModel> listaAnnunci;
 
   factory NotionResponseDTO.empty() => NotionResponseDTO(
         hasMore: false,

@@ -2,5 +2,5 @@ import 'package:job_app/core/domain/entities/rich_text_entity.dart';
 
 import 'annuncio.dart';
 
-typedef AnnuncioList = List<Annuncio>;
+typedef AnnuncioAziendaList = List<AnnuncioAzienda>;
 typedef RichTextList = List<RichTextTextEntity>;

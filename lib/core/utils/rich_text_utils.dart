@@ -79,7 +79,7 @@ void main() async {
   var response = json.decode(input);
   var emojiParser = EmojiParser();
   List results = response['results'];
-  List<Annuncio> listaAnnunci = [];
+  List<AnnuncioAzienda> listaAnnunci = [];
   if (results.isNotEmpty) {
     for (Map<String, dynamic> annuncio in results) {
       final String id = annuncio['id'];
@@ -266,22 +266,22 @@ void main() async {
 
       //*ora creo l'annuncio
 
-      listaAnnunci.add(Annuncio(
-          id: id,
-          titolo: titolo,
-          nomeAzienda: nomeAzienda,
-          descrizioneOfferta: descrizioneOfferta,
-          comeCandidarsi: comeCandidarsi,
-          jobPosted: jobPosted,
-          archived: archived,
-          contratto: contratto,
-          emoji: emoji,
-          localita: localita,
-          qualifica: qualifica,
-          retribuzione: retribuzione,
-          seniority: seniority,
-          team: team,
-          tipoAnnuncio: TipoAnnuncio.aziende));
+      listaAnnunci.add(AnnuncioAzienda(
+        id: id,
+        titolo: titolo,
+        nomeAzienda: nomeAzienda,
+        descrizioneOfferta: descrizioneOfferta,
+        comeCandidarsi: comeCandidarsi,
+        jobPosted: jobPosted,
+        archived: archived,
+        contratto: contratto,
+        emoji: emoji,
+        localita: localita,
+        qualifica: qualifica,
+        retribuzione: retribuzione,
+        seniority: seniority,
+        team: team,
+      ));
     } //fine giro sugli annunci "results"
   } //fine if se result non è vuoto
   logDebug(listaAnnunci);

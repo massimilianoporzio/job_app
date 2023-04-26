@@ -119,7 +119,7 @@ class MainContent extends StatelessWidget {
   final Orientation orientation;
   final double mWidth;
   final double mHeight;
-  final List<Annuncio> lista;
+  final List<AnnuncioAzienda> lista;
 
   @override
   Widget build(BuildContext context) {

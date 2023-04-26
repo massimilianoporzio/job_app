@@ -6,7 +6,8 @@ import '../../../../core/domain/errors/failures.dart';
 import '../../../../core/domain/usecases/base_usecase.dart';
 
 abstract class AziendeRepository {
-  Future<Either<Failure, AnnuncioList>> fetchAnnunciAziende(
+  Future<Either<Failure, AnnuncioAziendaList>> fetchAnnunciAziende(
       AnnunciAzParams params);
-  Future<Either<Failure, Annuncio>> fetchAnnuncio(AnnunciAzParams params);
+  Future<Either<Failure, AnnuncioAzienda>> fetchAnnuncio(
+      AnnunciAzParams params);
 }

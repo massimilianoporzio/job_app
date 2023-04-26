@@ -1,13 +1,14 @@
 import 'package:job_app/core/data/mappers/base_mapper.dart';
 import 'package:job_app/core/data/mappers/rich_text_mapper.dart';
-import 'package:job_app/core/data/models/annuncio_model.dart';
+
 import 'package:job_app/core/domain/entities/annuncio.dart';
 import 'package:job_app/core/domain/entities/typedefs.dart';
 
-import '../../domain/entities/weblink.dart';
-import 'contratto_mapper.dart';
-import 'seniority_mapper.dart';
-import 'team_mapper.dart';
+import '../../../../core/domain/entities/weblink.dart';
+import '../../data/models/annuncio_azienda_model.dart';
+import '../../../../core/data/mappers/contratto_mapper.dart';
+import '../../../../core/data/mappers/seniority_mapper.dart';
+import '../../../../core/data/mappers/team_mapper.dart';
 
 final _teamMapper = TeamMapper();
 final _contrattoMapper = ContrattoMapper();
@@ -15,16 +16,17 @@ final _seniorityMapper = SeniorityMapper();
 
 final _modelToEntityMapper = AnnuncioMapper();
 
-class AnnuncioMapper extends EntityMapper<AnnuncioModel, Annuncio> {
+class AnnuncioMapper
+    extends EntityMapper<AnnuncioAziendaModel, AnnuncioAzienda> {
   @override
-  AnnuncioModel fromEntity(Annuncio entity) {
+  AnnuncioAziendaModel fromEntity(AnnuncioAzienda entity) {
     // TODO: implement fromEntity
     throw UnimplementedError();
   }
 
   @override
-  Annuncio toEntity(AnnuncioModel model) {
-    return Annuncio(
+  AnnuncioAzienda toEntity(AnnuncioAziendaModel model) {
+    return AnnuncioAzienda(
       id: model.id,
       titolo: model.titolo,
       qualifica: model.qualifica,
@@ -45,7 +47,6 @@ class AnnuncioMapper extends EntityMapper<AnnuncioModel, Annuncio> {
       emoji: model.emoji,
       jobPosted: model.jobPosted,
       archived: model.archived,
-      tipoAnnuncio: model.tipoAnnuncio,
       urlAnnuncio: model.urlAnnuncio != null
           ? Weblink(
               content: model.urlAnnuncio!.content, url: model.urlAnnuncio!.url)
@@ -54,7 +55,7 @@ class AnnuncioMapper extends EntityMapper<AnnuncioModel, Annuncio> {
   }
 }
 
-extension AnnuncioExt on List<AnnuncioModel> {
-  AnnuncioList get annuncioList =>
+extension AnnuncioExt on List<AnnuncioAziendaModel> {
+  AnnuncioAziendaList get annuncioList =>
       map((e) => _modelToEntityMapper.toEntity(e)).toList();
 }

@@ -8,7 +8,7 @@ class Localita extends StatelessWidget {
     required this.annuncio,
   });
 
-  final Annuncio annuncio;
+  final AnnuncioAzienda annuncio;
 
   @override
   Widget build(BuildContext context) {

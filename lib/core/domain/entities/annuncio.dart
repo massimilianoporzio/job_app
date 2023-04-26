@@ -8,7 +8,7 @@ import 'team_entity.dart';
 import 'typedefs.dart';
 import 'weblink.dart';
 
-class Annuncio extends Equatable {
+class AnnuncioAzienda extends Equatable {
   final String id;
   final String titolo;
   final String? qualifica;
@@ -25,7 +25,8 @@ class Annuncio extends Equatable {
   final DateTime jobPosted;
   final bool archived;
   final bool preferito;
-  final TipoAnnuncio tipoAnnuncio;
+
+  static const TipoAnnuncio tipoAnnuncio = TipoAnnuncio.aziende;
 
   String get plainDescrizioneOfferta {
     String result = "";
@@ -35,7 +36,7 @@ class Annuncio extends Equatable {
     return result;
   }
 
-  const Annuncio(
+  const AnnuncioAzienda(
       {required this.id,
       required this.titolo,
       this.qualifica,
@@ -51,7 +52,6 @@ class Annuncio extends Equatable {
       required this.jobPosted,
       required this.archived,
       this.preferito = false,
-      required this.tipoAnnuncio,
       this.urlAnnuncio});
 
   @override
@@ -72,12 +72,11 @@ class Annuncio extends Equatable {
       jobPosted,
       archived,
       preferito,
-      tipoAnnuncio,
       urlAnnuncio
     ];
   }
 
-  Annuncio copyWith({
+  AnnuncioAzienda copyWith({
     String? id,
     String? titolo,
     String? qualifica,
@@ -95,7 +94,7 @@ class Annuncio extends Equatable {
     bool? preferito,
     TipoAnnuncio? tipoAnnuncio,
   }) {
-    return Annuncio(
+    return AnnuncioAzienda(
       id: id ?? this.id,
       titolo: titolo ?? this.titolo,
       qualifica: qualifica ?? this.qualifica,
@@ -112,7 +111,6 @@ class Annuncio extends Equatable {
       jobPosted: jobPosted ?? this.jobPosted,
       archived: archived ?? this.archived,
       preferito: preferito ?? this.preferito,
-      tipoAnnuncio: tipoAnnuncio ?? this.tipoAnnuncio,
     );
   }
 }

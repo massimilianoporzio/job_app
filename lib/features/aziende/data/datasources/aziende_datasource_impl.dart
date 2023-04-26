@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:job_app/core/data/mappers/annuncio_mapper.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../app/resources/string_constants.dart';
-import '../../../../core/data/models/annuncio_model.dart';
+import '../models/annuncio_azienda_model.dart';
 import '../../../../core/data/models/notion_response.dart';
 import '../../../../core/domain/errors/exceptions.dart';
 import '../../../../core/log/datasource_logger.dart';
@@ -23,7 +23,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
   Future<NotionResponseDTO> fetchAnnunci() async {
     bool hasMore = true;
     String? nextCursor;
-    List<AnnuncioModel> listaAnnunci = [];
+    List<AnnuncioAziendaModel> listaAnnunci = [];
     try {
       Map<String, dynamic> bodyRequest = {};
 
@@ -61,7 +61,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
   @override
   Future<NotionResponseDTO> fetchProssimaPaginaAnnunci(
       String startCursor) async {
-    List<AnnuncioModel> listaAnnunci = [];
+    List<AnnuncioAziendaModel> listaAnnunci = [];
     try {
       Map<String, dynamic> payload = {
         "page_size":
@@ -109,7 +109,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
   Future<NotionResponseDTO> fetchPrimaPaginaAnnunci() async {
     bool hasMore = true;
     String? nextCursor;
-    List<AnnuncioModel> listaAnnunci = [];
+    List<AnnuncioAziendaModel> listaAnnunci = [];
     try {
       Map<String, dynamic> payload = {
         "page_size":
@@ -149,7 +149,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
   @override
   Future<NotionResponseDTO> fetchAnnuncio(String annuncioId) async {
     try {
-      List<AnnuncioModel> listaAnnunci = [];
+      List<AnnuncioAziendaModel> listaAnnunci = [];
       final Response response =
           await dio.post(StringConsts.baseUrlPage + annuncioId, data: {});
 

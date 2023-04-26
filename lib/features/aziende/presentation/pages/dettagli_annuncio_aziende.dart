@@ -21,9 +21,22 @@ class AnnuncioAziendeArguments {
   AnnuncioAziendeArguments(this.annuncioId);
 }
 
-class DettaglioAnnunciAziende extends StatelessWidget with UiLoggy {
+class DettaglioAnnunciAziende extends StatefulWidget with UiLoggy {
   static const String routeName = "dettaglioAnnuncioAnziende";
   const DettaglioAnnunciAziende({super.key});
+
+  @override
+  State<DettaglioAnnunciAziende> createState() =>
+      _DettaglioAnnunciAziendeState();
+}
+
+class _DettaglioAnnunciAziendeState extends State<DettaglioAnnunciAziende>
+    with UiLoggy {
+  late AnnuncioAzienda annuncio;
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +44,7 @@ class DettaglioAnnunciAziende extends StatelessWidget with UiLoggy {
     final args =
         ModalRoute.of(context)!.settings.arguments as AnnuncioAziendeArguments;
 
-    return BlocSelector<AziendeCubit, AziendeState, Annuncio>(
+    return BlocSelector<AziendeCubit, AziendeState, AnnuncioAzienda>(
       selector: (state) {
         var annuncio = state.listaAnnunci
             .firstWhere((element) => element.id == args.annuncioId);
@@ -289,7 +302,7 @@ class RigaDettaglio extends StatelessWidget {
     required this.valore,
   });
 
-  final Annuncio annuncio;
+  final AnnuncioAzienda annuncio;
 
   @override
   Widget build(BuildContext context) {

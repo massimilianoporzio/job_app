@@ -18,7 +18,7 @@ class HorizontalList extends StatelessWidget {
   const HorizontalList(
       {super.key, required this.mHeigth, required this.listaAnnunci});
   final double mHeigth;
-  final AnnuncioList listaAnnunci;
+  final AnnuncioAziendaList listaAnnunci;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class HorizontalList extends StatelessWidget {
 }
 
 class CardAziendaHor extends StatelessWidget with UiLoggy {
-  final Annuncio annuncio;
+  final AnnuncioAzienda annuncio;
   const CardAziendaHor({
     super.key,
     required this.annuncio,

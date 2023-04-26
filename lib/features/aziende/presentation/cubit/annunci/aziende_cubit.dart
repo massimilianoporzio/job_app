@@ -24,7 +24,7 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
   }) : super(AziendeState.initial());
 
   togglePreferito(String id) {
-    final newListaAnnunci = state.listaAnnunci.map((Annuncio annuncio) {
+    final newListaAnnunci = state.listaAnnunci.map((AnnuncioAzienda annuncio) {
       if (annuncio.id == id) {
         return annuncio.copyWith(preferito: !annuncio.preferito);
       }
@@ -79,8 +79,8 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
               "hasMore is ${(sl<AziendeRepository>() as AziendeRepositoryImpl).hasMore}");
 
           // loggy.debug(r as List<Annuncio>);
-          //TODO da concatenare solo se non è initial e refresh
-          AnnuncioList listaAggiornata = [...state.listaAnnunci, ...r];
+          //TODO da concatenare solo se non è initial e refresh ?
+          AnnuncioAziendaList listaAggiornata = [...state.listaAnnunci, ...r];
           // loggy.debug("lista aggiornata: $listaAggiornata");
 
           emit(state.copyWith(

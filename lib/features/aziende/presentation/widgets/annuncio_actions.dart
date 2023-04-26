@@ -12,7 +12,7 @@ class AnnuncioActions extends StatefulWidget {
   });
 
   final Loggy<UiLoggy> loggy;
-  final Annuncio annuncio;
+  final AnnuncioAzienda annuncio;
 
   @override
   State<AnnuncioActions> createState() => _AnnuncioActionsState();

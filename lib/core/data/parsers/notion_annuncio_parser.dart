@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
-import 'package:job_app/core/data/models/annuncio_model.dart';
+import 'package:job_app/features/aziende/data/models/annuncio_azienda_model.dart';
 import 'package:job_app/core/domain/errors/exceptions.dart';
 
 import '../../../app/resources/app_consts.dart';
@@ -16,7 +16,7 @@ import '../../domain/enums/seniority.dart';
 import '../../domain/enums/team.dart';
 import '../../domain/enums/tipologia_annunci.dart';
 
-AnnuncioModel parseNotionResponseSingoloAnnuncio(
+AnnuncioAziendaModel parseNotionResponseSingoloAnnuncio(
     Map<String, dynamic> annuncioNotion) {
   try {
     var emojiParser = EmojiParser();
@@ -216,7 +216,7 @@ AnnuncioModel parseNotionResponseSingoloAnnuncio(
         content:
             properties["Nome azienda"]["rich_text"][0]["plain_text"] as String,
         url: urlAzienda);
-    return AnnuncioModel(
+    return AnnuncioAziendaModel(
         id: id,
         titolo: titolo,
         nomeAzienda: nomeAzienda,
@@ -237,8 +237,8 @@ AnnuncioModel parseNotionResponseSingoloAnnuncio(
   }
 }
 
-List<AnnuncioModel> parseNotionResponseListAziende(Response response) {
-  List<AnnuncioModel> listaAnnunci = [];
+List<AnnuncioAziendaModel> parseNotionResponseListAziende(Response response) {
+  List<AnnuncioAziendaModel> listaAnnunci = [];
   try {
     var emojiParser = EmojiParser();
     List annunciNotion = response.data["results"];
@@ -249,8 +249,8 @@ List<AnnuncioModel> parseNotionResponseListAziende(Response response) {
   }
 }
 
-List<AnnuncioModel> parseNotionResponseAziende(Response response) {
-  List<AnnuncioModel> listaAnnunci = [];
+List<AnnuncioAziendaModel> parseNotionResponseAziende(Response response) {
+  List<AnnuncioAziendaModel> listaAnnunci = [];
   try {
     var emojiParser = EmojiParser();
     List annunciNotion = response.data["results"];

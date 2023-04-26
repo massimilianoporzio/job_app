@@ -8,9 +8,9 @@ import 'package:job_app/core/data/models/team_model.dart';
 import 'package:job_app/core/data/models/weblink_model.dart';
 import 'package:job_app/core/domain/enums/tipologia_annunci.dart';
 
-import 'contratto_model.dart';
+import '../../../../core/data/models/contratto_model.dart';
 
-class AnnuncioModel extends Equatable {
+class AnnuncioAziendaModel extends Equatable {
   final String id;
   final String titolo;
   final String? qualifica;
@@ -28,7 +28,7 @@ class AnnuncioModel extends Equatable {
   final bool archived;
   final TipoAnnuncio tipoAnnuncio;
 
-  const AnnuncioModel(
+  const AnnuncioAziendaModel(
       {required this.id,
       required this.titolo,
       this.qualifica,
@@ -89,8 +89,8 @@ class AnnuncioModel extends Equatable {
     return result;
   }
 
-  factory AnnuncioModel.fromJson(Map<String, dynamic> map) {
-    return AnnuncioModel(
+  factory AnnuncioAziendaModel.fromJson(Map<String, dynamic> map) {
+    return AnnuncioAziendaModel(
         id: map['id'] ?? '',
         titolo: map['titolo'] ?? '',
         qualifica: map['qualifica'],

@@ -1,10 +1,11 @@
 import 'package:dartz/dartz.dart';
+import 'package:job_app/features/aziende/domain/entities/annuncio_azienda_mapper.dart';
 import 'package:job_app/core/domain/entities/annuncio.dart';
 
 import 'package:job_app/core/domain/errors/exceptions.dart';
 
-import '../../../../core/data/mappers/annuncio_mapper.dart';
 import '../../../../core/data/models/notion_response.dart';
+
 import '../../../../core/domain/entities/typedefs.dart';
 import '../../../../core/domain/errors/failures.dart';
 import '../../../../core/domain/usecases/base_usecase.dart';
@@ -25,7 +26,7 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
   //IL REPO passa la domain layer entities...qui entrano in gioco
   //i mapper
   @override
-  Future<Either<Failure, AnnuncioList>> fetchAnnunciAziende(
+  Future<Either<Failure, AnnuncioAziendaList>> fetchAnnunciAziende(
       AnnunciAzParams params) async {
     loggy.debug("REPO: recupero TUTTI gli annunci");
 
@@ -60,7 +61,7 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
   }
 
   @override
-  Future<Either<Failure, Annuncio>> fetchAnnuncio(
+  Future<Either<Failure, AnnuncioAzienda>> fetchAnnuncio(
       AnnunciAzParams params) async {
     try {
       if (params.annuncioId != null) {

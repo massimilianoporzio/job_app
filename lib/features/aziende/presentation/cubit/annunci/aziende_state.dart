@@ -13,9 +13,7 @@ enum AziendeStateStatus {
 class AziendeState extends Equatable with BlocLoggy {
   final AziendeStateStatus status;
   final String? message;
-  final AnnuncioList listaAnnunci; //* CON I FILTRI!: è sempre filtrata
-
-  
+  final AnnuncioAziendaList listaAnnunci; //* CON I FILTRI!: è sempre filtrata
 
   const AziendeState({
     required this.status,
@@ -61,7 +59,7 @@ class AziendeState extends Equatable with BlocLoggy {
   AziendeState copyWith({
     AziendeStateStatus? status,
     String? message,
-    AnnuncioList? listaAnnunci,
+    AnnuncioAziendaList? listaAnnunci,
   }) {
     return AziendeState(
       status: status ?? this.status,
