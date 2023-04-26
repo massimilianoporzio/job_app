@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:job_app/features/aziende/domain/entities/annuncio_azienda_mapper.dart';
-import 'package:job_app/core/domain/entities/annuncio.dart';
+import 'package:job_app/features/aziende/domain/entities/annuncio_azienda.dart';
 
 import 'package:job_app/core/domain/errors/exceptions.dart';
 

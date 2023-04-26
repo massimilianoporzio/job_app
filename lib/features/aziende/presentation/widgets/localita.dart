@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/domain/entities/annuncio.dart';
+import '../../domain/entities/annuncio_azienda.dart';
 
 class Localita extends StatelessWidget {
   const Localita({

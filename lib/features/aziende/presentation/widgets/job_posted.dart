@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../core/domain/entities/annuncio.dart';
+import '../../domain/entities/annuncio_azienda.dart';
 
 class JobPosted extends StatelessWidget {
   const JobPosted({

@@ -6,7 +6,7 @@ import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import '../../../../app/presentation/widgets/certain_error.dart';
 import '../../../../app/presentation/widgets/no_connection.dart';
-import '../../../../core/domain/entities/annuncio.dart';
+import '../../domain/entities/annuncio_azienda.dart';
 import '../cubit/annunci/aziende_cubit.dart';
 
 import '../widgets/aziende_search_bar.dart';

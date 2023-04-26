@@ -11,7 +11,7 @@ import 'package:loggy/loggy.dart';
 
 import '../../app/resources/app_consts.dart';
 import '../../app/resources/string_constants.dart';
-import '../domain/entities/annuncio.dart';
+import '../../features/aziende/domain/entities/annuncio_azienda.dart';
 import '../domain/entities/contratto_entity.dart';
 import '../domain/entities/rich_text_annotation.dart';
 import '../domain/entities/rich_text_entity.dart';

@@ -7,7 +7,7 @@ import 'package:loggy/loggy.dart';
 
 import '../../../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
 import '../../../../app/resources/color_manager.dart';
-import '../../../../core/domain/entities/annuncio.dart';
+import '../../domain/entities/annuncio_azienda.dart';
 import '../../../../core/domain/entities/typedefs.dart';
 import 'annuncio_actions.dart';
 import 'chips.dart';

@@ -2,11 +2,11 @@ import 'package:equatable/equatable.dart';
 
 import 'package:job_app/core/domain/enums/tipologia_annunci.dart';
 
-import 'contratto_entity.dart';
-import 'seniority_enitity.dart';
-import 'team_entity.dart';
-import 'typedefs.dart';
-import 'weblink.dart';
+import '../../../../core/domain/entities/contratto_entity.dart';
+import '../../../../core/domain/entities/seniority_enitity.dart';
+import '../../../../core/domain/entities/team_entity.dart';
+import '../../../../core/domain/entities/typedefs.dart';
+import '../../../../core/domain/entities/weblink.dart';
 
 class AnnuncioAzienda extends Equatable {
   final String id;
@@ -26,7 +26,7 @@ class AnnuncioAzienda extends Equatable {
   final bool archived;
   final bool preferito;
 
-  static const TipoAnnuncio tipoAnnuncio = TipoAnnuncio.aziende;
+  final TipoAnnuncio tipoAnnuncio = TipoAnnuncio.aziende;
 
   String get plainDescrizioneOfferta {
     String result = "";

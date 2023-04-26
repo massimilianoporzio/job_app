@@ -10,16 +10,10 @@ import 'package:loggy/loggy.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
-import '../../../../core/domain/entities/annuncio.dart';
+import '../../../../core/domain/entities/annuncio_args.dart';
+import '../../domain/entities/annuncio_azienda.dart';
 import '../../../../core/services/service_locator.dart';
 import '../../../../core/utils/rich_text_utils.dart';
-
-class AnnuncioAziendeArguments {
-  // final Annuncio annuncio;
-  final String annuncioId;
-
-  AnnuncioAziendeArguments(this.annuncioId);
-}
 
 class DettaglioAnnunciAziende extends StatefulWidget with UiLoggy {
   static const String routeName = "dettaglioAnnuncioAnziende";
@@ -42,7 +36,7 @@ class _DettaglioAnnunciAziendeState extends State<DettaglioAnnunciAziende>
   Widget build(BuildContext context) {
     final mode = context.read<DarkModeCubit>().state.mode;
     final args =
-        ModalRoute.of(context)!.settings.arguments as AnnuncioAziendeArguments;
+        ModalRoute.of(context)!.settings.arguments as AnnuncioArguments;
 
     return BlocSelector<AziendeCubit, AziendeState, AnnuncioAzienda>(
       selector: (state) {

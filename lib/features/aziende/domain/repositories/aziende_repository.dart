@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:job_app/core/domain/entities/annuncio.dart';
+import 'package:job_app/features/aziende/domain/entities/annuncio_azienda.dart';
 
 import '../../../../core/domain/entities/typedefs.dart';
 import '../../../../core/domain/errors/failures.dart';

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loggy/loggy.dart';
 
-import '../../../../core/domain/entities/annuncio.dart';
+import '../../../../core/domain/entities/annuncio_args.dart';
+import '../../domain/entities/annuncio_azienda.dart';
 import '../pages/dettagli_annuncio_aziende.dart';
 
 class AnnuncioActions extends StatefulWidget {
@@ -57,7 +58,10 @@ class _AnnuncioActionsState extends State<AnnuncioActions>
             onPressed: () {
               widget.loggy.debug("VAI AL DETTAGLIO");
               Navigator.of(context).pushNamed(DettaglioAnnunciAziende.routeName,
-                  arguments: AnnuncioAziendeArguments(widget.annuncio.id));
+                  arguments: AnnuncioArguments(
+                    annuncioId: widget.annuncio.id,
+                    tipoAnnuncio: widget.annuncio.tipoAnnuncio,
+                  ));
             },
             // icon: const Icon(CupertinoIcons.ellipsis),
             icon: AnimatedIcon(

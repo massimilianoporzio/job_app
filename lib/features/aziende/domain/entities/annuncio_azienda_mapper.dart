@@ -1,7 +1,7 @@
 import 'package:job_app/core/data/mappers/base_mapper.dart';
 import 'package:job_app/core/data/mappers/rich_text_mapper.dart';
 
-import 'package:job_app/core/domain/entities/annuncio.dart';
+import 'package:job_app/features/aziende/domain/entities/annuncio_azienda.dart';
 import 'package:job_app/core/domain/entities/typedefs.dart';
 
 import '../../../../core/domain/entities/weblink.dart';
