@@ -3,11 +3,12 @@ import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../app/resources/string_constants.dart';
+import '../parsers/notion_azienda_parser.dart';
 import '../models/annuncio_azienda_model.dart';
 import '../../../../core/data/models/notion_response.dart';
 import '../../../../core/domain/errors/exceptions.dart';
 import '../../../../core/log/datasource_logger.dart';
-import '../../../../core/data/parsers/notion_annuncio_parser.dart';
+
 import 'aziende_datasource.dart';
 
 class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
@@ -32,7 +33,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
       loggy.debug("REPONSE FROM NOTION: $response");
 
       loggy.debug(response.data["next_cursor"]);
-      loggy.debug(response.data[""]);
+
       if (response.data["next_cursor"] != null) {
         nextCursor = response.data["next_cursor"] as String;
       }

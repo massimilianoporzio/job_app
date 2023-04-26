@@ -3,18 +3,18 @@ import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:job_app/features/aziende/data/models/annuncio_azienda_model.dart';
 import 'package:job_app/core/domain/errors/exceptions.dart';
 
-import '../../../app/resources/app_consts.dart';
-import '../../../app/resources/string_constants.dart';
-import '../models/contratto_model.dart';
-import '../models/rich_text_annotation_model.dart';
-import '../models/rich_text_model.dart';
-import '../models/seniority_model.dart';
-import '../models/team_model.dart';
-import '../models/weblink_model.dart';
-import '../../domain/enums/contratto.dart';
-import '../../domain/enums/seniority.dart';
-import '../../domain/enums/team.dart';
-import '../../domain/enums/tipologia_annunci.dart';
+import '../../../../app/resources/app_consts.dart';
+import '../../../../app/resources/string_constants.dart';
+import '../../../../core/data/models/contratto_model.dart';
+import '../../../../core/data/models/rich_text_annotation_model.dart';
+import '../../../../core/data/models/rich_text_model.dart';
+import '../../../../core/data/models/seniority_model.dart';
+import '../../../../core/data/models/team_model.dart';
+import '../../../../core/data/models/weblink_model.dart';
+import '../../../../core/domain/enums/contratto.dart';
+import '../../../../core/domain/enums/seniority.dart';
+import '../../../../core/domain/enums/team.dart';
+import '../../../../core/domain/enums/tipologia_annunci.dart';
 
 AnnuncioAziendaModel parseNotionResponseSingoloAnnuncio(
     Map<String, dynamic> annuncioNotion) {
@@ -196,9 +196,9 @@ AnnuncioAziendaModel parseNotionResponseSingoloAnnuncio(
           properties["Come candidarsi"]["rich_text"][0]["plain_text"] as String,
       url: urlComeCandiarsi,
     ); //fine parsing come candidarsi
-    if (properties['url'] != null) {
-      urlAnnuncio =
-          WebLinkModel(content: properties['url'], url: properties['url']);
+    if (annuncioNotion['url'] != null) {
+      urlAnnuncio = WebLinkModel(
+          content: annuncioNotion['url'], url: annuncioNotion['url']);
     }
     //*LOCALITA
     if (properties.containsKey("Località")) {
@@ -231,6 +231,7 @@ AnnuncioAziendaModel parseNotionResponseSingoloAnnuncio(
         retribuzione: retribuzione,
         seniority: seniority,
         team: team,
+        urlAnnuncio: urlAnnuncio,
         tipoAnnuncio: tipoAnnuncio);
   } catch (e) {
     throw ParsingException();

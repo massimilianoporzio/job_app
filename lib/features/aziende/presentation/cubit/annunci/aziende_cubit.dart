@@ -45,7 +45,8 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
   fetchAnnunci([String searchTerm = "", String? annuncioId]) async {
     loggy.info("IL TERMINE DI RICERCA è: $searchTerm");
     bool hasMore = (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMore;
-    if (!hasMore) {
+
+    if (!hasMore && state.listaAnnunci.isNotEmpty) {
       return;
     } else {
       // emit(state.copyWith(status: AziendeStateStatus.loading));
@@ -53,7 +54,9 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
       AnnunciAzParams params = AnnunciAzParams(
         searchTerm: searchTerm,
       ).copyWith(annuncioId: annuncioId);
-
+      if (state.listaAnnunci.isEmpty) {
+        emit(state.copyWith(status: AziendeStateStatus.initial));
+      }
       final response = await fetchAnnunciUsecase(params);
       response.fold(
         (failure) {
