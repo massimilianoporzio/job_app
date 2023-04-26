@@ -90,9 +90,10 @@ class MyBottomNavBar extends StatelessWidget {
                   },
                   child: const Text(StringConsts.footer1,
                       style: TextStyle(
-                        fontSize: 12,
-                        fontStyle: FontStyle.italic,
-                      )),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          fontStyle: FontStyle.italic,
+                          decoration: TextDecoration.underline)),
                 ),
               ],
             ))
