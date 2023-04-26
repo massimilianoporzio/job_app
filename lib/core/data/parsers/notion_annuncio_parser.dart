@@ -3,18 +3,18 @@ import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:job_app/core/data/models/annuncio_model.dart';
 import 'package:job_app/core/domain/errors/exceptions.dart';
 
-import '../../../../app/resources/app_consts.dart';
-import '../../../../app/resources/string_constants.dart';
-import '../../../../core/data/models/contratto_model.dart';
-import '../../../../core/data/models/rich_text_annotation_model.dart';
-import '../../../../core/data/models/rich_text_model.dart';
-import '../../../../core/data/models/seniority_model.dart';
-import '../../../../core/data/models/team_model.dart';
-import '../../../../core/data/models/weblink_model.dart';
-import '../../../../core/domain/enums/contratto.dart';
-import '../../../../core/domain/enums/seniority.dart';
-import '../../../../core/domain/enums/team.dart';
-import '../../../../core/domain/enums/tipologia_annunci.dart';
+import '../../../app/resources/app_consts.dart';
+import '../../../app/resources/string_constants.dart';
+import '../models/contratto_model.dart';
+import '../models/rich_text_annotation_model.dart';
+import '../models/rich_text_model.dart';
+import '../models/seniority_model.dart';
+import '../models/team_model.dart';
+import '../models/weblink_model.dart';
+import '../../domain/enums/contratto.dart';
+import '../../domain/enums/seniority.dart';
+import '../../domain/enums/team.dart';
+import '../../domain/enums/tipologia_annunci.dart';
 
 AnnuncioModel parseNotionResponseSingoloAnnuncio(
     Map<String, dynamic> annuncioNotion) {
@@ -30,8 +30,18 @@ AnnuncioModel parseNotionResponseSingoloAnnuncio(
     String? retribuzione;
     final List<RichTextModel> descrizioneOfferta = [];
     WebLinkModel comeCandidarsi;
+    WebLinkModel? urlAnnuncio;
     String? localita;
     WebLinkModel nomeAzienda;
+    final TipoAnnuncio tipoAnnuncio;
+
+    if (annuncioNotion["parent"]["database_id"] ==
+        StringConsts.notionDatabaseIdAziende) {
+      tipoAnnuncio = TipoAnnuncio.aziende;
+    } else {
+      tipoAnnuncio = TipoAnnuncio.freelancers;
+    }
+
     if (annuncioNotion.containsKey("icon")) {
       if (annuncioNotion["icon"]["type"] == "emoji") {
         try {
@@ -186,6 +196,10 @@ AnnuncioModel parseNotionResponseSingoloAnnuncio(
           properties["Come candidarsi"]["rich_text"][0]["plain_text"] as String,
       url: urlComeCandiarsi,
     ); //fine parsing come candidarsi
+    if (properties['url'] != null) {
+      urlAnnuncio =
+          WebLinkModel(content: properties['url'], url: properties['url']);
+    }
     //*LOCALITA
     if (properties.containsKey("Località")) {
       if ((properties["Località"]["rich_text"] as List).isNotEmpty) {
@@ -217,7 +231,19 @@ AnnuncioModel parseNotionResponseSingoloAnnuncio(
         retribuzione: retribuzione,
         seniority: seniority,
         team: team,
-        tipoAnnuncio: TipoAnnuncio.aziende);
+        tipoAnnuncio: tipoAnnuncio);
+  } catch (e) {
+    throw ParsingException();
+  }
+}
+
+List<AnnuncioModel> parseNotionResponseListAziende(Response response) {
+  List<AnnuncioModel> listaAnnunci = [];
+  try {
+    var emojiParser = EmojiParser();
+    List annunciNotion = response.data["results"];
+
+    return listaAnnunci;
   } catch (e) {
     throw ParsingException();
   }

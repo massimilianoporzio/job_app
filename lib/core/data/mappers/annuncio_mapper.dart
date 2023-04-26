@@ -46,6 +46,10 @@ class AnnuncioMapper extends EntityMapper<AnnuncioModel, Annuncio> {
       jobPosted: model.jobPosted,
       archived: model.archived,
       tipoAnnuncio: model.tipoAnnuncio,
+      urlAnnuncio: model.urlAnnuncio != null
+          ? Weblink(
+              content: model.urlAnnuncio!.content, url: model.urlAnnuncio!.url)
+          : null,
     );
   }
 }

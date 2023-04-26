@@ -7,7 +7,7 @@ import '../../../../core/data/models/annuncio_model.dart';
 import '../../../../core/data/models/notion_response.dart';
 import '../../../../core/domain/errors/exceptions.dart';
 import '../../../../core/log/datasource_logger.dart';
-import '../parsers/notion_aziende_parser.dart';
+import '../../../../core/data/parsers/notion_annuncio_parser.dart';
 import 'aziende_datasource.dart';
 
 class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {

@@ -8,7 +8,7 @@ import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubi
 import 'package:job_app/features/aziende/presentation/widgets/chips.dart';
 import 'package:loggy/loggy.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:share_plus/share_plus.dart';
 import '../../../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
 import '../../../../core/domain/entities/annuncio.dart';
 import '../../../../core/services/service_locator.dart';
@@ -70,17 +70,31 @@ class DettaglioAnnunciAziende extends StatelessWidget with UiLoggy {
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.8,
                           ),
-                        IconButton(
-                            iconSize: 28,
-                            onPressed: () {
-                              loggy.debug("TOGGLE FAVORITO");
-                              context
-                                  .read<AziendeCubit>()
-                                  .togglePreferito(annuncio.id);
-                            },
-                            icon: Icon(annuncio.preferito
-                                ? Icons.bookmark_added
-                                : Icons.bookmark_add_outlined))
+                        Row(
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  loggy.debug("SHARING ANNUNCIO...");
+                                  String textToShare =
+                                      annuncio.urlAnnuncio != null
+                                          ? annuncio.urlAnnuncio!.content
+                                          : annuncio.plainDescrizioneOfferta;
+                                  Share.share(textToShare);
+                                },
+                                icon: const Icon(Icons.share)),
+                            IconButton(
+                                iconSize: 28,
+                                onPressed: () {
+                                  loggy.debug("TOGGLE FAVORITO");
+                                  context
+                                      .read<AziendeCubit>()
+                                      .togglePreferito(annuncio.id);
+                                },
+                                icon: Icon(annuncio.preferito
+                                    ? Icons.bookmark_added
+                                    : Icons.bookmark_add_outlined)),
+                          ],
+                        )
                       ],
                     ),
                     AutoSizeText(

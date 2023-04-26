@@ -19,6 +19,7 @@ class Annuncio extends Equatable {
   final String? retribuzione;
   final RichTextList descrizioneOfferta;
   final Weblink comeCandidarsi;
+  final Weblink? urlAnnuncio;
   final String? localita;
   final String? emoji;
   final DateTime jobPosted;
@@ -34,24 +35,24 @@ class Annuncio extends Equatable {
     return result;
   }
 
-  const Annuncio({
-    required this.id,
-    required this.titolo,
-    this.qualifica,
-    required this.nomeAzienda,
-    this.team,
-    this.contratto,
-    this.seniority,
-    this.retribuzione,
-    required this.descrizioneOfferta,
-    required this.comeCandidarsi,
-    this.localita,
-    this.emoji,
-    required this.jobPosted,
-    required this.archived,
-    this.preferito = false,
-    required this.tipoAnnuncio,
-  });
+  const Annuncio(
+      {required this.id,
+      required this.titolo,
+      this.qualifica,
+      required this.nomeAzienda,
+      this.team,
+      this.contratto,
+      this.seniority,
+      this.retribuzione,
+      required this.descrizioneOfferta,
+      required this.comeCandidarsi,
+      this.localita,
+      this.emoji,
+      required this.jobPosted,
+      required this.archived,
+      this.preferito = false,
+      required this.tipoAnnuncio,
+      this.urlAnnuncio});
 
   @override
   List<Object?> get props {
@@ -72,6 +73,7 @@ class Annuncio extends Equatable {
       archived,
       preferito,
       tipoAnnuncio,
+      urlAnnuncio
     ];
   }
 
@@ -98,12 +100,13 @@ class Annuncio extends Equatable {
       titolo: titolo ?? this.titolo,
       qualifica: qualifica ?? this.qualifica,
       nomeAzienda: nomeAzienda ?? this.nomeAzienda,
-      team: team ?? this.team,
-      contratto: contratto ?? this.contratto,
-      seniority: seniority ?? this.seniority,
+      team: this.team,
+      contratto: this.contratto,
+      seniority: this.seniority,
       retribuzione: retribuzione ?? this.retribuzione,
       descrizioneOfferta: descrizioneOfferta ?? this.descrizioneOfferta,
       comeCandidarsi: comeCandidarsi ?? this.comeCandidarsi,
+      urlAnnuncio: urlAnnuncio,
       localita: localita ?? this.localita,
       emoji: emoji ?? this.emoji,
       jobPosted: jobPosted ?? this.jobPosted,

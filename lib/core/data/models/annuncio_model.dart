@@ -21,29 +21,30 @@ class AnnuncioModel extends Equatable {
   final String? retribuzione;
   final List<RichTextModel> descrizioneOfferta;
   final WebLinkModel comeCandidarsi;
+  final WebLinkModel? urlAnnuncio;
   final String? localita;
   final String? emoji;
   final DateTime jobPosted;
   final bool archived;
   final TipoAnnuncio tipoAnnuncio;
 
-  const AnnuncioModel({
-    required this.id,
-    required this.titolo,
-    this.qualifica,
-    required this.nomeAzienda,
-    this.team,
-    this.contratto,
-    this.seniority,
-    this.retribuzione,
-    required this.descrizioneOfferta,
-    required this.comeCandidarsi,
-    this.localita,
-    this.emoji,
-    required this.jobPosted,
-    required this.archived,
-    required this.tipoAnnuncio,
-  });
+  const AnnuncioModel(
+      {required this.id,
+      required this.titolo,
+      this.qualifica,
+      required this.nomeAzienda,
+      this.team,
+      this.contratto,
+      this.seniority,
+      this.retribuzione,
+      required this.descrizioneOfferta,
+      required this.comeCandidarsi,
+      this.localita,
+      this.emoji,
+      required this.jobPosted,
+      required this.archived,
+      required this.tipoAnnuncio,
+      this.urlAnnuncio});
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
@@ -70,6 +71,9 @@ class AnnuncioModel extends Equatable {
       'descrizioneOfferta': (descrizioneOfferta).map((x) => x.toMap()).toList()
     });
     result.addAll({'comeCandidarsi': (comeCandidarsi).toMap()});
+    if (urlAnnuncio != null) {
+      result.addAll({'urlAnnuncio': urlAnnuncio!.toMap()});
+    }
     result.addAll({'nomeAzienda': (nomeAzienda).toMap()});
     if (localita != null) {
       result.addAll({'localita': localita});
@@ -101,6 +105,9 @@ class AnnuncioModel extends Equatable {
         descrizioneOfferta: List<RichTextModel>.from(
             map['descrizioneOfferta']?.map((x) => RichTextModel.fromJson(x))),
         comeCandidarsi: WebLinkModel.fromJson(map['comeCandidarsi']),
+        urlAnnuncio: map['urlAnnuncio'] != null
+            ? WebLinkModel.fromJson(map['urlAnnuncio'])
+            : null,
         nomeAzienda: WebLinkModel.fromJson(map['nomeAzienda']),
         localita: map['localita'],
         emoji: map['emoji'],
@@ -128,6 +135,7 @@ class AnnuncioModel extends Equatable {
       emoji,
       jobPosted,
       archived,
+      urlAnnuncio
     ];
   }
 }
