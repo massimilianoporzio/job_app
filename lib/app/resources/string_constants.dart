@@ -38,8 +38,11 @@ class StringConsts {
 
   //*DA ENVIRONMENT
   static const String authToken = String.fromEnvironment('NOTION_TOKEN');
+
   static const String baseUrlAziende =
-      String.fromEnvironment('NOTION_DB_AZIENDE');
+      "https://api.notion.com/v1/databases/283d2760f81548f0a7baca4b3e58d7d8/query";
+
+  static const String baseUrlPage = "https://api.notion.com/v1/pages/";
   static const String baseUrlFreelancers = 'https://example.com';
 
   static const String oops = "Uh oh!";

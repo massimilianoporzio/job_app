@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:job_app/core/data/mappers/annuncio_mapper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../app/resources/string_constants.dart';
@@ -24,8 +25,10 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
     String? nextCursor;
     List<AnnuncioModel> listaAnnunci = [];
     try {
+      Map<String, dynamic> bodyRequest = {};
+
       final Response response =
-          await dio.post(StringConsts.baseUrlAziende, data: {});
+          await dio.post(StringConsts.baseUrlAziende, data: bodyRequest);
       loggy.debug("REPONSE FROM NOTION: $response");
 
       loggy.debug(response.data["next_cursor"]);
@@ -136,6 +139,34 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
       if (e.type == DioErrorType.connectionError ||
           e.type == DioErrorType.unknown) {
         throw NetworkException();
+      }
+      rethrow;
+    } on Exception {
+      throw RestApiException();
+    }
+  }
+
+  @override
+  Future<NotionResponseDTO> fetchAnnuncio(String annuncioId) async {
+    try {
+      List<AnnuncioModel> listaAnnunci = [];
+      final Response response =
+          await dio.post(StringConsts.baseUrlPage + annuncioId, data: {});
+
+      loggy.debug("REPONSE FROM NOTION: $response");
+      listaAnnunci = parseNotionResponseAziende(response);
+
+      if (listaAnnunci.length != 1) {
+        throw Exception();
+      }
+      return NotionResponseDTO(listaAnnunci: listaAnnunci);
+    } on DioError catch (e) {
+      if (e.type == DioErrorType.connectionError ||
+          e.type == DioErrorType.unknown) {
+        throw NetworkException();
+      }
+      if (e.response!.statusCode == 404) {
+        throw NoAnnuncioException();
       }
       rethrow;
     } on Exception {

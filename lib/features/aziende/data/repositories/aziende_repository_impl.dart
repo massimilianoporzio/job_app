@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:job_app/core/domain/entities/annuncio.dart';
 
 import 'package:job_app/core/domain/errors/exceptions.dart';
 
@@ -26,7 +27,7 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
   @override
   Future<Either<Failure, AnnuncioList>> fetchAnnunciAziende(
       AnnunciAzParams params) async {
-    loggy.debug("REPO: recupero gli annunci");
+    loggy.debug("REPO: recupero TUTTI gli annunci");
 
     try {
       late NotionResponseDTO notionResponse;
@@ -49,6 +50,35 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
       }
 
       return Right(notionResponse.listaAnnunci.annuncioList);
+    } on NetworkException {
+      return Left(NetworkFailure());
+    } on RestApiException {
+      return Left(ServerFailure());
+    } on Exception {
+      return Left(GenericFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Annuncio>> fetchAnnuncio(
+      AnnunciAzParams params) async {
+    try {
+      if (params.annuncioId != null) {
+        loggy.debug("REPO: recupero l'annuncio con id: ${params.annuncioId}");
+        NotionResponseDTO notionResponse =
+            await remoteDS.fetchAnnuncio(params.annuncioId!);
+
+        if (notionResponse.listaAnnunci.isEmpty) {
+          throw NoAnnuncioException();
+        } else {
+          var annuncioModel = notionResponse.listaAnnunci.first;
+          return Right(AnnuncioMapper().toEntity(annuncioModel));
+        }
+      } else {
+        throw UnimplementedError();
+      }
+    } on NoAnnuncioException {
+      return Left(NoAnnuncioFailure());
     } on NetworkException {
       return Left(NetworkFailure());
     } on RestApiException {

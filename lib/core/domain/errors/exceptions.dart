@@ -23,4 +23,6 @@ class ParsingException implements Exception {}
 
 class CacheException implements Exception {}
 
+class NoAnnuncioException implements Exception {}
+
 class GenericException implements Exception {}

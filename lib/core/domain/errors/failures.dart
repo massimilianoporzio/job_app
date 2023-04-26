@@ -9,3 +9,5 @@ class ParsingFailure extends Failure {}
 class CacheFailure extends Failure {}
 
 class GenericFailure extends Failure {}
+
+class NoAnnuncioFailure extends Failure {}

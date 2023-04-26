@@ -4,4 +4,5 @@ abstract class AziendeDatasource {
   Future<NotionResponseDTO> fetchAnnunci();
   Future<NotionResponseDTO> fetchPrimaPaginaAnnunci();
   Future<NotionResponseDTO> fetchProssimaPaginaAnnunci(String startCursor);
+  Future<NotionResponseDTO> fetchAnnuncio(String annuncioId);
 }

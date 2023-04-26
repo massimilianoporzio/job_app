@@ -46,6 +46,7 @@ class _AnnuncioActionsState extends State<AnnuncioActions>
       children: [
         IconButton(
           onPressed: () {
+            //per ora non lo uso
             widget.loggy.debug("${widget.annuncio.id} FAVORITO?");
           },
           icon: Icon(widget.annuncio.preferito
