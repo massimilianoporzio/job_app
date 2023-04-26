@@ -214,14 +214,21 @@ class DettaglioAnnunciAziende extends StatelessWidget with UiLoggy {
                           ),
                         ),
                         const Divider(),
-                        RigaDettaglio(
-                          annuncio: annuncio,
-                          descrizione: "Descrizione offerta",
-                          iconData: Icons.subject,
-                          valore: const SizedBox.shrink(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.subject),
+                            Text("Descrizione Offerta"),
+                          ],
                         ),
+                        // RigaDettaglio(
+                        //   annuncio: annuncio,
+                        //   descrizione: "Descrizione offerta",
+                        //   iconData: Icons.subject,
+                        //   valore: const SizedBox.shrink(),
+                        // ),
                         const SizedBox(
-                          height: 8,
+                          height: 16,
                         ),
                         Container(
                           padding: const EdgeInsets.all(8),
@@ -305,7 +312,7 @@ class RigaDettaglio extends StatelessWidget {
                   const SizedBox(
                     width: 4,
                   ),
-                  AutoSizeText(descrizione, maxFontSize: 12, maxLines: 2),
+                  AutoSizeText(descrizione, maxFontSize: 12, maxLines: 3),
                 ],
               )),
           Expanded(

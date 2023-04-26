@@ -79,7 +79,7 @@ class _VerticalListState extends State<VerticalList> with UiLoggy {
             ? widget.listaAnnunci.length + 1
             : widget.listaAnnunci.length, //+ 1 per il bottomLoader
         itemBuilder: (context, index) => SizedBox(
-          height: 0.275 * widget.mHeigth,
+          height: 0.30 * widget.mHeigth,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: index >= widget.listaAnnunci.length
