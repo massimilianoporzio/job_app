@@ -11,58 +11,61 @@ class NoConnection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            OrientationBuilder(
-              builder: (context, orientation) => Image.asset(
-                orientation == Orientation.landscape
-                    ? 'assets/images/sfondi/connection_failed-hor.png'
-                    : 'assets/images/sfondi/connection_failed.png',
-                fit: BoxFit.fill,
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
+    return SafeArea(
+      child: Scaffold(
+        extendBody: true,
+        body: SizedBox(
+          height: MediaQuery.of(context).size.height * 0.9,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              OrientationBuilder(
+                builder: (context, orientation) => Image.asset(
+                  orientation == Orientation.landscape
+                      ? 'assets/images/sfondi/connection_failed-hor.png'
+                      : 'assets/images/sfondi/connection_failed.png',
+                  fit: BoxFit.fill,
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                ),
               ),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const Text(
-                  'No Connection',
-                  style: kTitleTextStyle,
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                Text(
-                  'Controlla la tua connessione a Internet e riprova.',
-                  style: kSubtitleTextStyle.copyWith(color: Colors.black),
-                  textAlign: TextAlign.center,
-                ),
-                BlocBuilder<NavigationCubit, NavigationState>(
-                  builder: (context, state) {
-                    return ReusablePrimaryButton(
-                      childText: 'Riprova',
-                      buttonColor: Theme.of(context).colorScheme.error,
-                      childTextColor: Theme.of(context).colorScheme.onError,
-                      onPressed: () {
-                        int pageIndex = state.selectedIndex;
-                        switch (pageIndex) {
-                          case 0:
-                            context.read<AziendeCubit>().fetchAnnunci();
-                            break;
-                          default:
-                        }
-                      },
-                    );
-                  },
-                ),
-              ],
-            ),
-          ],
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const Text(
+                    'No Connection',
+                    style: kTitleTextStyle,
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Text(
+                    'Controlla la tua connessione a Internet e riprova.',
+                    style: kSubtitleTextStyle.copyWith(color: Colors.black),
+                    textAlign: TextAlign.center,
+                  ),
+                  BlocBuilder<NavigationCubit, NavigationState>(
+                    builder: (context, state) {
+                      return ReusablePrimaryButton(
+                        childText: 'Riprova',
+                        buttonColor: Theme.of(context).colorScheme.error,
+                        childTextColor: Theme.of(context).colorScheme.onError,
+                        onPressed: () {
+                          int pageIndex = state.selectedIndex;
+                          switch (pageIndex) {
+                            case 0:
+                              context.read<AziendeCubit>().fetchAnnunci();
+                              break;
+                            default:
+                          }
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
