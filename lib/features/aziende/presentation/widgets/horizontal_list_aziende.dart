@@ -24,7 +24,7 @@ class HorizontalList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
         child: SizedBox(
-      height: 0.45 * mHeigth,
+      height: 0.5 * mHeigth,
       // color: Colors.purple,
       child: ListView.separated(
         key: const PageStorageKey<String>("Aziende hor"),

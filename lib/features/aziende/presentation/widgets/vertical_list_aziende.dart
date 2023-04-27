@@ -42,7 +42,7 @@ class _VerticalListState extends State<VerticalList> with UiLoggy {
     if (!_scrollController.hasClients) return false;
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.offset;
-    return currentScroll >= (maxScroll);
+    return currentScroll >= (maxScroll) - 0.45 * widget.mHeigth;
   }
 
   void _onScroll() {
