@@ -142,9 +142,10 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
       );
     } on DioError catch (e) {
       if (e.type == DioErrorType.connectionError ||
-          e.type == DioErrorType.badResponse ||
           e.type == DioErrorType.unknown) {
         throw NetworkException();
+      } else if (e.type == DioErrorType.badResponse) {
+        throw const ServerException();
       }
       rethrow;
     } on Exception {
