@@ -25,7 +25,8 @@ class AziendeState extends Equatable with BlocLoggy {
   });
 
   @override
-  List<Object?> get props => [status, message, listaAnnunci];
+  List<Object?> get props =>
+      [status, message, listaAnnunci, listaAnnunciNoFilter];
 
   factory AziendeState.initial() => const AziendeState(
         status: AziendeStateStatus.initial,

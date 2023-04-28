@@ -46,7 +46,7 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
     sl<AziendeFilterCubit>().resetFiltri();
 
     if (state.listaAnnunciNoFilter.isNotEmpty) {
-      emit(state.copyWith(
+      emit(AziendeState.initial().copyWith(
           status: AziendeStateStatus.loaded,
           listaAnnunci: state.listaAnnunciNoFilter,
           listaAnnunciNoFilter: [])); //TODO da rivedere
@@ -121,8 +121,7 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
   }
 
   loadAnnunci(AnnunciAzParams params) async {
-    emit(AziendeState.initial()
-        .copyWith(listaAnnunciNoFilter: state.listaAnnunci));
+    emit(AziendeState.initial());
     recuperaAnnunci(params, LoadAnnunciAzienda);
   }
 
