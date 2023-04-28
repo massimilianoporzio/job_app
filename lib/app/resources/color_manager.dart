@@ -1,5 +1,9 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:job_app/core/domain/enums/contratto.dart';
+import 'package:job_app/core/domain/enums/seniority.dart';
+
+import '../../core/domain/enums/team.dart';
 
 class ColorManager {
   static const Color primaryColor = Colors.blueGrey;
@@ -39,4 +43,68 @@ class ColorManager {
   static const Color notionDarkGreen = Color(0xff2b593f);
   static const Color notionDarkBlue = Color(0xff28456c);
   static const Color notionDarkGrey = Color(0xff606b83);
+
+  static getBackgroundColorFromTeam(Team team,
+      {required ThemeMode mode, required BuildContext context}) {
+    switch (team) {
+      case Team.fullRemote:
+        return mode == ThemeMode.dark
+            ? ColorManager.notionDarkPurple
+            : ColorManager.notionLightPurple;
+
+      case Team.ibrido:
+        return mode == ThemeMode.dark
+            ? ColorManager.notionDarkYellow
+            : ColorManager.notionLightYellow;
+
+      case Team.inSede:
+        return mode == ThemeMode.dark
+            ? ColorManager.notionDarkRed
+            : ColorManager.notionLightRed;
+
+      default:
+        return Theme.of(context).colorScheme.primaryContainer;
+    }
+  }
+
+  static getBackgroundColorFromContratto(Contratto contratto,
+      {required ThemeMode mode, required BuildContext context}) {
+    switch (contratto) {
+      case Contratto.fullTime:
+        return mode == ThemeMode.dark
+            ? ColorManager.notionDarkBlue
+            : ColorManager.notionLightBlue;
+
+      case Contratto.partTime:
+        return mode == ThemeMode.dark
+            ? ColorManager.notionDarkGrey
+            : ColorManager.notionLightGrey;
+
+      default:
+        return Theme.of(context).colorScheme.primaryContainer;
+    }
+  }
+
+  static getBackgroundColorFromSeniority(Seniority seniority,
+      {required ThemeMode mode, required BuildContext context}) {
+    switch (seniority) {
+      case Seniority.junior:
+        return mode == ThemeMode.dark
+            ? ColorManager.notionDarkGreen
+            : ColorManager.notionLightGreen;
+
+      case Seniority.mid:
+        return mode == ThemeMode.dark
+            ? ColorManager.notionDarkYellow
+            : ColorManager.notionLightYellow;
+
+      case Seniority.senior:
+        return mode == ThemeMode.dark
+            ? ColorManager.notionDarkRed
+            : ColorManager.notionLightRed;
+
+      default:
+        return Theme.of(context).colorScheme.primaryContainer;
+    }
+  }
 }
