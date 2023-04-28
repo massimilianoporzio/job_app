@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:job_app/core/domain/enums/contratto.dart';
+import 'package:job_app/core/domain/usecases/base_usecase.dart';
 import 'package:loggy/loggy.dart';
 
 import 'package:badges/badges.dart' as badges;
@@ -38,12 +39,11 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
     return Future.value();
   }
 
-  Future<void> _doSearch(BuildContext context) {
+  _doSearch(BuildContext context) async {
     loggy.debug("...TRIGGER SEARCH on Notion...");
-    context
-        .read<AziendeCubit>()
-        .fetchAnnunci(searchTerm: _searchController.text);
-    return Future.value();
+    AnnunciAzParams params =
+        context.read<AziendeFilterCubit>().state.paramsFromState;
+    await context.read<AziendeCubit>().loadAnnunci(params);
   }
 
   Future<void> _refresh(BuildContext context) {

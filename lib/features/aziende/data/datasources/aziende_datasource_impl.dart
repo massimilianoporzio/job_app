@@ -110,7 +110,6 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
   @override
   Future<NotionResponseDTO> fetchPrimaPaginaAnnunci(
       AnnunciAzParams params) async {
-    //TODO DEVO USARE I PARAMS
     //*searchTerm in OR con i FILTRI (a loro volta tutti in OR)
     bool hasMore = true;
     String? nextCursor;
@@ -120,6 +119,25 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
         "page_size":
             2 //per provare la paginazione se no default è 100 per notion
       };
+      //TODO AGG FILTRO SE PARAMS NON è VUOTO
+      if (!params.isEmpty) {
+        var listaFiltri = [];
+        if (params.searchTerm.isNotEmpty) {
+          Map<String, dynamic> descrizioneOffertamMap = {
+            "property": "Descrizione offerta",
+            "rich_text": {"contains": params.searchTerm}
+          };
+
+          listaFiltri
+              .add(descrizioneOffertamMap); //FILTRA NELLA DESCRIZIONE OFFERTA
+          Map<String, dynamic> titoloMap = {
+            "property": "Name",
+            "rich_text": {"contains": params.searchTerm}
+          };
+          listaFiltri.add(titoloMap);
+        }
+        payload['or'] = listaFiltri;
+      }
       final Response response =
           await dio.post(StringConsts.baseUrlAziende, data: payload);
       loggy.debug("REPONSE FROM NOTION: $response");

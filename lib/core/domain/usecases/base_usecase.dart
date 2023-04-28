@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:job_app/features/aziende/presentation/cubit/filters/aziende_filter_cubit.dart';
 
 import '../errors/failures.dart';
 
@@ -12,29 +13,44 @@ class NoParams {}
 class AnnunciAzParams extends Equatable {
   final String? annuncioId;
   //SERVE PER I FILTRI
-  final String? searchTerm;
-  final bool? juniorSeniorityFilter;
-  final bool? midSeniorityFilter;
-  final bool? seniorSeniorityFilter;
-  final bool? fullTimeFilter;
-  final bool? partTimeFilter;
-  final bool? inSedeFilter;
-  final bool? ibridoFilter;
-  final bool? fullRemoteFilter;
+  final String searchTerm;
+  final bool juniorSeniorityFilter;
+  final bool midSeniorityFilter;
+  final bool seniorSeniorityFilter;
+  final bool fullTimeFilter;
+  final bool partTimeFilter;
+  final bool inSedeFilter;
+  final bool ibridoFilter;
+  final bool fullRemoteFilter;
+
+  bool get isEmpty {
+    if (searchTerm.isNotEmpty ||
+        juniorSeniorityFilter ||
+        midSeniorityFilter ||
+        seniorSeniorityFilter ||
+        fullTimeFilter ||
+        partTimeFilter ||
+        inSedeFilter ||
+        ibridoFilter ||
+        fullRemoteFilter) {
+      return false;
+    }
+    return true;
+  }
 
   factory AnnunciAzParams.empty() => const AnnunciAzParams();
 
   const AnnunciAzParams({
     this.annuncioId,
-    this.searchTerm,
-    this.juniorSeniorityFilter,
-    this.midSeniorityFilter,
-    this.seniorSeniorityFilter,
-    this.fullTimeFilter,
-    this.partTimeFilter,
-    this.inSedeFilter,
-    this.ibridoFilter,
-    this.fullRemoteFilter,
+    this.searchTerm = "",
+    this.juniorSeniorityFilter = false,
+    this.midSeniorityFilter = false,
+    this.seniorSeniorityFilter = false,
+    this.fullTimeFilter = false,
+    this.partTimeFilter = false,
+    this.inSedeFilter = false,
+    this.ibridoFilter = false,
+    this.fullRemoteFilter = false,
   });
 
   @override

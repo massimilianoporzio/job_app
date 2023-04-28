@@ -98,19 +98,16 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
     try {
       late NotionResponseDTO notionResponse;
       // final NotionResponseDTO notionResponse = await remoteDS.fetchAnnunci();
-      if (hasMore) {
-        notionResponse =
-            await remoteDS.fetchPrimaPaginaAnnunci(params); //CON PAGINAZIONE
-        //USO LA RISPOSTA PER AGGIORNARE STARTCURSOR e HASNEXT
-        loggy.debug("notionResponse is: $notionResponse");
-        if (notionResponse.hasMore) {
-          nextCursor = notionResponse.nextCursor!;
-        } else {
-          nextCursor = "";
-          hasMore = false;
-        }
+
+      notionResponse =
+          await remoteDS.fetchPrimaPaginaAnnunci(params); //CON PAGINAZIONE
+      //USO LA RISPOSTA PER AGGIORNARE STARTCURSOR e HASNEXT
+      loggy.debug("notionResponse is: $notionResponse");
+      if (notionResponse.hasMore) {
+        nextCursor = notionResponse.nextCursor!;
       } else {
-        notionResponse = NotionResponseDTO.empty();
+        nextCursor = "";
+        hasMore = false;
       }
 
       return Right(notionResponse.listaAnnunci.annuncioList);

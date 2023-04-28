@@ -265,6 +265,12 @@ class _StatBarChartsState extends State<StatBarCharts> {
   }
 
   @override
+  void dispose() {
+    _timer.cancel(); //se no prova a fare build mentre ricerco
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<AziendeCubit, AziendeState>(
       builder: (context, state) {
