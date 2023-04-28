@@ -46,11 +46,9 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
     await context.read<AziendeCubit>().loadAnnunci(params);
   }
 
-  Future<void> _refresh(BuildContext context) {
-    context.read<AziendeCubit>().reset();
+  _refresh(BuildContext context) {
     context.read<AziendeFilterCubit>().reset();
-
-    return Future.value();
+    context.read<AziendeCubit>().reset();
   }
 
   @override

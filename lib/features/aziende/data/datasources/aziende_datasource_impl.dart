@@ -120,10 +120,10 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
       Map<String, dynamic> payload = {
         "page_size":
             2, //per provare la paginazione se no default è 10 per notion
-        "filter": {}
       };
       //TODO AGG FILTRO SE PARAMS NON è VUOTO
       if (!params.isEmpty) {
+        payload["filter"] = {};
         var listaFiltri = [];
         if (params.searchTerm.isNotEmpty) {
           Map<String, dynamic> descrizioneOffertamMap = {
