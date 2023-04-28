@@ -2,6 +2,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:job_app/features/aziende/presentation/cubit/filters/aziende_filter_cubit.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import '../../../../app/presentation/widgets/certain_error.dart';
@@ -152,9 +153,14 @@ class MainContent extends StatelessWidget {
           height: 8,
         ),
         if (orientation == Orientation.portrait)
-          VerticalList(
-            mHeigth: mHeight,
-            listaAnnunci: lista,
+          BlocBuilder<AziendeFilterCubit, AziendeFilterState>(
+            builder: (context, state) {
+              return VerticalList(
+                mHeigth: mHeight,
+                listaAnnunci: lista,
+                params: state.paramsFromState,
+              );
+            },
           ),
       ],
     );

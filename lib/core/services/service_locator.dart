@@ -14,6 +14,7 @@ import 'package:job_app/features/aziende/data/datasources/aziende_datasource_imp
 import 'package:job_app/features/aziende/data/repositories/aziende_repository_impl.dart';
 import 'package:job_app/features/aziende/domain/repositories/aziende_repository.dart';
 import 'package:job_app/features/aziende/domain/usecases/fetch_all_annunci.dart';
+import 'package:job_app/features/aziende/domain/usecases/load_annunci.dart';
 import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
 
 import 'package:job_app/features/aziende/presentation/cubit/filters/aziende_filter_cubit.dart';
@@ -22,6 +23,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
 import '../../app/tools/connection/connectivity_plus_repository.dart';
+import '../../features/aziende/domain/usecases/refresh_annunci.dart';
 import '../domain/usecases/fetch_annuncio.dart';
 
 final sl = GetIt.instance;
@@ -43,6 +45,11 @@ Future<void> init() async {
   //*USECASES
   sl.registerLazySingleton<FetchAnnunciAzienda>(
       () => FetchAnnunciAzienda(repository: sl()));
+
+  sl.registerLazySingleton<LoadAnnunciAzienda>(
+      () => LoadAnnunciAzienda(repository: sl()));
+  sl.registerLazySingleton<RefreshAnnunciAzienda>(
+      () => RefreshAnnunciAzienda(repository: sl()));
 
   sl.registerLazySingleton<FetchAnnuncio>(() => FetchAnnuncio());
 
@@ -67,6 +74,8 @@ Future<void> init() async {
   //annunci aziende cubit
   sl.registerFactory<AziendeCubit>(() => AziendeCubit(
         fetchAnnunciUsecase: sl<FetchAnnunciAzienda>(),
+        loadAnnunciUsecase: sl<LoadAnnunciAzienda>(),
+        refreshAnnunciUsecase: sl<RefreshAnnunciAzienda>(),
       ));
 
   //*third party

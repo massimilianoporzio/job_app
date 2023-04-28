@@ -3,17 +3,18 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
+import 'package:loggy/loggy.dart';
+
+import 'package:job_app/core/domain/usecases/base_usecase.dart';
 import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
 import 'package:job_app/features/freelancers/presentation/widgets/card_freelancer.dart';
 
-import 'package:loggy/loggy.dart';
-
 import '../../../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
 import '../../../../app/resources/color_manager.dart';
-import '../../domain/entities/annuncio_azienda.dart';
 import '../../../../core/domain/entities/typedefs.dart';
 import '../../../../core/services/service_locator.dart';
 import '../../data/repositories/aziende_repository_impl.dart';
+import '../../domain/entities/annuncio_azienda.dart';
 import '../../domain/repositories/aziende_repository.dart';
 import 'annuncio_actions.dart';
 import 'bottom_loader.dart';
@@ -23,13 +24,15 @@ import 'localita.dart';
 
 class VerticalList extends StatefulWidget {
   const VerticalList({
-    super.key,
+    Key? key,
     required this.mHeigth,
     required this.listaAnnunci,
-  });
+    required this.params,
+  }) : super(key: key);
 
   final double mHeigth;
   final AnnuncioAziendaList listaAnnunci;
+  final AnnunciAzParams params;
 
   @override
   State<VerticalList> createState() => _VerticalListState();
@@ -42,12 +45,14 @@ class _VerticalListState extends State<VerticalList> with UiLoggy {
     if (!_scrollController.hasClients) return false;
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.offset;
-    return currentScroll >= (maxScroll) - 0.45 * widget.mHeigth;
+    return currentScroll >= (maxScroll);
   }
 
   void _onScroll() {
     if (_isBottom) {
-      context.read<AziendeCubit>().fetchAnnunci(); //carico altri annunci
+      context
+          .read<AziendeCubit>()
+          .refreshAnnunci(widget.params); //carico altri annunci
     }
   }
 

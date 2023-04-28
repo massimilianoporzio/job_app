@@ -25,6 +25,7 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
   });
   //IL REPO passa la domain layer entities...qui entrano in gioco
   //i mapper
+
   @override
   Future<Either<Failure, AnnuncioAziendaList>> fetchAnnunciAziende(
       AnnunciAzParams params) async {
@@ -80,6 +81,72 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
       }
     } on NoAnnuncioException {
       return Left(NoAnnuncioFailure());
+    } on NetworkException {
+      return Left(NetworkFailure());
+    } on RestApiException {
+      return Left(ServerFailure());
+    } on Exception {
+      return Left(GenericFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, AnnuncioAziendaList>> loadAnnunciAziende(
+      AnnunciAzParams params) async {
+    loggy.debug("REPO: recupero LA PRIMA pagina degli annunci");
+
+    try {
+      late NotionResponseDTO notionResponse;
+      // final NotionResponseDTO notionResponse = await remoteDS.fetchAnnunci();
+      if (hasMore) {
+        notionResponse =
+            await remoteDS.fetchPrimaPaginaAnnunci(params); //CON PAGINAZIONE
+        //USO LA RISPOSTA PER AGGIORNARE STARTCURSOR e HASNEXT
+        loggy.debug("notionResponse is: $notionResponse");
+        if (notionResponse.hasMore) {
+          nextCursor = notionResponse.nextCursor!;
+        } else {
+          nextCursor = "";
+          hasMore = false;
+        }
+      } else {
+        notionResponse = NotionResponseDTO.empty();
+      }
+
+      return Right(notionResponse.listaAnnunci.annuncioList);
+    } on NetworkException {
+      return Left(NetworkFailure());
+    } on RestApiException {
+      return Left(ServerFailure());
+    } on Exception {
+      return Left(GenericFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, AnnuncioAziendaList>> refreshAnnunciAziende(
+      AnnunciAzParams params) async {
+    loggy.debug("REPO: recupero LA PRIMA pagina degli annunci");
+
+    try {
+      late NotionResponseDTO notionResponse;
+      // final NotionResponseDTO notionResponse = await remoteDS.fetchAnnunci();
+      if (hasMore) {
+        notionResponse = await remoteDS.fetchProssimaPaginaAnnunci(
+            nextCursor, params); //CON PAGINAZIONE
+        //USO LA RISPOSTA PER AGGIORNARE STARTCURSOR e HASNEXT
+        loggy.debug("notionResponse is: $notionResponse");
+        if (notionResponse.hasMore) {
+          nextCursor = notionResponse.nextCursor!;
+        } else {
+          nextCursor = "";
+          hasMore = false;
+        }
+      } else {
+        notionResponse = NotionResponseDTO.empty();
+      }
+
+      return Right(notionResponse.listaAnnunci.annuncioList);
     } on NetworkException {
       return Left(NetworkFailure());
     } on RestApiException {

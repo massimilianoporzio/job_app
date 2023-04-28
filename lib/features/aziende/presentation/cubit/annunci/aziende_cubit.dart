@@ -9,6 +9,8 @@ import 'package:job_app/core/domain/usecases/base_usecase.dart';
 import 'package:job_app/core/log/bloc_logger.dart';
 import 'package:job_app/features/aziende/domain/usecases/fetch_all_annunci.dart';
 import 'package:job_app/core/domain/usecases/fetch_annuncio.dart';
+import 'package:job_app/features/aziende/domain/usecases/load_annunci.dart';
+import 'package:job_app/features/aziende/domain/usecases/refresh_annunci.dart';
 
 import '../../../domain/entities/annuncio_azienda.dart';
 import '../../../../../core/services/service_locator.dart';
@@ -19,8 +21,12 @@ part 'aziende_state.dart';
 
 class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
   final FetchAnnunciAzienda fetchAnnunciUsecase;
+  final LoadAnnunciAzienda loadAnnunciUsecase;
+  final RefreshAnnunciAzienda refreshAnnunciUsecase;
 
   AziendeCubit({
+    required this.loadAnnunciUsecase,
+    required this.refreshAnnunciUsecase,
     required this.fetchAnnunciUsecase,
   }) : super(AziendeState.initial());
 
@@ -39,7 +45,75 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
     emit(AziendeState.initial());
     (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMore = true;
     (sl<AziendeRepository>() as AziendeRepositoryImpl).nextCursor = "";
-    fetchAnnunci();
+    loadAnnunci(AnnunciAzParams.empty());
+  }
+  //TODO refactor cambia solo il caso d'uso...ù
+
+  recuperaAnnunci(AnnunciAzParams params, Type tipoDiCasoDuso) async {
+    loggy.debug("I FILTRI SONO: $params");
+    bool hasMore = (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMore;
+
+    if (!hasMore && state.listaAnnunci.isNotEmpty) {
+      return;
+    } else {
+      if (state.listaAnnunci.isEmpty) {
+        emit(state.copyWith(status: AziendeStateStatus.initial));
+      }
+      final response = tipoDiCasoDuso == LoadAnnunciAzienda
+          ? await loadAnnunciUsecase(params)
+          : await refreshAnnunciUsecase(params);
+      response.fold(
+        (failure) {
+          switch (failure.runtimeType) {
+            case NetworkFailure:
+              emit(state.copyWith(
+                  status: AziendeStateStatus.noConnection,
+                  message: StringConsts.connectivtyError));
+              break;
+            case ServerFailure:
+              emit(state.copyWith(
+                status: AziendeStateStatus.serverFailure,
+                message: StringConsts.serverError,
+              ));
+              break;
+            default:
+              emit(state.copyWith(
+                  status: AziendeStateStatus.error,
+                  message: StringConsts.genericError));
+          }
+        },
+        (r) {
+          AnnuncioAziendaList listaAggiornata = [];
+          loggy.debug(
+              "hasMore is ${(sl<AziendeRepository>() as AziendeRepositoryImpl).hasMore}");
+
+          // loggy.debug(r as List<Annuncio>);
+
+          if (tipoDiCasoDuso == RefreshAnnunciAzienda) {
+            //* qui ho sempre lista PIU' LUNGA!
+            listaAggiornata = [...state.listaAnnunci, ...r];
+          } else {
+            //* qui ho sempre lista NUOVA! da prima pagina
+            listaAggiornata = [...r];
+          }
+
+          // loggy.debug("lista aggiornata: $listaAggiornata");
+
+          emit(state.copyWith(
+            status: AziendeStateStatus.loaded,
+            listaAnnunci: listaAggiornata,
+          ));
+        },
+      );
+    }
+  }
+
+  refreshAnnunci(AnnunciAzParams params) async {
+    recuperaAnnunci(params, RefreshAnnunciAzienda);
+  }
+
+  loadAnnunci(AnnunciAzParams params) async {
+    recuperaAnnunci(params, LoadAnnunciAzienda);
   }
 
   fetchAnnunci(

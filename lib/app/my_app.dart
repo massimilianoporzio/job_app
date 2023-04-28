@@ -3,6 +3,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_patterns/connection.dart';
+import 'package:job_app/core/domain/usecases/base_usecase.dart';
 import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
 import 'package:job_app/features/aziende/presentation/cubit/filters/aziende_filter_cubit.dart';
 import 'package:loggy/loggy.dart';
@@ -77,9 +78,8 @@ class MyApp extends StatelessWidget {
           //qui so che è initial
           if (aziendeCubit.state.listaAnnunci.isEmpty) {
             //
-            logDebug("...state is empty: fetchAllAnnunci...");
-            aziendeCubit.fetchAnnunci();
-            logDebug("...annunci presi...");
+            logDebug("...state is empty: loadAnnunci...");
+            aziendeCubit.loadAnnunci(AnnunciAzParams.empty());
           }
           return aziendeCubit;
         },

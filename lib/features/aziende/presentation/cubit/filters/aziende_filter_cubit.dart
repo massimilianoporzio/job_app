@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:job_app/core/domain/usecases/base_usecase.dart';
 import 'package:job_app/core/log/bloc_logger.dart';
 
 part 'aziende_filter_state.dart';

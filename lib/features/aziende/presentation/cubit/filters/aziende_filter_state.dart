@@ -25,6 +25,20 @@ class AziendeFilterState extends Equatable {
     required this.ibridoFilter,
   });
 
+  AnnunciAzParams get paramsFromState {
+    return AnnunciAzParams(
+      fullRemoteFilter: fullRemoteFilter,
+      fullTimeFilter: fullTimeFilter,
+      ibridoFilter: ibridoFilter,
+      inSedeFilter: inSedeFilter,
+      juniorSeniorityFilter: juniorSeniorityFilter,
+      midSeniorityFilter: midSeniorityFilter,
+      partTimeFilter: partTimeFilter,
+      searchTerm: searchTerm,
+      seniorSeniorityFilter: seniorSeniorityFilter,
+    );
+  }
+
   int get numberOfActiveFilters {
     int result = 0;
     if (juniorSeniorityFilter) result++;
