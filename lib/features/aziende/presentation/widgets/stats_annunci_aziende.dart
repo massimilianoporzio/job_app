@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:job_app/app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
 import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
 
 import '../../../../app/resources/styles_manager.dart';
@@ -102,8 +103,10 @@ class StatAnnunci extends StatelessWidget {
                       // color: Colors.green,
                       height: 40,
                       padding: const EdgeInsets.only(left: 8),
-                      child:
-                          const StatBarCharts()) //TODO sosituire con carosello di grafici
+                      child: StatBarCharts(
+                        listaAnnunci: state.listaAnnunci,
+                        mode: context.read<DarkModeCubit>().state.mode,
+                      )) //TODO sosituire con carosello di grafici
                 ],
               ),
             ),
