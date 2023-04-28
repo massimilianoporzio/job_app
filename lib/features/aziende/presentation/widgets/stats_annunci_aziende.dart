@@ -103,7 +103,7 @@ class StatAnnunci extends StatelessWidget {
                       height: 40,
                       padding: const EdgeInsets.only(left: 8),
                       child:
-                          const StatBarChart()) //TODO sosituire con carosello di grafici
+                          const StatBarCharts()) //TODO sosituire con carosello di grafici
                 ],
               ),
             ),

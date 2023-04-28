@@ -19,8 +19,8 @@ class _ChartData {
   final double y;
 }
 
-class StatBarChart extends StatelessWidget {
-  const StatBarChart({super.key});
+class StatBarCharts extends StatelessWidget {
+  const StatBarCharts({super.key});
 
   @override
   Widget build(BuildContext context) {
