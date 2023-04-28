@@ -48,7 +48,8 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
     if (state.listaAnnunciNoFilter.isNotEmpty) {
       emit(state.copyWith(
           status: AziendeStateStatus.loaded,
-          listaAnnunci: state.listaAnnunciNoFilter));
+          listaAnnunci: state.listaAnnunciNoFilter,
+          listaAnnunciNoFilter: [])); //TODO da rivedere
     } else {
       emit(AziendeState.initial());
       (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMore = true;

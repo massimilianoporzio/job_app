@@ -75,27 +75,31 @@ class _VerticalListState extends State<VerticalList> with UiLoggy {
   @override
   Widget build(BuildContext context) {
     bool hasMore = (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMore;
-    return Expanded(
-      child: ListView.builder(
-        controller: _scrollController,
-        // key: const PageStorageKey<String>(
-        //     'Aziende'), //mi tiene la posizione in cui ero
-        itemCount: hasMore
-            ? widget.listaAnnunci.length + 1
-            : widget.listaAnnunci.length, //+ 1 per il bottomLoader
-        itemBuilder: (context, index) => SizedBox(
-          height: 0.30 * widget.mHeigth,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: index >= widget.listaAnnunci.length
-                ? const BottomLoader()
-                : CardAzienda(
-                    index: index,
-                    annuncio: widget.listaAnnunci[index],
-                  ),
+    return BlocBuilder<AziendeCubit, AziendeState>(
+      builder: (context, state) {
+        return Expanded(
+          child: ListView.builder(
+            controller: _scrollController,
+            // key: const PageStorageKey<String>(
+            //     'Aziende'), //mi tiene la posizione in cui ero
+            itemCount: hasMore
+                ? widget.listaAnnunci.length + 1
+                : widget.listaAnnunci.length, //+ 1 per il bottomLoader
+            itemBuilder: (context, index) => SizedBox(
+              height: 0.30 * widget.mHeigth,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: index >= widget.listaAnnunci.length
+                    ? const BottomLoader()
+                    : CardAzienda(
+                        index: index,
+                        annuncio: widget.listaAnnunci[index],
+                      ),
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
