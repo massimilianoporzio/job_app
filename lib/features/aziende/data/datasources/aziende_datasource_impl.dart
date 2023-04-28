@@ -71,6 +71,26 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
         "page_size":
             2 //per provare la paginazione se no default è 100 per notion
       };
+      if (!params.isEmpty) {
+        payload["filter"] = {};
+        var listaFiltri = [];
+        if (params.searchTerm.isNotEmpty) {
+          Map<String, dynamic> descrizioneOffertamMap = {
+            "property": "Descrizione offerta",
+            "rich_text": {"contains": params.searchTerm}
+          };
+
+          listaFiltri
+              .add(descrizioneOffertamMap); //FILTRA NELLA DESCRIZIONE OFFERTA
+          Map<String, dynamic> titoloMap = {
+            "property": "title",
+            "rich_text": {"contains": params.searchTerm}
+          };
+          listaFiltri.add(titoloMap);
+        }
+
+        payload['filter']['or'] = listaFiltri;
+      }
 
       payload["start_cursor"] = startCursor;
 
@@ -121,7 +141,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
         "page_size":
             2, //per provare la paginazione se no default è 10 per notion
       };
-      //TODO AGG FILTRO SE PARAMS NON è VUOTO
+
       if (!params.isEmpty) {
         payload["filter"] = {};
         var listaFiltri = [];

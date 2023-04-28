@@ -11,6 +11,7 @@ import 'package:job_app/features/aziende/domain/usecases/fetch_all_annunci.dart'
 import 'package:job_app/core/domain/usecases/fetch_annuncio.dart';
 import 'package:job_app/features/aziende/domain/usecases/load_annunci.dart';
 import 'package:job_app/features/aziende/domain/usecases/refresh_annunci.dart';
+import 'package:job_app/features/aziende/presentation/cubit/filters/aziende_filter_cubit.dart';
 
 import '../../../domain/entities/annuncio_azienda.dart';
 import '../../../../../core/services/service_locator.dart';
@@ -42,12 +43,19 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
   }
 
   reset() {
-    emit(AziendeState.initial());
-    (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMore = true;
-    (sl<AziendeRepository>() as AziendeRepositoryImpl).nextCursor = "";
-    loadAnnunci(AnnunciAzParams.empty());
+    sl<AziendeFilterCubit>().resetFiltri();
+
+    if (state.listaAnnunciNoFilter.isNotEmpty) {
+      emit(state.copyWith(
+          status: AziendeStateStatus.loaded,
+          listaAnnunci: state.listaAnnunciNoFilter));
+    } else {
+      emit(AziendeState.initial());
+      (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMore = true;
+      (sl<AziendeRepository>() as AziendeRepositoryImpl).nextCursor = "";
+      loadAnnunci(AnnunciAzParams.empty());
+    }
   }
-  //TODO refactor cambia solo il caso d'uso...ù
 
   recuperaAnnunci(AnnunciAzParams params, Type tipoDiCasoDuso) async {
     loggy.debug("I FILTRI SONO: $params");
@@ -112,7 +120,8 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
   }
 
   loadAnnunci(AnnunciAzParams params) async {
-    emit(AziendeState.initial());
+    emit(AziendeState.initial()
+        .copyWith(listaAnnunciNoFilter: state.listaAnnunci));
     recuperaAnnunci(params, LoadAnnunciAzienda);
   }
 
