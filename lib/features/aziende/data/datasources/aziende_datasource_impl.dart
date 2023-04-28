@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:job_app/core/domain/usecases/base_usecase.dart';
 
@@ -117,7 +119,8 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
     try {
       Map<String, dynamic> payload = {
         "page_size":
-            2 //per provare la paginazione se no default è 100 per notion
+            2, //per provare la paginazione se no default è 10 per notion
+        "filter": {}
       };
       //TODO AGG FILTRO SE PARAMS NON è VUOTO
       if (!params.isEmpty) {
@@ -131,13 +134,15 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
           listaFiltri
               .add(descrizioneOffertamMap); //FILTRA NELLA DESCRIZIONE OFFERTA
           Map<String, dynamic> titoloMap = {
-            "property": "Name",
+            "property": "title",
             "rich_text": {"contains": params.searchTerm}
           };
           listaFiltri.add(titoloMap);
         }
-        payload['or'] = listaFiltri;
+
+        payload['filter']['or'] = listaFiltri;
       }
+
       final Response response =
           await dio.post(StringConsts.baseUrlAziende, data: payload);
       loggy.debug("REPONSE FROM NOTION: $response");
