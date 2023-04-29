@@ -14,8 +14,9 @@ class HorizontalStats extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // color: Colors.amber,
+      padding: EdgeInsets.zero,
       margin: const EdgeInsets.symmetric(horizontal: 5),
-      height: 0.45 * mHeigth,
+      height: 0.4 * mHeigth,
       width: 0.4 * mWidth,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

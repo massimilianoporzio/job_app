@@ -148,7 +148,10 @@ class _StatBarChartsState extends State<StatBarCharts> {
       _chart = ChartType.seniority;
       setState(() {
         _myAnimatedWidget = Animate(
-          effects: [FadeEffect(), ScaleEffect()],
+          effects: const [
+            FadeEffect(),
+            ScaleEffect(),
+          ],
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -156,7 +159,7 @@ class _StatBarChartsState extends State<StatBarCharts> {
                 "...calcolo statistiche",
                 textAlign: TextAlign.center,
                 style:
-                    TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+                    TextStyle(color: Theme.of(context).colorScheme.onTertiary),
               ),
             ],
           ),

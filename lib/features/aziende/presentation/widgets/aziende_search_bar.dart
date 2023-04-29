@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:dynamic_color/dynamic_color.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:job_app/app/resources/string_constants.dart';
@@ -16,7 +15,7 @@ import '../../../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
 import '../../../../core/domain/enums/seniority.dart';
 import '../../../../core/domain/enums/team.dart';
 import '../../../../core/utils/sound_utils.dart';
-import '../../domain/entities/aziende_filter.dart';
+
 import '../cubit/annunci/aziende_cubit.dart';
 import '../cubit/filters/aziende_filter_cubit.dart';
 import 'filter_chips.dart';
@@ -33,7 +32,6 @@ class AziendeSearchBar extends StatefulWidget with UiLoggy {
 class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
   late TextEditingController _searchController;
   Timer? _debounce;
-  AziendeFilter? aziendeFilter;
 
   Future<void> _resetSearch(BuildContext context) {
     loggy.debug("...Riprendo la lista originaria...");

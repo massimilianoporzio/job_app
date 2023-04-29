@@ -79,7 +79,11 @@ class _VerticalListState extends State<VerticalList> with UiLoggy {
     return BlocBuilder<AziendeCubit, AziendeState>(
       builder: (context, state) {
         return Expanded(
-          child: ListView.builder(
+          child: ListView.separated(
+            separatorBuilder: (context, index) => const SizedBox(
+              height: 10,
+            ),
+
             controller: _scrollController,
             // key: const PageStorageKey<String>(
             //     'Aziende'), //mi tiene la posizione in cui ero

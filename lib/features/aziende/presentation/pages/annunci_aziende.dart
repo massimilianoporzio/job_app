@@ -124,39 +124,46 @@ class MainContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.max,
       children: [
         const AziendeSearchBar(),
         if (lista.isEmpty) const AnnunciNotFound(),
         if (lista.isNotEmpty)
-          Column(
-            children: [
-              SizedBox(
-                height: orientation == Orientation.landscape ? 8 : 8,
+          // Column(
+          //   children: [
+          //     SizedBox(
+          //       height: orientation == Orientation.landscape ? 8 : 8,
+          //     ),
+          //   ],
+          // ),
+          if (lista.isNotEmpty)
+            Container(
+              // color: Colors.pink,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (orientation == Orientation.portrait)
+                    VerticalStats(
+                      mWidth: mWidth,
+                      mHeight: mHeight,
+                    )
+                  else
+                    HorizontalStats(
+                      mWidth: mWidth,
+                      mHeigth: mHeight,
+                    ),
+                  if (lista.isNotEmpty && orientation == Orientation.landscape)
+                    BlocBuilder<AziendeFilterCubit, AziendeFilterState>(
+                      builder: (context, state) => HorizontalList(
+                        mHeigth: mHeight,
+                        listaAnnunci: lista,
+                        params: state.paramsFromState,
+                      ),
+                    ),
+                ],
               ),
-            ],
-          ),
-        if (lista.isNotEmpty)
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (orientation == Orientation.portrait)
-                VerticalStats(
-                  mWidth: mWidth,
-                  mHeight: mHeight,
-                )
-              else
-                HorizontalStats(
-                  mWidth: mWidth,
-                  mHeigth: mHeight,
-                ),
-              if (orientation == Orientation.landscape)
-                HorizontalList(
-                  mHeigth: mHeight,
-                  listaAnnunci: lista,
-                )
-            ],
-          ),
+            ),
         if (lista.isNotEmpty)
           const SizedBox(
             height: 8,

@@ -3,35 +3,86 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
+import 'package:job_app/features/aziende/presentation/widgets/right_loader.dart';
 import 'package:loggy/loggy.dart';
 
 import '../../../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
 import '../../../../app/resources/color_manager.dart';
+import '../../../../core/domain/usecases/base_usecase.dart';
+import '../../../../core/services/service_locator.dart';
+import '../../data/repositories/aziende_repository_impl.dart';
 import '../../domain/entities/annuncio_azienda.dart';
 import '../../../../core/domain/entities/typedefs.dart';
+import '../../domain/repositories/aziende_repository.dart';
+import '../cubit/annunci/aziende_cubit.dart';
 import 'annuncio_actions.dart';
 import 'chips.dart';
 import 'job_posted.dart';
 import 'localita.dart';
 
-class HorizontalList extends StatelessWidget {
+class HorizontalList extends StatefulWidget {
   const HorizontalList(
-      {super.key, required this.mHeigth, required this.listaAnnunci});
+      {super.key,
+      required this.mHeigth,
+      required this.listaAnnunci,
+      required this.params});
   final double mHeigth;
   final AnnuncioAziendaList listaAnnunci;
+  final AnnunciAzParams params;
+
+  @override
+  State<HorizontalList> createState() => _HorizontalListState();
+}
+
+class _HorizontalListState extends State<HorizontalList> {
+  final ScrollController _scrollController = ScrollController();
+
+  bool get _isRight {
+    if (!_scrollController.hasClients) return false;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.offset;
+    return currentScroll >= (maxScroll);
+  }
+
+  void _onScroll() {
+    if (_isRight) {
+      context
+          .read<AziendeCubit>()
+          .refreshAnnunci(widget.params); //carico altri annunci
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController
+      ..removeListener(_onScroll)
+      ..dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    bool hasMore = (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMore;
     return Expanded(
         child: SizedBox(
-      height: 0.5 * mHeigth,
+      height: 0.45 * widget.mHeigth,
       // color: Colors.purple,
-      child: ListView.separated(
-        key: const PageStorageKey<String>("Aziende hor"),
-        separatorBuilder: (context, index) => const SizedBox(
-          width: 3,
-        ),
-        itemCount: 10,
+      child: ListView.builder(
+        controller: _scrollController,
+        // key: const PageStorageKey<String>("Aziende hor"),
+
+        itemCount: hasMore
+            ? widget.listaAnnunci.length + 1
+            : widget.listaAnnunci.length, //+ 1 per il bottomLoader
+
         itemBuilder: (context, index) => SizedBox(
           // height: 140,
           child: Padding(
@@ -40,9 +91,11 @@ class HorizontalList extends StatelessWidget {
               width: 350,
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 2),
-                child: CardAziendaHor(
-                  annuncio: listaAnnunci[index],
-                ),
+                child: index >= widget.listaAnnunci.length
+                    ? const RightLoader()
+                    : CardAziendaHor(
+                        annuncio: widget.listaAnnunci[index],
+                      ),
               ),
             ),
           ),
