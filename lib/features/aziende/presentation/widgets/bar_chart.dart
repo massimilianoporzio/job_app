@@ -150,7 +150,7 @@ class _StatBarChartsState extends State<StatBarCharts> {
         _myAnimatedWidget = Animate(
           effects: const [
             FadeEffect(),
-            ScaleEffect(),
+            // ScaleEffect(),
           ],
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -239,25 +239,39 @@ class _StatBarChartsState extends State<StatBarCharts> {
         ];
         switch (_chart) {
           case ChartType.contratto:
-            _myAnimatedWidget = _buildContrattoChart(
-              context,
-              dataFullTime,
-              widget.mode,
-              dataPartTime,
+            _myAnimatedWidget = Animate(
+              effects: const [FadeEffect()],
+              child: _buildContrattoChart(
+                context,
+                dataFullTime,
+                widget.mode,
+                dataPartTime,
+              ),
             );
+
             break;
           case ChartType.team:
-            _myAnimatedWidget = _buildTeamChart(
-              context,
-              widget.mode,
-              dataInSede,
-              dataIbrido,
-              dataFullRemote,
+            _myAnimatedWidget = Animate(
+              effects: const [FadeEffect()],
+              child: _buildTeamChart(
+                context,
+                widget.mode,
+                dataInSede,
+                dataIbrido,
+                dataFullRemote,
+              ),
             );
+
             break;
           case ChartType.seniority:
-            _myAnimatedWidget = _buildSeniorityChart(
-                context, widget.mode, dataJunior, dataMid, dataSenior);
+            _myAnimatedWidget = Animate(
+              effects: const [
+                FadeEffect(duration: Duration(milliseconds: 1000))
+              ],
+              child: _buildSeniorityChart(
+                  context, widget.mode, dataJunior, dataMid, dataSenior),
+            );
+
             break;
           default:
             _myAnimatedWidget = _buildSeniorityChart(
