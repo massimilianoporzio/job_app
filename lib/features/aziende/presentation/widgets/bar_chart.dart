@@ -1,20 +1,18 @@
 /// Chart import
 import 'dart:async';
 
-import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-
 import 'package:job_app/app/resources/color_manager.dart';
 import 'package:job_app/core/domain/entities/typedefs.dart';
-import 'package:job_app/core/domain/enums/seniority.dart';
+import 'package:job_app/features/aziende/domain/enums/contratto.dart';
+import 'package:job_app/features/aziende/domain/enums/seniority.dart';
+import 'package:job_app/features/aziende/domain/enums/team.dart';
 import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
-import '../../../../core/domain/enums/contratto.dart';
-import '../../../../core/domain/enums/team.dart';
 
 class ChartData {
   ChartData(this.x, this.y);

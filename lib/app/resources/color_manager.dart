@@ -1,9 +1,8 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:job_app/core/domain/enums/contratto.dart';
-import 'package:job_app/core/domain/enums/seniority.dart';
-
-import '../../core/domain/enums/team.dart';
+import '../../features/aziende/domain/enums/contratto.dart';
+import '../../features/aziende/domain/enums/seniority.dart';
+import '../../features/aziende/domain/enums/team.dart';
 
 class ColorManager {
   static const Color primaryColor = Colors.blueGrey;

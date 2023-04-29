@@ -1,19 +1,20 @@
 import 'package:equatable/equatable.dart';
 
-// import '../../utils/mixins.dart';
-import '../enums/team.dart';
+import '../enums/seniority.dart';
 
-class TeamEntity extends Equatable {
-  final Team team;
+// import '../../utils/mixins.dart';
+
+class SeniorityEntity extends Equatable {
+  final Seniority seniority;
   final String? backgroundColorString;
 
-  const TeamEntity({
-    required this.team,
+  const SeniorityEntity({
+    required this.seniority,
     this.backgroundColorString,
   });
 
   @override
-  List<Object> get props => [team];
+  List<Object> get props => [seniority];
 
   @override
   bool? get stringify => true;

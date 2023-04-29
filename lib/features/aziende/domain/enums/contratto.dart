@@ -1,4 +1,4 @@
-import '../../../app/resources/string_constants.dart';
+import 'package:job_app/app/resources/string_constants.dart';
 
 enum Contratto {
   fullTime(value: 0),

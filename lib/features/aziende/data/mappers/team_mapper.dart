@@ -1,6 +1,7 @@
 import 'package:job_app/core/data/mappers/base_mapper.dart';
-import 'package:job_app/core/data/models/team_model.dart';
-import 'package:job_app/core/domain/entities/team_entity.dart';
+
+import '../../domain/entities/team_entity.dart';
+import '../models/team_model.dart';
 
 class TeamMapper extends EntityMapper<TeamModel?, TeamEntity?> {
   @override

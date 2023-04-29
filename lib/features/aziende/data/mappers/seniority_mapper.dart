@@ -1,6 +1,6 @@
 import 'package:job_app/core/data/mappers/base_mapper.dart';
-import 'package:job_app/core/domain/entities/seniority_enitity.dart';
 
+import '../../domain/entities/seniority_enitity.dart';
 import '../models/seniority_model.dart';
 
 class SeniorityMapper extends EntityMapper<SeniorityModel?, SeniorityEntity?> {

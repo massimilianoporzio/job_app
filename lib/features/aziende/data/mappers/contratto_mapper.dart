@@ -1,6 +1,7 @@
 import 'package:job_app/core/data/mappers/base_mapper.dart';
-import 'package:job_app/core/data/models/contratto_model.dart';
-import 'package:job_app/core/domain/entities/contratto_entity.dart';
+import 'package:job_app/features/aziende/data/models/contratto_model.dart';
+
+import '../../domain/entities/contratto_entity.dart';
 
 class ContrattoMapper extends EntityMapper<ContrattoModel?, ContrattoEntity?> {
   @override

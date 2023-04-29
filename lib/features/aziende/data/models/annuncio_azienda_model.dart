@@ -3,12 +3,13 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 import 'package:job_app/core/data/models/rich_text_model.dart';
-import 'package:job_app/core/data/models/seniority_model.dart';
-import 'package:job_app/core/data/models/team_model.dart';
+
 import 'package:job_app/core/data/models/weblink_model.dart';
 import 'package:job_app/core/domain/enums/tipologia_annunci.dart';
+import 'package:job_app/features/aziende/data/models/seniority_model.dart';
+import 'package:job_app/features/aziende/data/models/team_model.dart';
 
-import '../../../../core/data/models/contratto_model.dart';
+import 'contratto_model.dart';
 
 class AnnuncioAziendaModel extends Equatable {
   final String id;

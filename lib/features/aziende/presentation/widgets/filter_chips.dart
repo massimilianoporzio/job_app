@@ -1,10 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:job_app/features/aziende/domain/enums/contratto.dart';
+import 'package:job_app/features/aziende/domain/enums/seniority.dart';
+import 'package:job_app/features/aziende/domain/enums/team.dart';
 
 import '../../../../app/resources/color_manager.dart';
-import '../../../../core/domain/enums/contratto.dart';
-import '../../../../core/domain/enums/seniority.dart';
-import '../../../../core/domain/enums/team.dart';
 
 class FilterSeniorityChip extends StatelessWidget {
   const FilterSeniorityChip({

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 import '../../../../app/resources/color_manager.dart';
 import '../../../../app/resources/string_constants.dart';
-import '../../../../core/domain/entities/contratto_entity.dart';
-import '../../../../core/domain/entities/seniority_enitity.dart';
-import '../../../../core/domain/entities/team_entity.dart';
+import '../../domain/entities/contratto_entity.dart';
+import '../../domain/entities/seniority_enitity.dart';
+import '../../domain/entities/team_entity.dart';
 
 class SeniorityChip extends StatelessWidget {
   const SeniorityChip({

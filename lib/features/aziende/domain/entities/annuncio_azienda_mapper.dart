@@ -5,10 +5,10 @@ import 'package:job_app/features/aziende/domain/entities/annuncio_azienda.dart';
 import 'package:job_app/core/domain/entities/typedefs.dart';
 
 import '../../../../core/domain/entities/weblink.dart';
+import '../../data/mappers/contratto_mapper.dart';
+import '../../data/mappers/seniority_mapper.dart';
+import '../../data/mappers/team_mapper.dart';
 import '../../data/models/annuncio_azienda_model.dart';
-import '../../../../core/data/mappers/contratto_mapper.dart';
-import '../../../../core/data/mappers/seniority_mapper.dart';
-import '../../../../core/data/mappers/team_mapper.dart';
 
 final _teamMapper = TeamMapper();
 final _contrattoMapper = ContrattoMapper();

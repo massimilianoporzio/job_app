@@ -2,19 +2,22 @@ import 'package:dio/dio.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:job_app/features/aziende/data/models/annuncio_azienda_model.dart';
 import 'package:job_app/core/domain/errors/exceptions.dart';
+import 'package:job_app/features/aziende/domain/enums/contratto.dart';
+import 'package:job_app/features/aziende/domain/enums/seniority.dart';
+import 'package:job_app/features/aziende/domain/enums/team.dart';
 
 import '../../../../app/resources/app_consts.dart';
 import '../../../../app/resources/string_constants.dart';
-import '../../../../core/data/models/contratto_model.dart';
+
 import '../../../../core/data/models/rich_text_annotation_model.dart';
 import '../../../../core/data/models/rich_text_model.dart';
-import '../../../../core/data/models/seniority_model.dart';
-import '../../../../core/data/models/team_model.dart';
+
 import '../../../../core/data/models/weblink_model.dart';
-import '../../../../core/domain/enums/contratto.dart';
-import '../../../../core/domain/enums/seniority.dart';
-import '../../../../core/domain/enums/team.dart';
+
 import '../../../../core/domain/enums/tipologia_annunci.dart';
+import '../models/contratto_model.dart';
+import '../models/seniority_model.dart';
+import '../models/team_model.dart';
 
 AnnuncioAziendaModel parseNotionResponseSingoloAnnuncio(
     Map<String, dynamic> annuncioNotion) {
