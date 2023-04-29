@@ -44,6 +44,7 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
     AnnunciAzParams params =
         context.read<AziendeFilterCubit>().state.paramsFromState;
     await context.read<AziendeCubit>().loadAnnunci(params);
+    //
   }
 
   _refresh(BuildContext context) {
@@ -76,12 +77,12 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
         padding: const EdgeInsets.all(8),
         child: TextField(
           onChanged: (value) {
-            setState(() {});
+            // setState(() {});
             loggy.debug("sto digitando");
             context.read<AziendeFilterCubit>().setSearchTerm(value);
           },
           onSubmitted: (value) {
-            setState(() {});
+            // setState(() {});
             loggy.debug('utente ha scritto');
             if (_debounce?.isActive ?? false) _debounce?.cancel();
             _debounce = Timer(const Duration(milliseconds: 700), () {
@@ -186,7 +187,11 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
 
                       if (result != null) {
                         //TODO FARE LA RICERCA SUL SERVER!
-                        context.read<AziendeCubit>().fetchAnnunci();
+                        AnnunciAzParams params =
+                            (result as AziendeFilterState).paramsFromState;
+                        if (mounted) {
+                          context.read<AziendeCubit>().loadAnnunci(params);
+                        }
                       }
                     }, icon:
                         BlocBuilder<AziendeFilterCubit, AziendeFilterState>(

@@ -17,49 +17,52 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
   final AziendeDatasource remoteDS;
   bool hasMore;
   String nextCursor;
+  bool hasMoreNoFilter; //tengono traccia della lista non filtrata
+  String nextCursorNoFilter;
 
-  AziendeRepositoryImpl({
-    required this.remoteDS,
-    this.hasMore = true,
-    this.nextCursor = "",
-  });
+  AziendeRepositoryImpl(
+      {required this.remoteDS,
+      this.hasMore = true,
+      this.hasMoreNoFilter = true,
+      this.nextCursor = "",
+      this.nextCursorNoFilter = ""});
   //IL REPO passa la domain layer entities...qui entrano in gioco
   //i mapper
 
-  @override
-  Future<Either<Failure, AnnuncioAziendaList>> fetchAnnunciAziende(
-      AnnunciAzParams params) async {
-    loggy.debug("REPO: recupero TUTTI gli annunci");
-    //TODO devo usare params!
-    try {
-      late NotionResponseDTO notionResponse;
-      // final NotionResponseDTO notionResponse = await remoteDS.fetchAnnunci();
-      if (hasMore) {
-        notionResponse = nextCursor.isEmpty
-            ? await remoteDS.fetchPrimaPaginaAnnunci(params)
-            : await remoteDS.fetchProssimaPaginaAnnunci(
-                nextCursor, params); //CON PAGINAZIONE
-        //USO LA RISPOSTA PER AGGIORNARE STARTCURSOR e HASNEXT
-        loggy.debug("notionResponse is: $notionResponse");
-        if (notionResponse.hasMore) {
-          nextCursor = notionResponse.nextCursor!;
-        } else {
-          nextCursor = "";
-          hasMore = false;
-        }
-      } else {
-        notionResponse = NotionResponseDTO.empty();
-      }
+  // @override
+  // Future<Either<Failure, AnnuncioAziendaList>> fetchAnnunciAziende(
+  //     AnnunciAzParams params) async {
+  //   loggy.debug("REPO: recupero TUTTI gli annunci");
+  //   //TODO devo usare params!
+  //   try {
+  //     late NotionResponseDTO notionResponse;
+  //     // final NotionResponseDTO notionResponse = await remoteDS.fetchAnnunci();
+  //     if (hasMore) {
+  //       notionResponse = nextCursor.isEmpty
+  //           ? await remoteDS.fetchPrimaPaginaAnnunci(params)
+  //           : await remoteDS.fetchProssimaPaginaAnnunci(
+  //               nextCursor, params); //CON PAGINAZIONE
+  //       //USO LA RISPOSTA PER AGGIORNARE STARTCURSOR e HASNEXT
+  //       loggy.debug("notionResponse is: $notionResponse");
+  //       if (notionResponse.hasMore) {
+  //         nextCursor = notionResponse.nextCursor!;
+  //       } else {
+  //         nextCursor = "";
+  //         hasMore = false;
+  //       }
+  //     } else {
+  //       notionResponse = NotionResponseDTO.empty();
+  //     }
 
-      return Right(notionResponse.listaAnnunci.annuncioList);
-    } on NetworkException {
-      return Left(NetworkFailure());
-    } on RestApiException {
-      return Left(ServerFailure());
-    } on Exception {
-      return Left(GenericFailure());
-    }
-  }
+  //     return Right(notionResponse.listaAnnunci.annuncioList);
+  //   } on NetworkException {
+  //     return Left(NetworkFailure());
+  //   } on RestApiException {
+  //     return Left(ServerFailure());
+  //   } on Exception {
+  //     return Left(GenericFailure());
+  //   }
+  // }
 
   @override
   Future<Either<Failure, AnnuncioAzienda>> fetchAnnuncio(
@@ -105,6 +108,7 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
       loggy.debug("notionResponse is: $notionResponse");
       if (notionResponse.hasMore) {
         nextCursor = notionResponse.nextCursor!;
+        hasMore = true;
       } else {
         nextCursor = "";
         hasMore = false;
@@ -123,7 +127,12 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
   @override
   Future<Either<Failure, AnnuncioAziendaList>> refreshAnnunciAziende(
       AnnunciAzParams params) async {
-    loggy.debug("REPO: recupero LA PRIMA pagina degli annunci");
+    loggy.debug("REPO: recupero la SUCCESSIVA pagina degli annunci");
+    //*QUI SALVO il cursore e se ha ancora annunci la lista NON filtrata
+    if (params.isEmpty) {
+      hasMoreNoFilter = hasMore;
+      nextCursorNoFilter = nextCursor;
+    }
 
     try {
       late NotionResponseDTO notionResponse;
@@ -135,6 +144,7 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
         loggy.debug("notionResponse is: $notionResponse");
         if (notionResponse.hasMore) {
           nextCursor = notionResponse.nextCursor!;
+          hasMore = true;
         } else {
           nextCursor = "";
           hasMore = false;

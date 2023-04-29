@@ -11,6 +11,6 @@ class FetchAnnunciAzienda extends BaseUseCase {
   });
   @override
   Future<Either<Failure, dynamic>> call(params) {
-    return repository.fetchAnnunciAziende(params);
+    throw UnimplementedError();
   }
 }

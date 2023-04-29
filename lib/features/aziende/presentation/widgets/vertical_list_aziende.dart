@@ -85,18 +85,22 @@ class _VerticalListState extends State<VerticalList> with UiLoggy {
             itemCount: hasMore
                 ? widget.listaAnnunci.length + 1
                 : widget.listaAnnunci.length, //+ 1 per il bottomLoader
-            itemBuilder: (context, index) => SizedBox(
-              height: 0.30 * widget.mHeigth,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: index >= widget.listaAnnunci.length
-                    ? const BottomLoader()
-                    : CardAzienda(
-                        index: index,
-                        annuncio: widget.listaAnnunci[index],
-                      ),
-              ),
-            ),
+            itemBuilder: (context, index) {
+              print("index: $index");
+              print("lista Annunci ha ${widget.listaAnnunci.length} annunci");
+              return SizedBox(
+                height: 0.30 * widget.mHeigth,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: index >= widget.listaAnnunci.length
+                      ? const BottomLoader()
+                      : CardAzienda(
+                          index: index,
+                          annuncio: widget.listaAnnunci[index],
+                        ),
+                ),
+              );
+            },
           ),
         );
       },

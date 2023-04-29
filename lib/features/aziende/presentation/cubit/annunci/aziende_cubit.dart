@@ -44,18 +44,23 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
 
   reset() {
     sl<AziendeFilterCubit>().resetFiltri();
+    // //recupero hasMore e nextCursor della lista NON filtrata
+    // //e li metto al posto di hasMore e nextCursor
+    // (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMore =
+    //     (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMoreNoFilter;
+    // (sl<AziendeRepository>() as AziendeRepositoryImpl).nextCursor =
+    //     (sl<AziendeRepository>() as AziendeRepositoryImpl).nextCursorNoFilter;
 
-    if (state.listaAnnunciNoFilter.isNotEmpty) {
-      emit(AziendeState.initial().copyWith(
-          status: AziendeStateStatus.loaded,
-          listaAnnunci: state.listaAnnunciNoFilter,
-          listaAnnunciNoFilter: [])); //TODO da rivedere
-    } else {
-      emit(AziendeState.initial());
-      (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMore = true;
-      (sl<AziendeRepository>() as AziendeRepositoryImpl).nextCursor = "";
-      loadAnnunci(AnnunciAzParams.empty());
-    }
+    // if (state.listaAnnunciNoFilter.isNotEmpty) {
+    //   emit(AziendeState(
+    //       status: AziendeStateStatus.loaded,
+    //       listaAnnunci: state.listaAnnunciNoFilter,
+    //       listaAnnunciNoFilter: state.listaAnnunciNoFilter)); //TODO da rivedere
+    // } else {
+    emit(AziendeState.initial());
+    (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMore = true;
+    (sl<AziendeRepository>() as AziendeRepositoryImpl).nextCursor = "";
+    loadAnnunci(AnnunciAzParams.empty());
   }
 
   recuperaAnnunci(AnnunciAzParams params, Type tipoDiCasoDuso) async {
@@ -121,7 +126,10 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
   }
 
   loadAnnunci(AnnunciAzParams params) async {
-    emit(AziendeState.initial());
+    emit(AziendeState(
+        status: AziendeStateStatus.loading,
+        listaAnnunci: const [],
+        listaAnnunciNoFilter: params.isEmpty ? [] : state.listaAnnunci));
     recuperaAnnunci(params, LoadAnnunciAzienda);
   }
 
