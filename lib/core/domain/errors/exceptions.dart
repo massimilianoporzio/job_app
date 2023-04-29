@@ -25,4 +25,6 @@ class CacheException implements Exception {}
 
 class NoAnnuncioException implements Exception {}
 
+class EmptyListException implements Exception {}
+
 class GenericException implements Exception {}

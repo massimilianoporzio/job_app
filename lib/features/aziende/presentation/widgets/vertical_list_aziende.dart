@@ -3,6 +3,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
+import 'package:job_app/app/presentation/widgets/annunci_not_found.dart';
 import 'package:loggy/loggy.dart';
 
 import 'package:job_app/core/domain/usecases/base_usecase.dart';
@@ -86,8 +87,8 @@ class _VerticalListState extends State<VerticalList> with UiLoggy {
                 ? widget.listaAnnunci.length + 1
                 : widget.listaAnnunci.length, //+ 1 per il bottomLoader
             itemBuilder: (context, index) {
-              print("index: $index");
-              print("lista Annunci ha ${widget.listaAnnunci.length} annunci");
+              // print("index: $index");
+              // print("lista Annunci ha ${widget.listaAnnunci.length} annunci");
               return SizedBox(
                 height: 0.30 * widget.mHeigth,
                 child: Padding(

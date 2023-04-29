@@ -18,6 +18,7 @@ import '../../../../core/domain/enums/tipologia_annunci.dart';
 
 AnnuncioAziendaModel parseNotionResponseSingoloAnnuncio(
     Map<String, dynamic> annuncioNotion) {
+  //TODO tutte le stringhe in annuncioNotion come keys vanno su StringConst
   try {
     var emojiParser = EmojiParser();
     final String id = annuncioNotion['id'];
@@ -61,8 +62,9 @@ AnnuncioAziendaModel parseNotionResponseSingoloAnnuncio(
     final DateTime jobPosted =
         DateTime.parse(properties["Job Posted"]["created_time"] as String);
     //*TEAM
-    if (properties.containsKey("Team")) {
-      Map<String, dynamic> mapTeam = properties["Team"] as Map<String, dynamic>;
+    if (properties.containsKey(StringConsts.notionTeam)) {
+      Map<String, dynamic> mapTeam =
+          properties[StringConsts.notionTeam] as Map<String, dynamic>;
       if (mapTeam.containsKey("select")) {
         if (mapTeam["select"] != null) {
           String teamName = mapTeam["select"]["name"] as String;
@@ -89,9 +91,9 @@ AnnuncioAziendaModel parseNotionResponseSingoloAnnuncio(
       } //fine se team aveva la sua "select"
     } //fine parsing di Team
     //*CONTRATTO
-    if (properties.containsKey("Contratto")) {
+    if (properties.containsKey(StringConsts.notionContratto)) {
       Map<String, dynamic> mapContratto =
-          properties["Contratto"] as Map<String, dynamic>;
+          properties[StringConsts.notionContratto] as Map<String, dynamic>;
       if (mapContratto.containsKey("select")) {
         if (mapContratto["select"] != null) {
           String contrattoName = mapContratto["select"]["name"] as String;
@@ -115,9 +117,9 @@ AnnuncioAziendaModel parseNotionResponseSingoloAnnuncio(
       } //fine se ho la select del contratto
     } //fine parsing di Contratto
     //*SENIORITY
-    if (properties.containsKey("Seniority")) {
+    if (properties.containsKey(StringConsts.notionSeniority)) {
       Map<String, dynamic> mapSeniority =
-          properties["Seniority"] as Map<String, dynamic>;
+          properties[StringConsts.notionSeniority] as Map<String, dynamic>;
       if (mapSeniority.containsKey("select")) {
         if (mapSeniority["select"] != null) {
           String seniorityName = mapSeniority["select"]["name"] as String;

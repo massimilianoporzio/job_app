@@ -23,6 +23,50 @@ class AnnunciAzParams extends Equatable {
   final bool ibridoFilter;
   final bool fullRemoteFilter;
 
+  int get numberOfTypeOfFilter {
+    int result = 0;
+    if (!isSeniorityEmpty) result++;
+    if (!isContrattoEmpty) result++;
+    if (!isTeamEmpty) result++;
+    if (searchTerm.isNotEmpty) result++;
+    return result;
+  }
+
+  int get numberOfActiveFilters {
+    int result = 0;
+    if (juniorSeniorityFilter) result++;
+    if (midSeniorityFilter) result++;
+    if (seniorSeniorityFilter) result++;
+    if (searchTerm.isNotEmpty) result++;
+    if (partTimeFilter) result++;
+    if (fullTimeFilter) result++;
+    if (inSedeFilter) result++;
+    if (fullRemoteFilter) result++;
+    if (ibridoFilter) result++;
+    return result;
+  }
+
+  bool get isSeniorityEmpty {
+    if (juniorSeniorityFilter || midSeniorityFilter || seniorSeniorityFilter) {
+      return false;
+    }
+    return true;
+  }
+
+  bool get isContrattoEmpty {
+    if (fullTimeFilter || partTimeFilter) {
+      return false;
+    }
+    return true;
+  }
+
+  bool get isTeamEmpty {
+    if (inSedeFilter || ibridoFilter || fullRemoteFilter) {
+      return false;
+    }
+    return true;
+  }
+
   bool get isEmpty {
     if (searchTerm.isNotEmpty ||
         juniorSeniorityFilter ||

@@ -189,16 +189,16 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
                       if (result != null) {
                         AnnunciAzParams params =
                             (result as AziendeFilterState).paramsFromState;
-                        if (mounted) {
-                          if (params.isEmpty) {
-                            context.read<AziendeFilterCubit>().reset();
+                        if (!mounted) return;
 
-                            context
-                                .read<AziendeCubit>()
-                                .recuperaListaNonFiltrata();
-                          } else {
-                            context.read<AziendeCubit>().loadAnnunci(params);
-                          }
+                        if (params.isEmpty) {
+                          context.read<AziendeFilterCubit>().reset();
+
+                          context
+                              .read<AziendeCubit>()
+                              .recuperaListaNonFiltrata();
+                        } else {
+                          context.read<AziendeCubit>().loadAnnunci(params);
                         }
                       }
                     }, icon:

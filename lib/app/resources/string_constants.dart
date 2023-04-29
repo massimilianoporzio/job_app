@@ -4,6 +4,10 @@ class StringConsts {
   static const String bottomNavBookmarked = "Preferiti";
   static const String bottomNavFreelancers = "Freelancers";
 
+  static const String notionSeniority = "Seniority";
+  static const String notionContratto = "Contratto";
+  static const String notionTeam = "Team";
+
   static const String notionSeniorityJunior = "Junior";
   static const String notionSeniorityMid = "Mid";
   static const String notionSenioritySenior = "Senior";

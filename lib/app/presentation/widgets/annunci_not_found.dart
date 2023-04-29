@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:job_app/app/presentation/widgets/reusable_primary_button.dart';
 import 'package:job_app/app/resources/string_constants.dart';
+import 'package:job_app/core/domain/usecases/base_usecase.dart';
 import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
+import 'package:job_app/features/aziende/presentation/cubit/filters/aziende_filter_cubit.dart';
 
 import '../../resources/app_consts.dart';
 import '../cubit/navbar/navigation_cubit.dart';
@@ -14,9 +16,9 @@ class AnnunciNotFound extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var orientation = MediaQuery.of(context).orientation;
-    return Scaffold(
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.7,
+      child: SingleChildScrollView(
         child: Stack(
           alignment: Alignment.center,
           children: [
@@ -55,6 +57,9 @@ class AnnunciNotFound extends StatelessWidget {
                   style: kSubtitleTextStyle.copyWith(color: Colors.black),
                   textAlign: TextAlign.center,
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
                 BlocBuilder<NavigationCubit, NavigationState>(
                   builder: (context, state) {
                     return ReusablePrimaryButton(
@@ -67,7 +72,11 @@ class AnnunciNotFound extends StatelessWidget {
                         int pageIndex = state.selectedIndex;
                         switch (pageIndex) {
                           case 0:
-                            context.read<AziendeCubit>().fetchAnnunci();
+                            AnnunciAzParams params = context
+                                .read<AziendeFilterCubit>()
+                                .state
+                                .paramsFromState;
+                            context.read<AziendeCubit>().loadAnnunci(params);
                             break;
                           default:
                         }

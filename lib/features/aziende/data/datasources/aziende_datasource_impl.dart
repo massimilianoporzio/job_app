@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:job_app/core/domain/usecases/base_usecase.dart';
+import 'package:job_app/core/utils/filter_utils.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -73,27 +74,18 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
       };
       if (!params.isEmpty) {
         payload["filter"] = {};
-        var listaFiltri = [];
-        if (params.searchTerm.isNotEmpty) {
-          Map<String, dynamic> descrizioneOffertamMap = {
-            "property": "Descrizione offerta",
-            "rich_text": {"contains": params.searchTerm}
-          };
-
-          listaFiltri
-              .add(descrizioneOffertamMap); //FILTRA NELLA DESCRIZIONE OFFERTA
-          Map<String, dynamic> titoloMap = {
-            "property": "title",
-            "rich_text": {"contains": params.searchTerm}
-          };
-          listaFiltri.add(titoloMap);
+        var listaFiltri = buildFilterMapFromParams(params);
+        if (params.numberOfTypeOfFilter == 1) {
+          payload['filter'] =
+              listaFiltri.length == 1 ? listaFiltri[0] : listaFiltri;
+        } else {
+          payload['filter']['and'] =
+              listaFiltri.length == 1 ? listaFiltri[0] : listaFiltri;
         }
-
-        payload['filter']['or'] = listaFiltri;
       }
 
       payload["start_cursor"] = startCursor;
-
+      String payloadString = jsonEncode(payload);
       final Response response =
           await dio.post(StringConsts.baseUrlAziende, data: payload);
       loggy.debug("REPONSE FROM NOTION: $response");
@@ -144,24 +136,16 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
 
       if (!params.isEmpty) {
         payload["filter"] = {};
-        var listaFiltri = [];
-        if (params.searchTerm.isNotEmpty) {
-          Map<String, dynamic> descrizioneOffertamMap = {
-            "property": "Descrizione offerta",
-            "rich_text": {"contains": params.searchTerm}
-          };
-
-          listaFiltri
-              .add(descrizioneOffertamMap); //FILTRA NELLA DESCRIZIONE OFFERTA
-          Map<String, dynamic> titoloMap = {
-            "property": "title",
-            "rich_text": {"contains": params.searchTerm}
-          };
-          listaFiltri.add(titoloMap);
+        var listaFiltri = buildFilterMapFromParams(params);
+        if (params.numberOfTypeOfFilter == 1) {
+          payload['filter'] =
+              listaFiltri.length == 1 ? listaFiltri[0] : listaFiltri;
+        } else {
+          payload['filter']['and'] =
+              listaFiltri.length == 1 ? listaFiltri[0] : listaFiltri;
         }
-
-        payload['filter']['or'] = listaFiltri;
       }
+      String payloadString = jsonEncode(payload);
 
       final Response response =
           await dio.post(StringConsts.baseUrlAziende, data: payload);

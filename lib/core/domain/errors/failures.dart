@@ -11,3 +11,5 @@ class CacheFailure extends Failure {}
 class GenericFailure extends Failure {}
 
 class NoAnnuncioFailure extends Failure {}
+
+class EmptyListFailure extends Failure {}

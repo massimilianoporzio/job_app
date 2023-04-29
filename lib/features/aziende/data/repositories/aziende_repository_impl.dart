@@ -97,8 +97,6 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
   Future<Either<Failure, AnnuncioAziendaList>> loadAnnunciAziende(
       AnnunciAzParams params) async {
     loggy.debug("REPO: recupero LA PRIMA pagina degli annunci");
-    //TODO qui va messo il recupero della lista non filtrata
-
     try {
       late NotionResponseDTO notionResponse;
       // final NotionResponseDTO notionResponse = await remoteDS.fetchAnnunci();
