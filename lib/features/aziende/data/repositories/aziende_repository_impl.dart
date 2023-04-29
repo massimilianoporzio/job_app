@@ -97,6 +97,7 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
   Future<Either<Failure, AnnuncioAziendaList>> loadAnnunciAziende(
       AnnunciAzParams params) async {
     loggy.debug("REPO: recupero LA PRIMA pagina degli annunci");
+    //TODO qui va messo il recupero della lista non filtrata
 
     try {
       late NotionResponseDTO notionResponse;
@@ -112,6 +113,10 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
       } else {
         nextCursor = "";
         hasMore = false;
+      }
+      if (params.isEmpty) {
+        hasMoreNoFilter = hasMore;
+        nextCursorNoFilter = nextCursor;
       }
 
       return Right(notionResponse.listaAnnunci.annuncioList);
@@ -129,10 +134,6 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
       AnnunciAzParams params) async {
     loggy.debug("REPO: recupero la SUCCESSIVA pagina degli annunci");
     //*QUI SALVO il cursore e se ha ancora annunci la lista NON filtrata
-    if (params.isEmpty) {
-      hasMoreNoFilter = hasMore;
-      nextCursorNoFilter = nextCursor;
-    }
 
     try {
       late NotionResponseDTO notionResponse;
@@ -148,6 +149,10 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
         } else {
           nextCursor = "";
           hasMore = false;
+        }
+        if (params.isEmpty) {
+          hasMoreNoFilter = hasMore;
+          nextCursorNoFilter = nextCursor;
         }
       } else {
         notionResponse = NotionResponseDTO.empty();

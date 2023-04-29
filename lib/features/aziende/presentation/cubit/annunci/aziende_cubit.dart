@@ -118,11 +118,32 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
   }
 
   refreshAnnunci(AnnunciAzParams params) async {
+    if (params.isEmpty) {
+      // (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMore =
+      //     (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMoreNoFilter;
+      // (sl<AziendeRepository>() as AziendeRepositoryImpl).nextCursor =
+      //     (sl<AziendeRepository>() as AziendeRepositoryImpl).nextCursorNoFilter;
+    }
     bool hasMore = (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMore;
-    if (!hasMore && state.listaAnnunci.isNotEmpty) {
+    // if (!hasMore && state.listaAnnunci.isNotEmpty) {
+    if (!hasMore) {
       return;
     }
     recuperaAnnunci(params, RefreshAnnunciAzienda);
+  }
+
+  recuperaListaNonFiltrata() async {
+    if (state.listaAnnunciNoFilter.isNotEmpty) {
+      (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMore =
+          (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMoreNoFilter;
+      (sl<AziendeRepository>() as AziendeRepositoryImpl).nextCursor =
+          (sl<AziendeRepository>() as AziendeRepositoryImpl).nextCursorNoFilter;
+
+      emit(AziendeState(
+          status: AziendeStateStatus.loaded,
+          listaAnnunci: state.listaAnnunciNoFilter,
+          listaAnnunciNoFilter: const []));
+    }
   }
 
   loadAnnunci(AnnunciAzParams params) async {

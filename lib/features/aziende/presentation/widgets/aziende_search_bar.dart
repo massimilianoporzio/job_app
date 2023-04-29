@@ -186,11 +186,18 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
                       loggy.info("result is $result");
 
                       if (result != null) {
-                        //TODO FARE LA RICERCA SUL SERVER!
                         AnnunciAzParams params =
                             (result as AziendeFilterState).paramsFromState;
                         if (mounted) {
-                          context.read<AziendeCubit>().loadAnnunci(params);
+                          if (params.isEmpty) {
+                            context.read<AziendeFilterCubit>().reset();
+
+                            context
+                                .read<AziendeCubit>()
+                                .recuperaListaNonFiltrata();
+                          } else {
+                            context.read<AziendeCubit>().loadAnnunci(params);
+                          }
                         }
                       }
                     }, icon:
@@ -258,10 +265,12 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text("reset filtri"),
+                        const Text("reset filtri"), //TODO in constants
                         IconButton(
                             onPressed: () {
                               context.read<AziendeFilterCubit>().resetFiltri();
+                              Navigator.of(context)
+                                  .pop(AziendeFilterState.initial());
                             },
                             icon: Icon(
                               Icons.close,
