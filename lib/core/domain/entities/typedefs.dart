@@ -5,8 +5,8 @@ import 'package:job_app/features/freelancers/domain/entities/annuncio_freelancer
 import '../../../features/aziende/domain/entities/annuncio_azienda.dart';
 
 typedef AnnuncioAziendaList = List<AnnuncioAzienda>;
-typedef AnnuncioFreelancerList = List<AnnuncioFreelancer>;
-typedef AnnuncioList = List<Either<AnnuncioAzienda, AnnuncioFreelancer>>;
-typedef Annuncio = Either<AnnuncioAzienda, AnnuncioFreelancer>;
+typedef AnnuncioFreelancerList = List<AnnuncioFreelancers>;
+typedef AnnuncioList = List<Either<AnnuncioAzienda, AnnuncioFreelancers>>;
+typedef Annuncio = Either<AnnuncioAzienda, AnnuncioFreelancers>;
 
 typedef RichTextList = List<RichTextTextEntity>;

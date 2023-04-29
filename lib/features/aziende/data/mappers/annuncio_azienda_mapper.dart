@@ -30,7 +30,7 @@ class AnnuncioAziendaMapper
       id: model.id,
       titolo: model.titolo,
       qualifica: model.qualifica,
-      nomeAzienda: Weblink(
+      nomeAzienda: WebLink(
         content: model.nomeAzienda.content,
         url: model.nomeAzienda.url,
       ),
@@ -39,7 +39,7 @@ class AnnuncioAziendaMapper
       seniority: _seniorityMapper.toEntity(model.seniority),
       retribuzione: model.retribuzione,
       descrizioneOfferta: model.descrizioneOfferta.richTextList,
-      comeCandidarsi: Weblink(
+      comeCandidarsi: WebLink(
         content: model.comeCandidarsi.content,
         url: model.comeCandidarsi.url,
       ),
@@ -48,14 +48,14 @@ class AnnuncioAziendaMapper
       jobPosted: model.jobPosted,
       archived: model.archived,
       urlAnnuncio: model.urlAnnuncio != null
-          ? Weblink(
+          ? WebLink(
               content: model.urlAnnuncio!.content, url: model.urlAnnuncio!.url)
           : null,
     );
   }
 }
 
-extension AnnuncioExt on List<AnnuncioAziendaModel> {
+extension AnnuncioAzExt on List<AnnuncioAziendaModel> {
   AnnuncioAziendaList get annuncioList =>
       map((e) => _modelToEntityMapper.toEntity(e)).toList();
 }

@@ -11,6 +11,6 @@ abstract class FreelancersRepository {
       AnnunciFreelancersParams params);
   Future<Either<Failure, AnnuncioFreelancerList>> refreshAnnunciFreelancers(
       AnnunciFreelancersParams params);
-  Future<Either<Failure, AnnuncioFreelancer>> fetchAnnuncioFreelancers(
+  Future<Either<Failure, AnnuncioFreelancers>> fetchAnnuncioFreelancers(
       AnnunciFreelancersParams params);
 }

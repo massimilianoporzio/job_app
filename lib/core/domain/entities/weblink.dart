@@ -1,7 +1,7 @@
-class Weblink {
+class WebLink {
   final String content;
   final String? url;
-  Weblink({
+  WebLink({
     required this.content,
     this.url,
   });

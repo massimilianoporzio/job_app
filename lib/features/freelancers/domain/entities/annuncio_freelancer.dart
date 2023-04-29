@@ -7,7 +7,7 @@ import '../../../../core/domain/entities/typedefs.dart';
 import '../../../../core/domain/entities/weblink.dart';
 import '../../../../core/domain/enums/tipologia_annunci.dart';
 
-class AnnuncioFreelancer extends Equatable {
+class AnnuncioFreelancers extends Equatable {
   final String id;
   final String titolo; //da 'CODICE' sul json notion
   final bool archived;
@@ -18,17 +18,17 @@ class AnnuncioFreelancer extends Equatable {
   final RichTextList descrizioneProgetto;
   final RichTextList budget;
   final DateTime jobPosted;
-  final Weblink comeCandidarsi;
+  final WebLink comeCandidarsi;
   final NdaEntity? nda;
   final RelazioneEntity? relazione;
-  final Weblink? urlAnnuncio;
+  final WebLink? urlAnnuncio;
   final String? emoji;
 
-  const AnnuncioFreelancer({
+  const AnnuncioFreelancers({
     required this.id,
     required this.titolo,
     required this.archived,
-    required this.preferito,
+    this.preferito = false,
     required this.tempistiche,
     required this.tempistichePagamento,
     required this.richiestaDiLavoro,
@@ -105,7 +105,7 @@ class AnnuncioFreelancer extends Equatable {
     ];
   }
 
-  AnnuncioFreelancer copyWith({
+  AnnuncioFreelancers copyWith({
     String? id,
     String? titolo,
     bool? archived,
@@ -116,13 +116,13 @@ class AnnuncioFreelancer extends Equatable {
     RichTextList? descrizioneProgetto,
     RichTextList? budget,
     DateTime? jobPosted,
-    Weblink? comeCandidarsi,
+    WebLink? comeCandidarsi,
     NdaEntity? nda,
     RelazioneEntity? relazione,
-    Weblink? urlAnnuncio,
+    WebLink? urlAnnuncio,
     String? emoji,
   }) {
-    return AnnuncioFreelancer(
+    return AnnuncioFreelancers(
       id: id ?? this.id,
       titolo: titolo ?? this.titolo,
       archived: archived ?? this.archived,

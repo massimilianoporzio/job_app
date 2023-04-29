@@ -12,14 +12,14 @@ class AnnuncioAzienda extends Equatable {
   final String id;
   final String titolo;
   final String? qualifica;
-  final Weblink nomeAzienda;
+  final WebLink nomeAzienda;
   final TeamEntity? team;
   final ContrattoEntity? contratto;
   final SeniorityEntity? seniority;
   final String? retribuzione;
   final RichTextList descrizioneOfferta;
-  final Weblink comeCandidarsi;
-  final Weblink? urlAnnuncio;
+  final WebLink comeCandidarsi;
+  final WebLink? urlAnnuncio;
   final String? localita;
   final String? emoji;
   final DateTime jobPosted;
@@ -80,13 +80,13 @@ class AnnuncioAzienda extends Equatable {
     String? id,
     String? titolo,
     String? qualifica,
-    Weblink? nomeAzienda,
+    WebLink? nomeAzienda,
     TeamEntity? team,
     ContrattoEntity? contratto,
     SeniorityEntity? seniority,
     String? retribuzione,
     RichTextList? descrizioneOfferta,
-    Weblink? comeCandidarsi,
+    WebLink? comeCandidarsi,
     String? localita,
     String? emoji,
     DateTime? jobPosted,
