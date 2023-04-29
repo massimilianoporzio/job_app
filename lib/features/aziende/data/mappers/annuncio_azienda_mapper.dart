@@ -5,18 +5,18 @@ import 'package:job_app/features/aziende/domain/entities/annuncio_azienda.dart';
 import 'package:job_app/core/domain/entities/typedefs.dart';
 
 import '../../../../core/domain/entities/weblink.dart';
-import '../../data/mappers/contratto_mapper.dart';
-import '../../data/mappers/seniority_mapper.dart';
-import '../../data/mappers/team_mapper.dart';
-import '../../data/models/annuncio_azienda_model.dart';
+import 'contratto_mapper.dart';
+import 'seniority_mapper.dart';
+import 'team_mapper.dart';
+import '../models/annuncio_azienda_model.dart';
 
 final _teamMapper = TeamMapper();
 final _contrattoMapper = ContrattoMapper();
 final _seniorityMapper = SeniorityMapper();
 
-final _modelToEntityMapper = AnnuncioMapper();
+final _modelToEntityMapper = AnnuncioAziendaMapper();
 
-class AnnuncioMapper
+class AnnuncioAziendaMapper
     extends EntityMapper<AnnuncioAziendaModel, AnnuncioAzienda> {
   @override
   AnnuncioAziendaModel fromEntity(AnnuncioAzienda entity) {

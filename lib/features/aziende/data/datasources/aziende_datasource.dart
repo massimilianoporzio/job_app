@@ -1,5 +1,6 @@
 import 'package:job_app/core/data/models/notion_response.dart';
-import 'package:job_app/core/domain/usecases/base_usecase.dart';
+
+import 'package:job_app/features/aziende/domain/usecases/annunci_azienda_params.dart';
 
 abstract class AziendeDatasource {
   Future<NotionResponseDTO> fetchAnnunci();

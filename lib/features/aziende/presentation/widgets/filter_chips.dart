@@ -94,11 +94,11 @@ class FilterContrattoChip extends StatelessWidget {
         break;
       case Contratto.partTime:
         cardColor = mode == ThemeMode.dark
-            ? ColorManager.notionDarkGrey
-            : ColorManager.notionLightGrey;
+            ? ColorManager.notionDarkGray
+            : ColorManager.notionLightGray;
         textColor = mode == ThemeMode.dark
             ? ColorManager.onNotionDark
-            : ColorManager.onNotionLightGrey;
+            : ColorManager.onNotionLightGray;
         break;
 
       default:

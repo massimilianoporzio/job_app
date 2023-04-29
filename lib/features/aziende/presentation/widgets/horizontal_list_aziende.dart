@@ -3,12 +3,13 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
+import 'package:job_app/features/aziende/domain/usecases/annunci_azienda_params.dart';
 import 'package:job_app/features/aziende/presentation/widgets/right_loader.dart';
 import 'package:loggy/loggy.dart';
 
 import '../../../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
 import '../../../../app/resources/color_manager.dart';
-import '../../../../core/domain/usecases/base_usecase.dart';
+
 import '../../../../core/services/service_locator.dart';
 import '../../data/repositories/aziende_repository_impl.dart';
 import '../../domain/entities/annuncio_azienda.dart';

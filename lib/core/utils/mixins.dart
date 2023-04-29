@@ -26,10 +26,10 @@ mixin NotionColor {
         return isDark
             ? ColorManager.notionDarkGreen
             : ColorManager.notionLightGreen;
-      case StringConsts.notionGrey:
+      case StringConsts.notionGray:
         return isDark
-            ? ColorManager.notionDarkGrey
-            : ColorManager.notionLightGrey;
+            ? ColorManager.notionDarkGray
+            : ColorManager.notionLightGray;
       case StringConsts.notionPurple:
         return isDark
             ? ColorManager.notionDarkPurple
@@ -61,10 +61,10 @@ mixin NotionColor {
         return isDark
             ? ColorManager.onNotionDark
             : ColorManager.onNotionLightGreen;
-      case StringConsts.notionGrey:
+      case StringConsts.notionGray:
         return isDark
             ? ColorManager.onNotionDark
-            : ColorManager.onNotionLightGrey;
+            : ColorManager.onNotionLightGray;
       case StringConsts.notionPurple:
         return isDark
             ? ColorManager.onNotionDark

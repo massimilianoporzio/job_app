@@ -93,13 +93,13 @@ class ContrattoChip extends StatelessWidget {
             ? ColorManager.onNotionDark
             : ColorManager.onNotionLightBlue;
         break;
-      case StringConsts.notionGrey:
+      case StringConsts.notionGray:
         cardColor = mode == ThemeMode.dark
-            ? ColorManager.notionDarkGrey
-            : ColorManager.notionLightGrey;
+            ? ColorManager.notionDarkGray
+            : ColorManager.notionLightGray;
         textColor = mode == ThemeMode.dark
             ? ColorManager.onNotionDark
-            : ColorManager.onNotionLightGrey;
+            : ColorManager.onNotionLightGray;
         break;
 
       default:

@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:job_app/features/aziende/domain/entities/annuncio_azienda_mapper.dart';
+import 'package:job_app/features/aziende/data/mappers/annuncio_azienda_mapper.dart';
 import 'package:job_app/features/aziende/domain/entities/annuncio_azienda.dart';
 
 import 'package:job_app/core/domain/errors/exceptions.dart';
@@ -8,9 +8,9 @@ import '../../../../core/data/models/notion_response.dart';
 
 import '../../../../core/domain/entities/typedefs.dart';
 import '../../../../core/domain/errors/failures.dart';
-import '../../../../core/domain/usecases/base_usecase.dart';
 import '../../../../core/log/repository_logger.dart';
 import '../../domain/repositories/aziende_repository.dart';
+import '../../domain/usecases/annunci_azienda_params.dart';
 import '../datasources/aziende_datasource.dart';
 
 class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
@@ -77,7 +77,7 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
           throw NoAnnuncioException();
         } else {
           var annuncioModel = notionResponse.listaAnnunci.first;
-          return Right(AnnuncioMapper().toEntity(annuncioModel));
+          return Right(AnnuncioAziendaMapper().toEntity(annuncioModel));
         }
       } else {
         throw UnimplementedError();

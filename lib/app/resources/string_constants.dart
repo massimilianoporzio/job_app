@@ -1,4 +1,5 @@
 class StringConsts {
+  //*NB: se inizia con 'notion' è legata a quello che si trova sul json
   static const String appbarTitle = "Offerte di lavoro Flutter!";
   static const String bottomNavAziende = "Assunzioni";
   static const String bottomNavBookmarked = "Preferiti";
@@ -26,12 +27,24 @@ class StringConsts {
   static const String teamFullRemote = "Full remote";
   static const String teamDefault = "-";
 
+  static const String ndaSi = "Sì";
+  static const String ndaNo = "No";
+  static const String notionNdaSi = "Sì";
+  static const String notionNdaNo = "No";
+
+  static const String relazioneSolo = "Solo con chi commissiona il lavoro";
+  static const String relazioneAltri = "Con altri professionisti";
+  static const String notionRelazioneSolo =
+      "Solo con chi commissiona il lavoro";
+  static const String notioNRelazioneAltri = "Con altri professionisti";
+
   static const String notionYellow = "yellow";
   static const String notionRed = "red";
   static const String notionGreen = "green";
   static const String notionBlue = "blue";
   static const String notionPurple = "purple";
-  static const String notionGrey = "grey";
+  static const String notionGray = "gray";
+  static const String notionGrayBackground = "gray_background";
 
   static const String notionContrattoFullTime = "Full time";
   static const String notionContrattoPartTime = "Part time";
@@ -39,6 +52,7 @@ class StringConsts {
   static const String contrattoFullTime = "Full Time";
   static const String contrattoPartTime = "Part Time";
   static const String contrattoDefault = "-";
+  static const String defaultUndefined = "-";
 
   //*DA ENVIRONMENT
   static const String authToken = String.fromEnvironment('NOTION_TOKEN');

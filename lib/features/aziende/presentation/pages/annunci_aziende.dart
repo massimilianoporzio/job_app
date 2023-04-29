@@ -2,7 +2,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:job_app/app/presentation/widgets/annunci_not_found.dart';
+
 import 'package:job_app/features/aziende/presentation/cubit/filters/aziende_filter_cubit.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
@@ -11,6 +11,7 @@ import '../../../../app/presentation/widgets/no_connection.dart';
 import '../../domain/entities/annuncio_azienda.dart';
 import '../cubit/annunci/aziende_cubit.dart';
 
+import '../widgets/annunci_az_not_found.dart';
 import '../widgets/aziende_search_bar.dart';
 import '../widgets/horizontal_list_aziende.dart';
 import '../widgets/horizontal_stats.dart';
@@ -127,7 +128,7 @@ class MainContent extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       children: [
         const AziendeSearchBar(),
-        if (lista.isEmpty) const AnnunciNotFound(),
+        if (lista.isEmpty) const AnnunciAzNotFound(),
         if (lista.isNotEmpty)
           // Column(
           //   children: [

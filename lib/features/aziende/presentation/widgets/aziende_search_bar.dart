@@ -1,23 +1,19 @@
 import 'dart:async';
 
+import 'package:badges/badges.dart' as badges;
 import 'package:dynamic_color/dynamic_color.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:job_app/app/resources/string_constants.dart';
-
-import 'package:job_app/core/domain/usecases/base_usecase.dart';
-import 'package:job_app/features/aziende/domain/enums/contratto.dart';
-import 'package:job_app/features/aziende/domain/enums/team.dart';
+import 'package:job_app/features/aziende/domain/usecases/annunci_azienda_params.dart';
 import 'package:loggy/loggy.dart';
 
-import 'package:badges/badges.dart' as badges;
-
 import '../../../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
+import '../../../../app/resources/string_constants.dart';
 
 import '../../../../core/utils/sound_utils.dart';
-
+import '../../domain/enums/contratto.dart';
 import '../../domain/enums/seniority.dart';
+import '../../domain/enums/team.dart';
 import '../cubit/annunci/aziende_cubit.dart';
 import '../cubit/filters/aziende_filter_cubit.dart';
 import 'filter_chips.dart';

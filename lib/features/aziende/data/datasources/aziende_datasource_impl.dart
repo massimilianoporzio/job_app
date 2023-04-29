@@ -7,6 +7,7 @@ import 'package:job_app/core/utils/filter_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../app/resources/string_constants.dart';
+import '../../domain/usecases/annunci_azienda_params.dart';
 import '../parsers/notion_azienda_parser.dart';
 import '../models/annuncio_azienda_model.dart';
 import '../../../../core/data/models/notion_response.dart';
@@ -74,7 +75,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
       };
       if (!params.isEmpty) {
         payload["filter"] = {};
-        var listaFiltri = buildFilterMapFromParams(params);
+        var listaFiltri = buildFilterMapFromParamsAz(params);
         if (params.numberOfTypeOfFilter == 1) {
           payload['filter'] =
               listaFiltri.length == 1 ? listaFiltri[0] : listaFiltri;
@@ -136,7 +137,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
 
       if (!params.isEmpty) {
         payload["filter"] = {};
-        var listaFiltri = buildFilterMapFromParams(params);
+        var listaFiltri = buildFilterMapFromParamsAz(params);
         if (params.numberOfTypeOfFilter == 1) {
           payload['filter'] =
               listaFiltri.length == 1 ? listaFiltri[0] : listaFiltri;

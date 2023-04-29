@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:job_app/features/aziende/domain/entities/annuncio_azienda.dart';
 
 import '../../../../core/domain/entities/typedefs.dart';
 import '../../../../core/domain/errors/failures.dart';
-import '../../../../core/domain/usecases/base_usecase.dart';
+import '../entities/annuncio_azienda.dart';
+import '../usecases/annunci_azienda_params.dart';
 
 abstract class AziendeRepository {
   // Future<Either<Failure, AnnuncioAziendaList>> fetchAnnunciAziende(

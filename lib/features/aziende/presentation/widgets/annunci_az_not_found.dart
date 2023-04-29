@@ -1,17 +1,18 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:job_app/app/presentation/cubit/navbar/navigation_cubit.dart';
 import 'package:job_app/app/presentation/widgets/reusable_primary_button.dart';
+import 'package:job_app/app/resources/app_consts.dart';
 import 'package:job_app/app/resources/string_constants.dart';
-import 'package:job_app/core/domain/usecases/base_usecase.dart';
+
 import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
 import 'package:job_app/features/aziende/presentation/cubit/filters/aziende_filter_cubit.dart';
 
-import '../../resources/app_consts.dart';
-import '../cubit/navbar/navigation_cubit.dart';
+import '../../domain/usecases/annunci_azienda_params.dart';
 
-class AnnunciNotFound extends StatelessWidget {
-  const AnnunciNotFound({Key? key}) : super(key: key);
+class AnnunciAzNotFound extends StatelessWidget {
+  const AnnunciAzNotFound({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,8 +1,8 @@
-import 'package:job_app/core/domain/usecases/base_usecase.dart';
+import 'package:job_app/features/aziende/domain/usecases/annunci_azienda_params.dart';
 
 import '../../app/resources/string_constants.dart';
 
-List buildFilterMapFromParams(AnnunciAzParams params) {
+List buildFilterMapFromParamsAz(AnnunciAzParams params) {
   final listaFiltri = [];
   //FILTRI SU DESCRIZIONE OFFERTA OR TITOLO ANNUNCIO
   if (params.searchTerm.isNotEmpty) {

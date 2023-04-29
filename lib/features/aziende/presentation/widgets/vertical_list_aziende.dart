@@ -3,20 +3,20 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
-import 'package:job_app/app/presentation/widgets/annunci_not_found.dart';
+import 'package:job_app/features/aziende/domain/usecases/annunci_azienda_params.dart';
 import 'package:loggy/loggy.dart';
 
-import 'package:job_app/core/domain/usecases/base_usecase.dart';
-import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
-import 'package:job_app/features/freelancers/presentation/widgets/card_freelancer.dart';
-
 import '../../../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
+
 import '../../../../app/resources/color_manager.dart';
 import '../../../../core/domain/entities/typedefs.dart';
+
 import '../../../../core/services/service_locator.dart';
+
 import '../../data/repositories/aziende_repository_impl.dart';
 import '../../domain/entities/annuncio_azienda.dart';
 import '../../domain/repositories/aziende_repository.dart';
+import '../cubit/annunci/aziende_cubit.dart';
 import 'annuncio_actions.dart';
 import 'bottom_loader.dart';
 import 'chips.dart';

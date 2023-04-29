@@ -1,22 +1,20 @@
 import 'package:equatable/equatable.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:job_app/app/resources/string_constants.dart';
+import 'package:job_app/features/aziende/domain/usecases/annunci_azienda_params.dart';
 
-import 'package:job_app/core/domain/entities/typedefs.dart';
-import 'package:job_app/core/domain/errors/failures.dart';
-import 'package:job_app/core/domain/usecases/base_usecase.dart';
-import 'package:job_app/core/log/bloc_logger.dart';
-import 'package:job_app/features/aziende/domain/usecases/fetch_all_annunci.dart';
-import 'package:job_app/core/domain/usecases/fetch_annuncio.dart';
-import 'package:job_app/features/aziende/domain/usecases/load_annunci.dart';
-import 'package:job_app/features/aziende/domain/usecases/refresh_annunci.dart';
-import 'package:job_app/features/aziende/presentation/cubit/filters/aziende_filter_cubit.dart';
+import '../../../../../app/resources/string_constants.dart';
+import '../../../../../core/domain/entities/typedefs.dart';
+import '../../../../../core/domain/errors/failures.dart';
 
-import '../../../domain/entities/annuncio_azienda.dart';
+import '../../../../../core/log/bloc_logger.dart';
 import '../../../../../core/services/service_locator.dart';
 import '../../../data/repositories/aziende_repository_impl.dart';
+import '../../../domain/entities/annuncio_azienda.dart';
 import '../../../domain/repositories/aziende_repository.dart';
+import '../../../domain/usecases/fetch_all_annunci.dart';
+import '../../../domain/usecases/load_annunci.dart';
+import '../../../domain/usecases/refresh_annunci.dart';
+import '../filters/aziende_filter_cubit.dart';
 
 part 'aziende_state.dart';
 

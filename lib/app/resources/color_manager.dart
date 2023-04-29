@@ -30,9 +30,26 @@ class ColorManager {
   static const Color onNotionLightGreen = Color(0xff5c7565);
   static const Color notionLightBlue = Color(0xffd3e5ef);
   static const Color onNotionLightBlue = Color(0xff506879);
-  static const Color notionLightGrey = Color(0xffdfdfde);
-  static const Color onNotionLightGrey = Color(0xff606b83);
-  static const Color notionLightBoxGrey = Color(0xfff1f1ef);
+  static const Color notionLightGray = Color(0xffdfdfde);
+  static const Color onNotionLightGray = Color(0xff606b83);
+  static const Color notionLightBoxGray = Color(0xfff1f1ef);
+  static const Color notionLightPink = Color(0xfff5e0e9);
+  static const Color onNotionLightPink = Color(0xff50273b);
+
+  //NDA si
+  static const Color notionLightNDAsiGray = Color(0xffe3e2e0);
+  static const Color notionLightNDAsiGrayBackground = Color(0xffefefef);
+  static const Color onNotionLightNDAGray = Color(0xff595754);
+
+  //NDA no
+  static const Color notionLightNDAnoGray = Color(0xfff1f0ef);
+
+  //Tipo di relazione
+  //solo
+  static const Color notionLightRelazioneSoloGray = Color(0xfff5e0e9);
+  static const Color onNotionLightRelazioneSoloGray = Color(0xff484642);
+
+  //con altri: vedi PINK
 
   //DARK WEB PAGE TAGS
   static const Color onNotionDark = Color(0xffe2d8ca);
@@ -41,7 +58,15 @@ class ColorManager {
   static const Color notionDarkPurple = Color(0xff492f64);
   static const Color notionDarkGreen = Color(0xff2b593f);
   static const Color notionDarkBlue = Color(0xff28456c);
-  static const Color notionDarkGrey = Color(0xff606b83);
+  static const Color notionDarkGray = Color(0xff606b83);
+  static const Color notionDarkPink = Color(0xff69314c);
+
+  //NDA si
+  static const Color notionDarkNDAsiGray = Color(0xff5a5a5a);
+  static const Color notionDarkNDAsiGrayBackground = Color(0xff313131);
+
+  //NDA no ==
+  static const Color notionDarkNDAeRelazioneGray = Color(0xff373737);
 
   static getBackgroundColorFromTeam(Team team,
       {required ThemeMode mode, required BuildContext context}) {
@@ -76,8 +101,8 @@ class ColorManager {
 
       case Contratto.partTime:
         return mode == ThemeMode.dark
-            ? ColorManager.notionDarkGrey
-            : ColorManager.notionLightGrey;
+            ? ColorManager.notionDarkGray
+            : ColorManager.notionLightGray;
 
       default:
         return Theme.of(context).colorScheme.primaryContainer;
