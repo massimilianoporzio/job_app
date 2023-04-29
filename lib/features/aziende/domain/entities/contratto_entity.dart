@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
-
-import '../../../../core/domain/enums/contratto.dart';
+import 'package:job_app/features/aziende/domain/enums/contratto.dart';
 
 class ContrattoEntity extends Equatable {
   final Contratto contratto;
