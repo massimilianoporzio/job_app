@@ -4,7 +4,7 @@ import 'package:job_app/features/aziende/domain/entities/annuncio_azienda.dart';
 
 import 'package:job_app/core/domain/errors/exceptions.dart';
 
-import '../../../../core/data/models/notion_response.dart';
+import '../models/notion_response_azienda.dart';
 
 import '../../../../core/domain/entities/typedefs.dart';
 import '../../../../core/domain/errors/failures.dart';
@@ -70,7 +70,7 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
     try {
       if (params.annuncioId != null) {
         loggy.debug("REPO: recupero l'annuncio con id: ${params.annuncioId}");
-        NotionResponseDTO notionResponse =
+        NotionResponseAziendaDTO notionResponse =
             await remoteDS.fetchAnnuncio(params.annuncioId!);
 
         if (notionResponse.listaAnnunci.isEmpty) {
@@ -98,7 +98,7 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
       AnnunciAzParams params) async {
     loggy.debug("REPO: recupero LA PRIMA pagina degli annunci");
     try {
-      late NotionResponseDTO notionResponse;
+      late NotionResponseAziendaDTO notionResponse;
       // final NotionResponseDTO notionResponse = await remoteDS.fetchAnnunci();
 
       notionResponse =
@@ -134,7 +134,7 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
     //*QUI SALVO il cursore e se ha ancora annunci la lista NON filtrata
 
     try {
-      late NotionResponseDTO notionResponse;
+      late NotionResponseAziendaDTO notionResponse;
       // final NotionResponseDTO notionResponse = await remoteDS.fetchAnnunci();
       if (hasMore) {
         notionResponse = await remoteDS.fetchProssimaPaginaAnnunci(
@@ -153,7 +153,7 @@ class AziendeRepositoryImpl with RepositoryLoggy implements AziendeRepository {
           nextCursorNoFilter = nextCursor;
         }
       } else {
-        notionResponse = NotionResponseDTO.empty();
+        notionResponse = NotionResponseAziendaDTO.empty();
       }
 
       return Right(notionResponse.listaAnnunci.annuncioList);

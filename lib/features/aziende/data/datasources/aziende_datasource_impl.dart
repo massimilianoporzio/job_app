@@ -9,7 +9,7 @@ import '../../../../app/resources/string_constants.dart';
 import '../../domain/usecases/annunci_azienda_params.dart';
 import '../parsers/notion_azienda_parser.dart';
 import '../models/annuncio_azienda_model.dart';
-import '../../../../core/data/models/notion_response.dart';
+import '../models/notion_response_azienda.dart';
 import '../../../../core/domain/errors/exceptions.dart';
 import '../../../../core/log/datasource_logger.dart';
 
@@ -25,7 +25,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
   });
 
   @override
-  Future<NotionResponseDTO> fetchAnnunci() async {
+  Future<NotionResponseAziendaDTO> fetchAnnunci() async {
     bool hasMore = true;
     String? nextCursor;
     List<AnnuncioAziendaModel> listaAnnunci = [];
@@ -47,7 +47,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
       listaAnnunci = parseNotionResponseAziende(response);
 
       // loggy.debug("ECCO LA LISTA DEGLI ANNUNCI MODEL:\n$listaAnnunci");
-      return NotionResponseDTO(
+      return NotionResponseAziendaDTO(
         listaAnnunci: listaAnnunci,
         hasMore: hasMore,
         nextCursor: nextCursor,
@@ -64,7 +64,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
   }
 
   @override
-  Future<NotionResponseDTO> fetchProssimaPaginaAnnunci(
+  Future<NotionResponseAziendaDTO> fetchProssimaPaginaAnnunci(
       String startCursor, AnnunciAzParams params) async {
     List<AnnuncioAziendaModel> listaAnnunci = [];
     try {
@@ -105,7 +105,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
       listaAnnunci = parseNotionResponseAziende(response);
 
       // loggy.debug("ECCO LA LISTA DEGLI ANNUNCI MODEL:\n$listaAnnunci");
-      return NotionResponseDTO(
+      return NotionResponseAziendaDTO(
         listaAnnunci: listaAnnunci,
         hasMore: hasMore,
         nextCursor: nextCursor,
@@ -122,7 +122,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
   }
 
   @override
-  Future<NotionResponseDTO> fetchPrimaPaginaAnnunci(
+  Future<NotionResponseAziendaDTO> fetchPrimaPaginaAnnunci(
       AnnunciAzParams params) async {
     //*searchTerm in OR con i FILTRI (a loro volta tutti in OR)
     bool hasMore = true;
@@ -162,7 +162,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
       listaAnnunci = parseNotionResponseAziende(response);
 
       // loggy.debug("ECCO LA LISTA DEGLI ANNUNCI MODEL:\n$listaAnnunci");
-      return NotionResponseDTO(
+      return NotionResponseAziendaDTO(
         listaAnnunci: listaAnnunci,
         hasMore: hasMore,
         nextCursor: nextCursor,
@@ -181,7 +181,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
   }
 
   @override
-  Future<NotionResponseDTO> fetchAnnuncio(String annuncioId) async {
+  Future<NotionResponseAziendaDTO> fetchAnnuncio(String annuncioId) async {
     try {
       List<AnnuncioAziendaModel> listaAnnunci = [];
       final Response response =
@@ -193,7 +193,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
       if (listaAnnunci.length != 1) {
         throw Exception();
       }
-      return NotionResponseDTO(listaAnnunci: listaAnnunci);
+      return NotionResponseAziendaDTO(listaAnnunci: listaAnnunci);
     } on DioError catch (e) {
       if (e.type == DioErrorType.connectionError ||
           e.type == DioErrorType.unknown) {

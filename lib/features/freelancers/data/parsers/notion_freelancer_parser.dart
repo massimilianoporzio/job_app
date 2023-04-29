@@ -270,7 +270,8 @@ AnnuncioFreelancersModel parseNotionResponseSingoloAnnuncio(
   }
 }
 
-List<AnnuncioFreelancersModel> parseNotionResponseAziende(Response response) {
+List<AnnuncioFreelancersModel> parseNotionResponseFreelancers(
+    Response response) {
   List<AnnuncioFreelancersModel> listaAnnunci = [];
   try {
     var emojiParser = EmojiParser(); //TODO con service locator...

@@ -1,16 +1,16 @@
-import '../../../features/aziende/data/models/annuncio_azienda_model.dart';
+import 'package:job_app/features/aziende/data/models/annuncio_azienda_model.dart';
 
-class NotionResponseDTO {
+class NotionResponseAziendaDTO {
   bool hasMore;
   String? nextCursor;
   List<AnnuncioAziendaModel> listaAnnunci;
 
-  factory NotionResponseDTO.empty() => NotionResponseDTO(
+  factory NotionResponseAziendaDTO.empty() => NotionResponseAziendaDTO(
         hasMore: false,
         listaAnnunci: [],
       );
 
-  NotionResponseDTO({
+  NotionResponseAziendaDTO({
     this.hasMore = true,
     this.nextCursor,
     required this.listaAnnunci,

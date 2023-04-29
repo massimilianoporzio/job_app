@@ -1,11 +1,11 @@
-import 'package:job_app/core/data/models/notion_response.dart';
-
+import 'package:job_app/features/freelancers/data/models/notion_response_dto_freelancers.dart';
 import 'package:job_app/features/freelancers/domain/usecases/annunci_freelancer_params.dart';
 
 abstract class FreelancersDatasource {
-  Future<NotionResponseDTO> fetchPrimaPaginaAnnunciFreelancers(
+  Future<NotionResponseFreelancersDTO> fetchPrimaPaginaAnnunciFreelancers(
       AnnunciFreelancersParams params);
-  Future<NotionResponseDTO> fetchProssimaPaginaAnnunciFreelancers(
+  Future<NotionResponseFreelancersDTO> fetchProssimaPaginaAnnunciFreelancers(
       String startCursor, AnnunciFreelancersParams params);
-  Future<NotionResponseDTO> fetchAnnuncioFreelancers(String annuncioId);
+  Future<NotionResponseFreelancersDTO> fetchAnnuncioFreelancers(
+      String annuncioId);
 }
