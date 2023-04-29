@@ -7,5 +7,5 @@ abstract class FreelancersDatasource {
       AnnunciFreelancersParams params);
   Future<NotionResponseDTO> fetchProssimaPaginaAnnunciFreelancers(
       String startCursor, AnnunciFreelancersParams params);
-  Future<NotionResponseDTO> fetchAnnuncioFreelnacers(String annuncioId);
+  Future<NotionResponseDTO> fetchAnnuncioFreelancers(String annuncioId);
 }

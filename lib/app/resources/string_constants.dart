@@ -13,6 +13,14 @@ class StringConsts {
   static const String notionSeniorityMid = "Mid";
   static const String notionSenioritySenior = "Senior";
 
+  static const String notionDescrizioneOfferta = "Descrizione offerta";
+  static const String notionTempistiche = "Tempistiche";
+  static const String notionComeCandidarsi = "Come candidarsi";
+  static const String notionRichiestaDiLavoro = "Richiesta di lavoro";
+  static const String notionBudget = "Budget";
+  static const String notionTempisticheDiPagamento = "Tempistiche di pagamento";
+  static const String notionDescrizioneProgetto = "Descrizione del progetto";
+
   static const String seniorityJunior = "Junior";
   static const String seniorityMid = "Mid";
   static const String senioritySenior = "Senior";
@@ -31,6 +39,9 @@ class StringConsts {
   static const String ndaNo = "No";
   static const String notionNdaSi = "Sì";
   static const String notionNdaNo = "No";
+
+  static const String notionNda = "NDA";
+  static const String notionRelazione = "Tipo di relazione";
 
   static const String relazioneSolo = "Solo con chi commissiona il lavoro";
   static const String relazioneAltri = "Con altri professionisti";
@@ -62,6 +73,8 @@ class StringConsts {
 
   static const String notionDatabaseIdAziende =
       '283d2760f81548f0a7baca4b3e58d7d8';
+  static const String notionDatabaseIdFreelancers =
+      'e6a8a6760e3d4430b20a15d16f75f92e';
 
   static const String baseUrlPage = "https://api.notion.com/v1/pages/";
   static const String baseUrlFreelancers = 'https://example.com';

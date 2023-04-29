@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:job_app/core/domain/usecases/base_usecase.dart';
 import 'package:job_app/core/utils/filter_utils.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,7 +17,7 @@ import 'aziende_datasource.dart';
 
 class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
   final Dio dio;
-  SharedPreferences prefs;
+  SharedPreferences prefs; //TODO forse non è + usato...
 
   AziendeDatasourceImpl({
     required this.dio,
