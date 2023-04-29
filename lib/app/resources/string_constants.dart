@@ -63,4 +63,6 @@ class StringConsts {
   static const String foundHor = "   Found.";
 
   static const String footer1 = " contattaci@offertelavoroflutter.it";
+
+  static const String resetAll = " reset All";
 }

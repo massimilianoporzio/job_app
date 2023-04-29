@@ -5,6 +5,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:job_app/app/resources/string_constants.dart';
 import 'package:job_app/core/domain/enums/contratto.dart';
 import 'package:job_app/core/domain/usecases/base_usecase.dart';
 import 'package:loggy/loggy.dart';
@@ -265,7 +266,7 @@ class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        const Text("reset filtri"), //TODO in constants
+                        const Text(StringConsts.resetAll),
                         IconButton(
                             onPressed: () {
                               context.read<AziendeFilterCubit>().resetFiltri();
