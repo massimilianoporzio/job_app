@@ -24,8 +24,8 @@ import 'annuncio_actions.dart';
 import 'chips_freelancers.dart';
 import 'job_posted_freelancers.dart';
 
-class VerticalList extends StatefulWidget {
-  const VerticalList({
+class VerticalListFreelancers extends StatefulWidget {
+  const VerticalListFreelancers({
     Key? key,
     required this.mHeigth,
     required this.listaAnnunci,
@@ -37,10 +37,12 @@ class VerticalList extends StatefulWidget {
   final AnnunciFreelancersParams params;
 
   @override
-  State<VerticalList> createState() => _VerticalListState();
+  State<VerticalListFreelancers> createState() =>
+      _VerticalListFreelancersState();
 }
 
-class _VerticalListState extends State<VerticalList> with UiLoggy {
+class _VerticalListFreelancersState extends State<VerticalListFreelancers>
+    with UiLoggy {
   final ScrollController _scrollController = ScrollController();
 
   bool get _isBottom {
@@ -96,7 +98,7 @@ class _VerticalListState extends State<VerticalList> with UiLoggy {
               // print("index: $index");
               // print("lista Annunci ha ${widget.listaAnnunci.length} annunci");
               return SizedBox(
-                height: 0.30 * widget.mHeigth,
+                height: 0.25 * widget.mHeigth,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: index >= widget.listaAnnunci.length
@@ -145,14 +147,14 @@ class CardFreelancers extends StatelessWidget with UiLoggy {
               borderRadius: BorderRadius.circular(12),
               gradient: LinearGradient(
                 colors: [
-                  ColorManager.veryLightRed
+                  ColorManager.notionLightPrimary
                       .harmonizeWith(
-                          Theme.of(context).colorScheme.secondaryContainer)
+                          Theme.of(context).colorScheme.primaryContainer)
                       .withOpacity(0.2),
-                  Theme.of(context).colorScheme.secondaryContainer,
+                  Theme.of(context).colorScheme.errorContainer.withOpacity(0.2),
                 ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+                begin: Alignment.topRight,
+                end: Alignment.centerLeft,
               ),
             ),
             // child: Center(child: Text('$index'))),
@@ -214,7 +216,7 @@ class CardFreelancers extends StatelessWidget with UiLoggy {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       // Text("job posted"), Text(annuncio.localita ?? "...")
-                      JobPosted(annuncio: annuncio),
+                      JobPostedFreelancers(annuncio: annuncio),
                       // Text("prova")
                     ],
                   ), //riga data

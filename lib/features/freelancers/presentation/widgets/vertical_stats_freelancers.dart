@@ -3,8 +3,8 @@ import 'package:job_app/features/freelancers/presentation/widgets/annunci_recent
 
 import 'stats_annunci_freelancers.dart';
 
-class VerticalStats extends StatelessWidget {
-  const VerticalStats({
+class VerticalStatsFreelancers extends StatelessWidget {
+  const VerticalStatsFreelancers({
     super.key,
     required this.mWidth,
     required this.mHeight,

@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:job_app/features/freelancers/domain/enums/nda.dart';
 
 import 'package:job_app/features/freelancers/presentation/cubit/filters/freelancers_filters_cubit.dart';
+import 'package:job_app/features/freelancers/presentation/widgets/filter_chips_freelancers.dart';
 import 'package:loggy/loggy.dart';
 
 import '../../../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
@@ -17,18 +18,18 @@ import '../../../../core/utils/sound_utils.dart';
 import '../../domain/enums/relazione.dart';
 import '../../domain/usecases/annunci_freelancer_params.dart';
 import '../cubit/annunci/freelancers_cubit.dart';
-import 'filter_chips.dart';
 
-class AziendeSearchBar extends StatefulWidget with UiLoggy {
-  const AziendeSearchBar({
+class FreelancersSearchBar extends StatefulWidget with UiLoggy {
+  const FreelancersSearchBar({
     super.key,
   });
 
   @override
-  State<AziendeSearchBar> createState() => _AziendeSearchBarState();
+  State<FreelancersSearchBar> createState() => _FreelancersSearchBarState();
 }
 
-class _AziendeSearchBarState extends State<AziendeSearchBar> with UiLoggy {
+class _FreelancersSearchBarState extends State<FreelancersSearchBar>
+    with UiLoggy {
   late TextEditingController _searchController;
   Timer? _debounce;
 

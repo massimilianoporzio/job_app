@@ -87,6 +87,14 @@ class RelazioneChip extends StatelessWidget {
             ? ColorManager.onNotionDark
             : ColorManager.onNotionLightRelazioneSoloGray;
         break;
+      case StringConsts.notionDefault:
+        cardColor = mode == ThemeMode.dark
+            ? ColorManager.notionDarkNDAeRelazioneGray
+            : ColorManager.notionLightRelazioneSoloGray;
+        textColor = mode == ThemeMode.dark
+            ? ColorManager.onNotionDark
+            : ColorManager.onNotionLightRelazioneSoloGray;
+        break;
       case StringConsts.notionPink:
         cardColor = mode == ThemeMode.dark
             ? ColorManager.notionDarkPink
@@ -97,6 +105,7 @@ class RelazioneChip extends StatelessWidget {
         break;
 
       default:
+        // cardColor = Theme.of(context).colorScheme.primaryContainer;
         cardColor = Theme.of(context).colorScheme.primaryContainer;
         textColor = Theme.of(context).colorScheme.onPrimaryContainer;
     }

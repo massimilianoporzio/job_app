@@ -3,8 +3,8 @@ import 'package:job_app/features/freelancers/presentation/widgets/annunci_recent
 
 import 'stats_annunci_freelancers.dart';
 
-class HorizontalStats extends StatelessWidget {
-  const HorizontalStats(
+class HorizontalStatsFreelancers extends StatelessWidget {
+  const HorizontalStatsFreelancers(
       {super.key, required this.mWidth, required this.mHeigth});
   final double mWidth;
   final double mHeigth;

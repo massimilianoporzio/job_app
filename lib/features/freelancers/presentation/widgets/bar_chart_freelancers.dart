@@ -158,10 +158,10 @@ class _StatBarChartsFreelancersState extends State<StatBarChartsFreelancers> {
         _chart = _nextChart(_chart);
 
         dataSiNDA = [
-          ChartData('Sì', conteggiNDA["Sì"]!.toDouble()),
+          ChartData('NDA Sì', conteggiNDA["Sì"]!.toDouble()),
         ];
         dataNoNDA = [
-          ChartData('No', conteggiNDA["No"]!.toDouble()),
+          ChartData('NDA No', conteggiNDA["No"]!.toDouble()),
         ];
 
         dataSoloRelazione = [

@@ -10,8 +10,8 @@ import '../../domain/usecases/annunci_freelancer_params.dart';
 import '../cubit/annunci/freelancers_cubit.dart';
 import '../cubit/filters/freelancers_filters_cubit.dart';
 
-class AnnunciAzNotFound extends StatelessWidget {
-  const AnnunciAzNotFound({Key? key}) : super(key: key);
+class AnnunciFreelancersNotFound extends StatelessWidget {
+  const AnnunciFreelancersNotFound({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

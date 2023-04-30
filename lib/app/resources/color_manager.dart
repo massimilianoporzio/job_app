@@ -48,7 +48,7 @@ class ColorManager {
 
   //Tipo di relazione
   //solo
-  static const Color notionLightRelazioneSoloGray = Color(0xfff5e0e9);
+  static const Color notionLightRelazioneSoloGray = Color(0xfff1f0ef);
   static const Color onNotionLightRelazioneSoloGray = Color(0xff484642);
 
   //con altri: vedi PINK

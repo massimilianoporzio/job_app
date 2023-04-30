@@ -6,7 +6,7 @@ import 'package:job_app/features/preferiti/presentation/pages/annunci_preferiti.
 class PagesManager {
   static List<Widget> pages = [
     AnnunciAziende(),
-    const AnnunciPreferiti(),
-    const AnnunciFreelancers(),
+    const AnnunciPreferiti(), //DUMMY
+    AnnunciFreelancers(), // DUMMY
   ];
 }
