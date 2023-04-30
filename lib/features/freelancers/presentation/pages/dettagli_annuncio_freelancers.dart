@@ -42,186 +42,162 @@ class DettaglioAnnunciFreelancers extends StatelessWidget with UiLoggy {
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                // color: Colors.amber,
-                height: MediaQuery.of(context).size.height,
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              // color: Colors.amber,
+              height: MediaQuery.of(context).size.height,
 
-                width: MediaQuery.of(context).size.width,
-                child: ListView(
-                  // mainAxisAlignment: MainAxisAlignment.start,
-                  // crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        if (annuncio.emoji != null)
-                          Text(
-                            sl<EmojiParser>().get(annuncio.emoji).code,
-                            textAlign: TextAlign.start,
-                            style: const TextStyle(fontSize: 28),
-                          ),
-                        if (annuncio.emoji == null)
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.8,
-                          ),
-                        Row(
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  loggy.debug("SHARING ANNUNCIO...");
-                                  String textToShare = annuncio.urlAnnuncio !=
-                                          null
-                                      ? annuncio.urlAnnuncio!.content
-                                      : annuncio
-                                          .plainDescrizioneProgetto; //progetto
-                                  Share.share(textToShare);
-                                },
-                                icon: const Icon(Icons.share)),
-                            IconButton(
-                                iconSize: 28,
-                                onPressed: () {
-                                  loggy.debug("TOGGLE FAVORITO");
-                                  context
-                                      .read<FreelancersCubit>()
-                                      .togglePreferito(annuncio.id);
-                                },
-                                icon: Icon(annuncio.preferito
-                                    ? Icons.bookmark_added
-                                    : Icons.bookmark_add_outlined)),
-                          ],
-                        )
-                      ],
-                    ),
-                    AutoSizeText(
-                      annuncio.titolo,
-                      textAlign: TextAlign.start,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineLarge!
-                          .copyWith(fontWeight: FontWeight.bold, fontSize: 24),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Column(
-                      children: [
-                        RigaDettaglio(
-                          annuncio: annuncio,
-                          descrizione: "Nome azienda",
-                          iconData: Icons.subject,
-                          valore: Text(
-                            "annuncio.nomeAzienda.content",
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ), //Nome azienda
-                        RigaDettaglio(
-                          annuncio: annuncio,
-                          iconData: CupertinoIcons.link,
-                          descrizione: "URL sito web",
-                          valore: LinkText(
-                            text: "annuncio.nomeAzienda.url" ?? "",
-                            url: "annuncio.nomeAzienda.url" ?? "",
-                          ),
-                        ), // URL sito web
-                        RigaDettaglio(
-                          annuncio: annuncio,
-                          iconData: Icons.subject,
-                          descrizione: "Qualifica",
-                          valore: Text(
-                            "annuncio.qualifica" ?? "",
-                            style: const TextStyle(fontSize: 12),
-                          ),
-                        ), //Qualifica
-                        const Divider(),
-                        RigaDettaglio(
-                          annuncio: annuncio,
-                          iconData: Icons.schedule,
-                          descrizione: "Job posted",
-                          valore: Text(
-                            DateFormat('dd/MM/yyyy HH:mm')
-                                .format(annuncio.jobPosted),
-                            style: const TextStyle(fontSize: 12),
-                          ),
+              width: MediaQuery.of(context).size.width,
+              child: ListView(
+                // mainAxisAlignment: MainAxisAlignment.start,
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      if (annuncio.emoji != null)
+                        Text(
+                          sl<EmojiParser>().get(annuncio.emoji).code,
+                          textAlign: TextAlign.start,
+                          style: const TextStyle(fontSize: 28),
                         ),
-                        RigaDettaglio(
-                          annuncio: annuncio,
-                          iconData: Icons.subject,
-                          descrizione: "Come candidarsi",
-                          valore: LinkText(
-                            text: annuncio.comeCandidarsi.content,
-                            url: annuncio.comeCandidarsi.url ?? "",
-                          ),
+                      if (annuncio.emoji == null)
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.8,
                         ),
+                      Row(
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                loggy.debug("SHARING ANNUNCIO...");
+                                String textToShare = annuncio.urlAnnuncio !=
+                                        null
+                                    ? annuncio.urlAnnuncio!.content
+                                    : annuncio
+                                        .plainDescrizioneProgetto; //progetto
+                                Share.share(textToShare);
+                              },
+                              icon: const Icon(Icons.share)),
+                          IconButton(
+                              iconSize: 28,
+                              onPressed: () {
+                                loggy.debug("TOGGLE FAVORITO");
+                                context
+                                    .read<FreelancersCubit>()
+                                    .togglePreferito(annuncio.id);
+                              },
+                              icon: Icon(annuncio.preferito
+                                  ? Icons.bookmark_added
+                                  : Icons.bookmark_add_outlined)),
+                        ],
+                      )
+                    ],
+                  ),
+                  AutoSizeText(
+                    annuncio.titolo,
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineLarge!
+                        .copyWith(fontWeight: FontWeight.bold, fontSize: 24),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Column(
+                    children: [
+                      RigaDettaglio(
+                        annuncio: annuncio,
+                        iconData: Icons.schedule,
+                        descrizione: "Job posted",
+                        valore: Text(
+                          DateFormat('dd/MM/yyyy HH:mm')
+                              .format(annuncio.jobPosted),
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                      ),
+                      RigaDettaglio(
+                        annuncio: annuncio,
+                        iconData: Icons.subject,
+                        descrizione: "Come candidarsi",
+                        valore: LinkText(
+                          text: annuncio.comeCandidarsi.content,
+                          url: annuncio.comeCandidarsi.url ?? "",
+                        ),
+                      ),
 
-                        const Divider(),
+                      const Divider(),
 
-                        RigaDettaglio(
-                          annuncio: annuncio,
-                          iconData: Icons.arrow_drop_down_circle_outlined,
-                          descrizione: "NDA",
-                          valore: annuncio.nda == null
-                              ? const Text("")
-                              : Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: NDAChip(
-                                      ndaEntity: annuncio.nda!, mode: mode),
+                      RigaDettaglio(
+                        annuncio: annuncio,
+                        iconData: Icons.arrow_drop_down_circle_outlined,
+                        descrizione: "NDA",
+                        valore: annuncio.nda == null
+                            ? const Text("")
+                            : Align(
+                                alignment: Alignment.centerLeft,
+                                child: NDAChip(
+                                    ndaEntity: annuncio.nda!, mode: mode),
+                              ),
+                      ), //seniority
+                      RigaDettaglio(
+                        annuncio: annuncio,
+                        iconData: Icons.arrow_drop_down_circle_outlined,
+                        descrizione: "Tipo di relazione",
+                        valore: annuncio.relazione == null
+                            ? const Text("")
+                            : Align(
+                                alignment: Alignment.centerLeft,
+                                child: RelazioneChip(
+                                  relazioneEntity: annuncio.relazione!,
+                                  mode: mode,
                                 ),
-                        ), //seniority
-                        RigaDettaglio(
-                          annuncio: annuncio,
-                          iconData: Icons.arrow_drop_down_circle_outlined,
-                          descrizione: "Team",
-                          valore: annuncio.relazione == null
-                              ? const Text("")
-                              : Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: RelazioneChip(
-                                    relazioneEntity: annuncio.relazione!,
-                                    mode: mode,
-                                  ),
-                                ),
-                        ),
+                              ),
+                      ),
 
-                        RigaDettaglio(
-                          annuncio: annuncio,
-                          descrizione: "Retribuzione",
-                          iconData: Icons.subject,
-                          valore: Text(
-                            "annuncio.retribuzione" ?? "",
-                            style: const TextStyle(fontSize: 12),
-                          ),
-                        ),
-                        const Divider(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.subject),
-                            Text("Descrizione Offerta"),
-                          ],
-                        ),
-                        // RigaDettaglio(
-                        //   annuncio: annuncio,
-                        //   descrizione: "Descrizione offerta",
-                        //   iconData: Icons.subject,
-                        //   valore: const SizedBox.shrink(),
-                        // ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          // color: Colors.purple,
-                          child: SingleChildScrollView(
-                              child: getWidgetFromRichTextEntity(
-                                  annuncio.descrizioneProgetto)),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
+                      const Divider(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.subject),
+                          Text("Descrizione del progetto"),
+                        ],
+                      ),
+
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        // color: Colors.purple,
+                        child: SingleChildScrollView(
+                            child: getWidgetFromRichTextEntity(
+                                annuncio.descrizioneProgetto, true)),
+                      ),
+                      const Divider(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(Icons.subject),
+                          Text("Richiesta di lavoro"),
+                        ],
+                      ),
+
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        // color: Colors.purple,
+                        child: SingleChildScrollView(
+                            child: getWidgetFromRichTextEntity(
+                                annuncio.richiestaDiLavoro)),
+                      ),
+                      const Divider()
+                    ],
+                  )
+                ],
               ),
             ),
           ),

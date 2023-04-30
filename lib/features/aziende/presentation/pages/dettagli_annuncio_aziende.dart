@@ -233,9 +233,13 @@ class DettaglioAnnunciAziende extends StatelessWidget with UiLoggy {
                         Container(
                           padding: const EdgeInsets.all(8),
                           // color: Colors.purple,
-                          child: SingleChildScrollView(
-                              child: getWidgetFromRichTextEntity(
-                                  annuncio.descrizioneOfferta)),
+                          child: Column(
+                            children: [
+                              getWidgetFromRichTextEntity(
+                                  annuncio.descrizioneOfferta),
+                              Text("ciao"),
+                            ],
+                          ),
                         ),
                       ],
                     )

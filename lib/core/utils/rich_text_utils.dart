@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 
 import '../domain/entities/typedefs.dart';
 
-EasyRichText getWidgetFromRichTextEntity(RichTextList richTextList) {
+Widget getWidgetFromRichTextEntity(RichTextList richTextList,
+    [bool isFreelancers = false]) {
   String plainText = '';
   var patternList = <EasyRichTextPattern>[];
   for (var richTextEntity in richTextList) {
@@ -38,12 +39,20 @@ EasyRichText getWidgetFromRichTextEntity(RichTextList richTextList) {
       }
     }
   }
-  plainText += "\n\n\n\n\n\n";
+  if (isFreelancers) {
+  } else {
+    plainText += "\n\n\n\n\n\n\n"; //se è in fondo alla pagina
+  }
 
-  var result = EasyRichText(
-    plainText,
-    textAlign: TextAlign.left,
-    patternList: patternList,
+  var result = Column(
+    children: [
+      EasyRichText(
+        plainText,
+        overflow: TextOverflow.fade,
+        textAlign: TextAlign.left,
+        patternList: patternList,
+      ),
+    ],
   );
   return result;
 }
