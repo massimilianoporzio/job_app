@@ -11,6 +11,7 @@ import 'package:job_app/core/presentation/cubit/annuncio_cubit.dart';
 import 'package:job_app/core/services/api/api_client.dart';
 import 'package:job_app/features/aziende/data/datasources/aziende_datasource.dart';
 import 'package:job_app/features/aziende/data/datasources/aziende_datasource_impl.dart';
+import 'package:job_app/features/aziende/data/mappers/annuncio_azienda_mapper.dart';
 import 'package:job_app/features/aziende/data/repositories/aziende_repository_impl.dart';
 import 'package:job_app/features/aziende/domain/repositories/aziende_repository.dart';
 import 'package:job_app/features/aziende/domain/usecases/fetch_all_annunci.dart';
@@ -24,6 +25,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
 import '../../app/tools/connection/connectivity_plus_repository.dart';
 import '../../features/aziende/domain/usecases/refresh_annunci.dart';
+import '../../features/freelancers/data/mappers/annuncio_freelancers_mapper.dart';
 import '../domain/usecases/fetch_annuncio.dart';
 
 final sl = GetIt.instance;
@@ -77,6 +79,11 @@ Future<void> init() async {
         loadAnnunciUsecase: sl<LoadAnnunciAzienda>(),
         refreshAnnunciUsecase: sl<RefreshAnnunciAzienda>(),
       ));
+  //*MAPPERS
+  sl.registerLazySingleton<AnnuncioAziendaMapper>(
+      () => AnnuncioAziendaMapper());
+  sl.registerLazySingleton<AnnuncioFreelancersMapper>(
+      () => AnnuncioFreelancersMapper());
 
   //*third party
 
