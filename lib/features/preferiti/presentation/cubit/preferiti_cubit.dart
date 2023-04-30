@@ -18,6 +18,7 @@ class PreferitiCubit extends HydratedCubit<PreferitiState> {
     var preferiti = List<Preferito>.from(
         listaPreferiti.map((model) => Preferito.fromJson(model)));
     return PreferitiState(listaPreferiti: preferiti);
+    //TODO aggiorna la lista sulla local datasource
   }
 
   @override
@@ -28,6 +29,7 @@ class PreferitiCubit extends HydratedCubit<PreferitiState> {
       listaPreferiti.add(preferito.toJson());
     }
     result.addAll({'listaPreferiti': listaPreferiti});
+    //TODO aggiorna la lista sulla local datasource
 
     return result;
   }
