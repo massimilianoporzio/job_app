@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:job_app/app/resources/app_consts.dart';
 import 'package:job_app/core/utils/filter_utils.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -70,7 +71,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
     try {
       Map<String, dynamic> payload = {
         "page_size":
-            2 //per provare la paginazione se no default è 100 per notion
+            kNumeroDiAnnunciPerPagina //per provare la paginazione se no default è 100 per notion
       };
       if (!params.isEmpty) {
         payload["filter"] = {};
@@ -91,7 +92,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
       loggy.debug("REPONSE FROM NOTION: $response");
 
       loggy.debug(response.data["next_cursor"]);
-      loggy.debug(response.data[""]);
+
       bool hasMore = true; //c'è sempre fino a prova contraria
       String? nextCursor;
       if (response.data["next_cursor"] != null) {
@@ -131,7 +132,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
     try {
       Map<String, dynamic> payload = {
         "page_size":
-            2, //per provare la paginazione se no default è 10 per notion
+            kNumeroDiAnnunciPerPagina, //per provare la paginazione se no default è 10 per notion
       };
 
       if (!params.isEmpty) {
@@ -152,7 +153,7 @@ class AziendeDatasourceImpl with DatasourceLoggy implements AziendeDatasource {
       loggy.debug("REPONSE FROM NOTION: $response");
 
       loggy.debug(response.data["next_cursor"]);
-      loggy.debug(response.data[""]);
+
       if (response.data["next_cursor"] != null) {
         nextCursor = response.data["next_cursor"] as String;
       }

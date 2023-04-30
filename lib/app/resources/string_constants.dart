@@ -71,13 +71,14 @@ class StringConsts {
   static const String baseUrlAziende =
       "https://api.notion.com/v1/databases/283d2760f81548f0a7baca4b3e58d7d8/query";
 
+  static const String baseUrlFreelancers =
+      "https://api.notion.com/v1/databases/e6a8a6760e3d4430b20a15d16f75f92e/query";
   static const String notionDatabaseIdAziende =
       '283d2760f81548f0a7baca4b3e58d7d8';
   static const String notionDatabaseIdFreelancers =
       'e6a8a6760e3d4430b20a15d16f75f92e';
 
   static const String baseUrlPage = "https://api.notion.com/v1/pages/";
-  static const String baseUrlFreelancers = 'https://example.com';
 
   static const String oops = "Uh oh!";
   static const String genericError = "OOPS! Qualcosa è andato storto";

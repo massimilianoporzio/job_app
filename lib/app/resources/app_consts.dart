@@ -3,6 +3,8 @@ import 'package:job_app/app/resources/string_constants.dart';
 
 const kDefaultPadding = 16.0;
 
+const kNumeroDiAnnunciPerPagina = 2;
+
 const kTitleTextStyle = TextStyle(
   color: Colors.black,
   fontSize: 25,
