@@ -54,6 +54,7 @@ class StringConsts {
   static const String notionGreen = "green";
   static const String notionBlue = "blue";
   static const String notionPurple = "purple";
+  static const String notionPink = "pink";
   static const String notionGray = "gray";
   static const String notionGrayBackground = "gray_background";
 

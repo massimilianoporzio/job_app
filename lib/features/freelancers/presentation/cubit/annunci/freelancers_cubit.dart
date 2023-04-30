@@ -27,6 +27,22 @@ class FreelancersCubit extends Cubit<FreelancersState> with BlocLoggy {
     required this.refreshAnnunciUsecase,
   }) : super(FreelancersState.initial());
 
+  recuperaListaNonFiltrata() async {
+    if (state.listaAnnunciNoFilter.isNotEmpty) {
+      (sl<FreelancersRepository>() as FreelancersRepositoryImpl).hasMore =
+          (sl<FreelancersRepository>() as FreelancersRepositoryImpl)
+              .hasMoreNoFilter;
+      (sl<FreelancersRepository>() as FreelancersRepositoryImpl).nextCursor =
+          (sl<FreelancersRepository>() as FreelancersRepositoryImpl)
+              .nextCursorNoFilter;
+
+      emit(FreelancersState(
+          status: FreelancersStateStatus.loaded,
+          listaAnnunci: state.listaAnnunciNoFilter,
+          listaAnnunciNoFilter: const []));
+    }
+  }
+
   togglePreferito(String id) {
     final newListaAnnunci =
         state.listaAnnunci.map((AnnuncioFreelancers annuncio) {

@@ -6,6 +6,10 @@ import 'package:job_app/app/presentation/widgets/reusable_primary_button.dart';
 import 'package:job_app/app/resources/app_consts.dart';
 import 'package:job_app/app/resources/string_constants.dart';
 
+import '../../domain/usecases/annunci_freelancer_params.dart';
+import '../cubit/annunci/freelancers_cubit.dart';
+import '../cubit/filters/freelancers_filters_cubit.dart';
+
 class AnnunciAzNotFound extends StatelessWidget {
   const AnnunciAzNotFound({Key? key}) : super(key: key);
 
@@ -68,14 +72,13 @@ class AnnunciAzNotFound extends StatelessWidget {
                         int pageIndex = state.selectedIndex;
                         switch (pageIndex) {
                           case 0:
-                            //TODO da aggiornare con i cubit freelancers (filtri compresi)
-                            // AnnunciFreelancersParams params = context
-                            //     .read<AziendeFilterCubit>()
-                            //     .state
-                            //     .paramsFromState;
-                            // context
-                            //     .read<FreelancersCubit>()
-                            //     .loadAnnunci(params);
+                            AnnunciFreelancersParams params = context
+                                .read<FreelancersFiltersCubit>()
+                                .state
+                                .paramsFromState;
+                            context
+                                .read<FreelancersCubit>()
+                                .loadAnnunci(params);
                             break;
                           default:
                         }

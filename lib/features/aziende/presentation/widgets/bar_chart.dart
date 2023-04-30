@@ -74,6 +74,7 @@ class _StatBarChartsState extends State<StatBarCharts> {
   @override
   void initState() {
     super.initState();
+    //GIRA PRIMA DI BUILD PER AVERE GIà I DATI
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       for (var annuncio in widget.listaAnnunci) {
         if (annuncio.contratto != null) {

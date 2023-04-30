@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../features/aziende/domain/enums/contratto.dart';
 import '../../features/aziende/domain/enums/seniority.dart';
 import '../../features/aziende/domain/enums/team.dart';
+import '../../features/freelancers/domain/enums/nda.dart';
+import '../../features/freelancers/domain/enums/relazione.dart';
 
 class ColorManager {
   static const Color primaryColor = Colors.blueGrey;
@@ -88,6 +90,36 @@ class ColorManager {
 
       default:
         return Theme.of(context).colorScheme.primaryContainer;
+    }
+  }
+
+  static getBackgroundColorFromNDA(NDA nda,
+      {required ThemeMode mode, required BuildContext context}) {
+    switch (nda) {
+      case NDA.no:
+        return mode == ThemeMode.dark
+            ? ColorManager.notionDarkNDAeRelazioneGray
+            : ColorManager.notionLightNDAsiGrayBackground;
+      case NDA.si:
+        return mode == ThemeMode.dark
+            ? ColorManager.notionDarkNDAsiGrayBackground
+            : ColorManager.notionLightNDAsiGrayBackground; //TODO check colori
+      default:
+    }
+  }
+
+  static getBackgroundColorFromRelazione(Relazione relazione,
+      {required ThemeMode mode, required BuildContext context}) {
+    switch (relazione) {
+      case Relazione.solo:
+        return mode == ThemeMode.dark
+            ? ColorManager.notionDarkNDAeRelazioneGray
+            : ColorManager.notionLightRelazioneSoloGray;
+      case Relazione.altri:
+        return mode == ThemeMode.dark
+            ? ColorManager.notionDarkPink
+            : ColorManager.notionLightPink;
+      default:
     }
   }
 

@@ -3,7 +3,12 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
-import 'package:job_app/features/aziende/domain/usecases/annunci_azienda_params.dart';
+import 'package:job_app/app/presentation/widgets/bottom_loader.dart';
+import 'package:job_app/features/freelancers/data/repositories/freelancers_repo_impl.dart';
+import 'package:job_app/features/freelancers/domain/entities/annuncio_freelancer.dart';
+import 'package:job_app/features/freelancers/domain/usecases/annunci_freelancer_params.dart';
+
+import 'package:job_app/features/freelancers/presentation/cubit/annunci/freelancers_cubit.dart';
 import 'package:loggy/loggy.dart';
 
 import '../../../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
@@ -13,15 +18,11 @@ import '../../../../core/domain/entities/typedefs.dart';
 
 import '../../../../core/services/service_locator.dart';
 
-import '../../data/repositories/aziende_repository_impl.dart';
-import '../../domain/entities/annuncio_azienda.dart';
-import '../../domain/repositories/aziende_repository.dart';
-import '../cubit/annunci/aziende_cubit.dart';
+import '../../domain/repositories/freelancers_repo.dart';
 import 'annuncio_actions.dart';
-import '../../../../app/presentation/widgets/bottom_loader.dart';
-import 'chips.dart';
-import 'job_posted.dart';
-import 'localita.dart';
+
+import 'chips_freelancers.dart';
+import 'job_posted_freelancers.dart';
 
 class VerticalList extends StatefulWidget {
   const VerticalList({
@@ -32,8 +33,8 @@ class VerticalList extends StatefulWidget {
   }) : super(key: key);
 
   final double mHeigth;
-  final AnnuncioAziendaList listaAnnunci;
-  final AnnunciAzParams params;
+  final AnnuncioFreelancerList listaAnnunci;
+  final AnnunciFreelancersParams params;
 
   @override
   State<VerticalList> createState() => _VerticalListState();
@@ -52,7 +53,7 @@ class _VerticalListState extends State<VerticalList> with UiLoggy {
   void _onScroll() {
     if (_isBottom) {
       context
-          .read<AziendeCubit>()
+          .read<FreelancersCubit>()
           .refreshAnnunci(widget.params); //carico altri annunci
     }
   }
@@ -75,8 +76,9 @@ class _VerticalListState extends State<VerticalList> with UiLoggy {
 
   @override
   Widget build(BuildContext context) {
-    bool hasMore = (sl<AziendeRepository>() as AziendeRepositoryImpl).hasMore;
-    return BlocBuilder<AziendeCubit, AziendeState>(
+    bool hasMore =
+        (sl<FreelancersRepository>() as FreelancersRepositoryImpl).hasMore;
+    return BlocBuilder<FreelancersCubit, FreelancersState>(
       builder: (context, state) {
         return Expanded(
           child: ListView.separated(
@@ -99,7 +101,7 @@ class _VerticalListState extends State<VerticalList> with UiLoggy {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: index >= widget.listaAnnunci.length
                       ? const BottomLoader()
-                      : CardAzienda(
+                      : CardFreelancers(
                           index: index,
                           annuncio: widget.listaAnnunci[index],
                         ),
@@ -113,10 +115,10 @@ class _VerticalListState extends State<VerticalList> with UiLoggy {
   }
 }
 
-class CardAzienda extends StatelessWidget with UiLoggy {
+class CardFreelancers extends StatelessWidget with UiLoggy {
   final int index;
-  final AnnuncioAzienda annuncio;
-  const CardAzienda({
+  final AnnuncioFreelancers annuncio;
+  const CardFreelancers({
     super.key,
     required this.index,
     required this.annuncio,
@@ -183,14 +185,7 @@ class CardAzienda extends StatelessWidget with UiLoggy {
                       ],
                     ),
                   ),
-                  Text(annuncio.nomeAzienda.content,
-                      style: const TextStyle(fontSize: 14)),
-                  if (annuncio.retribuzione != null)
-                    AutoSizeText(
-                      annuncio.retribuzione!,
-                      maxLines: 2,
-                      style: const TextStyle(fontSize: 14),
-                    ),
+
                   AnnuncioActions(loggy: loggy, annuncio: annuncio),
 
                   BlocBuilder<DarkModeCubit, DarkModeState>(
@@ -198,35 +193,31 @@ class CardAzienda extends StatelessWidget with UiLoggy {
                       return Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          if (annuncio.seniority != null)
+                          if (annuncio.nda != null)
                             Padding(
                               padding: const EdgeInsets.all(0.0),
-                              child: SeniorityChip(
-                                seniorityEntity: annuncio.seniority!,
+                              child: NDAChip(
+                                ndaEntity: annuncio.nda!,
                                 mode: state.mode,
                               ),
                             ),
-                          ContrattoChip(
-                            contrattoEntity: annuncio.contratto!,
-                            mode: state.mode,
-                          ),
-                          TeamChip(
-                            teamEntity: annuncio.team!,
-                            mode: state.mode,
-                          )
+                          if (annuncio.relazione != null)
+                            RelazioneChip(
+                              relazioneEntity: annuncio.relazione!,
+                              mode: state.mode,
+                            ),
                         ],
                       );
                     },
                   ), //fine riga dei tag
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       // Text("job posted"), Text(annuncio.localita ?? "...")
                       JobPosted(annuncio: annuncio),
                       // Text("prova")
-                      Localita(annuncio: annuncio)
                     ],
-                  ), //riga data e località
+                  ), //riga data
                 ],
               ),
             )),
