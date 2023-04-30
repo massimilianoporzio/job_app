@@ -7,6 +7,9 @@ import 'package:job_app/features/aziende/domain/usecases/annunci_azienda_params.
 
 import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
 import 'package:job_app/features/aziende/presentation/cubit/filters/aziende_filter_cubit.dart';
+import 'package:job_app/features/freelancers/domain/usecases/annunci_freelancer_params.dart';
+import 'package:job_app/features/freelancers/presentation/cubit/annunci/freelancers_cubit.dart';
+import 'package:job_app/features/freelancers/presentation/cubit/filters/freelancers_filters_cubit.dart';
 import 'package:loggy/loggy.dart';
 
 import '../core/services/service_locator.dart';
@@ -57,6 +60,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
+      BlocProvider(
+        create: (context) => sl<FreelancersFiltersCubit>(),
+      ),
       BlocProvider<AziendeFilterCubit>(
           create: (context) => sl<AziendeFilterCubit>()),
       BlocProvider<SoundCubit>(
@@ -83,6 +89,16 @@ class MyApp extends StatelessWidget {
             aziendeCubit.loadAnnunci(AnnunciAzParams.empty());
           }
           return aziendeCubit;
+        },
+      ),
+      BlocProvider<FreelancersCubit>(
+        create: (context) {
+          var freelancersCubit = sl<FreelancersCubit>();
+          //initial lista vuota quindi carico
+          if (freelancersCubit.state.listaAnnunci.isEmpty) {
+            freelancersCubit.loadAnnunci(AnnunciFreelancersParams.empty());
+          }
+          return freelancersCubit;
         },
       ),
     ], child: const JobApp());
