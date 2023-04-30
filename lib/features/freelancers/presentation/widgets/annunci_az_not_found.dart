@@ -6,11 +6,6 @@ import 'package:job_app/app/presentation/widgets/reusable_primary_button.dart';
 import 'package:job_app/app/resources/app_consts.dart';
 import 'package:job_app/app/resources/string_constants.dart';
 
-import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
-import 'package:job_app/features/aziende/presentation/cubit/filters/aziende_filter_cubit.dart';
-import 'package:job_app/features/freelancers/domain/usecases/annunci_freelancer_params.dart';
-import 'package:job_app/features/freelancers/presentation/cubit/freelancers_cubit.dart';
-
 class AnnunciAzNotFound extends StatelessWidget {
   const AnnunciAzNotFound({Key? key}) : super(key: key);
 
