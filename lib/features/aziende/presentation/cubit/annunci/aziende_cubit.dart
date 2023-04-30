@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:job_app/app/resources/app_consts.dart';
 import 'package:job_app/features/aziende/domain/usecases/annunci_azienda_params.dart';
 
 import '../../../../../app/resources/string_constants.dart';
