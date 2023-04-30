@@ -79,33 +79,35 @@ class _VerticalListState extends State<VerticalList> with UiLoggy {
     return BlocBuilder<AziendeCubit, AziendeState>(
       builder: (context, state) {
         return Expanded(
-          child: ListView.separated(
-            separatorBuilder: (context, index) => const SizedBox(
-              height: 10,
-            ),
+          child: Scrollbar(
+            child: ListView.separated(
+              separatorBuilder: (context, index) => const SizedBox(
+                height: 10,
+              ),
 
-            controller: _scrollController,
-            // key: const PageStorageKey<String>(
-            //     'Aziende'), //mi tiene la posizione in cui ero
-            itemCount: hasMore
-                ? widget.listaAnnunci.length + 1
-                : widget.listaAnnunci.length, //+ 1 per il bottomLoader
-            itemBuilder: (context, index) {
-              // print("index: $index");
-              // print("lista Annunci ha ${widget.listaAnnunci.length} annunci");
-              return SizedBox(
-                height: 0.30 * widget.mHeigth,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: index >= widget.listaAnnunci.length
-                      ? const BottomLoader()
-                      : CardAzienda(
-                          index: index,
-                          annuncio: widget.listaAnnunci[index],
-                        ),
-                ),
-              );
-            },
+              controller: _scrollController,
+              // key: const PageStorageKey<String>(
+              //     'Aziende'), //mi tiene la posizione in cui ero
+              itemCount: hasMore
+                  ? widget.listaAnnunci.length + 1
+                  : widget.listaAnnunci.length, //+ 1 per il bottomLoader
+              itemBuilder: (context, index) {
+                // print("index: $index");
+                // print("lista Annunci ha ${widget.listaAnnunci.length} annunci");
+                return SizedBox(
+                  height: 0.30 * widget.mHeigth,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: index >= widget.listaAnnunci.length
+                        ? const BottomLoader()
+                        : CardAzienda(
+                            index: index,
+                            annuncio: widget.listaAnnunci[index],
+                          ),
+                  ),
+                );
+              },
+            ),
           ),
         );
       },

@@ -77,32 +77,35 @@ class _HorizontalListState extends State<HorizontalList> {
         child: SizedBox(
       height: 0.45 * widget.mHeigth,
       // color: Colors.purple,
-      child: ListView.builder(
-        controller: _scrollController,
-        // key: const PageStorageKey<String>("Aziende hor"),
+      child: Scrollbar(
+        scrollbarOrientation: ScrollbarOrientation.top,
+        child: ListView.builder(
+          controller: _scrollController,
+          // key: const PageStorageKey<String>("Aziende hor"),
 
-        itemCount: hasMore
-            ? widget.listaAnnunci.length + 1
-            : widget.listaAnnunci.length, //+ 1 per il bottomLoader
+          itemCount: hasMore
+              ? widget.listaAnnunci.length + 1
+              : widget.listaAnnunci.length, //+ 1 per il bottomLoader
 
-        itemBuilder: (context, index) => SizedBox(
-          // height: 140,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 3, right: 3),
-            child: SizedBox(
-              width: 350,
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 2),
-                child: index >= widget.listaAnnunci.length
-                    ? const RightLoader()
-                    : CardAziendaHor(
-                        annuncio: widget.listaAnnunci[index],
-                      ),
+          itemBuilder: (context, index) => SizedBox(
+            // height: 140,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 3, right: 3),
+              child: SizedBox(
+                width: 350,
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 2),
+                  child: index >= widget.listaAnnunci.length
+                      ? const RightLoader()
+                      : CardAziendaHor(
+                          annuncio: widget.listaAnnunci[index],
+                        ),
+                ),
               ),
             ),
           ),
+          scrollDirection: Axis.horizontal,
         ),
-        scrollDirection: Axis.horizontal,
       ),
     ));
   }

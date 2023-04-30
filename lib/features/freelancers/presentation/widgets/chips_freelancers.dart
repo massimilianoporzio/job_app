@@ -116,6 +116,8 @@ class RelazioneChip extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: AutoSizeText(
           '${relazioneEntity.relazione}',
+          textAlign: TextAlign.justify,
+          minFontSize: 12,
           style: Theme.of(context)
               .textTheme
               .labelSmall!
