@@ -23,6 +23,14 @@ class Preferito extends Equatable with Comparable {
                 (annuncioAzienda == null && annuncioFreelancers != null),
             "Non puoi usare due annunci o non usarne nessuno");
 
+  String get annuncioId {
+    if (annuncioFreelancers == null) {
+      return annuncioAzienda!.id;
+    } else {
+      return annuncioFreelancers!.id;
+    }
+  }
+
   DateTime get jobPosted {
     if (annuncioFreelancers == null) {
       return annuncioAzienda!.jobPosted;
@@ -41,7 +49,7 @@ class Preferito extends Equatable with Comparable {
   //SERIALIZZAZIONE è PER HYDRATED BLOC...la faccio qui per mancanza di tempo
   //come domain non dovrebbe avere nulla a che fare con la serializzazione...
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     final result = <String, dynamic>{};
 
     if (annuncioAzienda != null) {
@@ -61,7 +69,7 @@ class Preferito extends Equatable with Comparable {
     return result;
   }
 
-  factory Preferito.fromMap(Map<String, dynamic> json) {
+  factory Preferito.fromJson(Map<String, dynamic> json) {
     return Preferito(
       annuncioAzienda: json['annuncioAzienda'] != null
           ? sl<AnnuncioAziendaMapper>()
@@ -73,9 +81,4 @@ class Preferito extends Equatable with Comparable {
           : null,
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory Preferito.fromJson(String source) =>
-      Preferito.fromMap(json.decode(source));
 }

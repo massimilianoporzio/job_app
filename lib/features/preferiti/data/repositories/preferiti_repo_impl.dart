@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:job_app/core/domain/entities/typedefs.dart';
 
 import 'package:job_app/core/domain/enums/tipologia_annunci.dart';
 import 'package:job_app/core/domain/errors/failures.dart';
@@ -58,5 +59,29 @@ class PreferitiRepositoryImpl
     } on Exception {
       return Left(GenericFailure());
     }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> aggiornaPreferito(Preferito preferito) {
+    // TODO: implement aggiornaPreferito
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> aggiungiPreferito(Preferito preferito) {
+    // TODO: implement aggiungiPreferito
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, ListaPreferiti>> fetchListaPreferiti() {
+    // TODO: implement fetchListaPreferiti
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> rimuoviPreferito(String annuncioId) {
+    // TODO: implement rimuoviPreferito
+    throw UnimplementedError();
   }
 }

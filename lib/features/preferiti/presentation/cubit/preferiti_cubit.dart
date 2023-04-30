@@ -1,13 +1,34 @@
-import 'dart:convert';
+import 'dart:async';
 
 import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:job_app/features/aziende/data/mappers/annuncio_azienda_mapper.dart';
+
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:job_app/features/preferiti/domain/entities/preferito.dart';
 
 import '../../../../core/domain/entities/typedefs.dart';
 
 part 'preferiti_state.dart';
 
-class PreferitiCubit extends Cubit<PreferitiState> {
+class PreferitiCubit extends HydratedCubit<PreferitiState> {
   PreferitiCubit() : super(PreferitiState.initial());
+
+  @override
+  PreferitiState? fromJson(Map<String, dynamic> json) {
+    var listaPreferiti = json['preferiti'];
+    var preferiti = List<Preferito>.from(
+        listaPreferiti.map((model) => Preferito.fromJson(model)));
+    return PreferitiState(listaPreferiti: preferiti);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(PreferitiState state) {
+    final result = <String, dynamic>{};
+    final listaPreferiti = [];
+    for (var preferito in state.listaPreferiti) {
+      listaPreferiti.add(preferito.toJson());
+    }
+    result.addAll({'listaPreferiti': listaPreferiti});
+
+    return result;
+  }
 }
