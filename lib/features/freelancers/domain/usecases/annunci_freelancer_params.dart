@@ -9,6 +9,22 @@ class AnnunciFreelancersParams extends Equatable {
   final bool soloRelazioneFilter;
   final bool altriRelazioneFilter;
 
+  int get numberOfRelazioneFilters {
+    int result = 0;
+    if (soloRelazioneFilter) result++;
+    if (altriRelazioneFilter) result++;
+
+    return result;
+  }
+
+  int get numberOfNdaFilters {
+    int result = 0;
+    if (siNdaFilter) result++;
+    if (noNdaFilter) result++;
+
+    return result;
+  }
+
   int get numberOfTypeOfFilter {
     int result = 0;
     if (!isNdaEmpty) result++;

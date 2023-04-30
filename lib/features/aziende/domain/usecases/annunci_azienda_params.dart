@@ -13,6 +13,30 @@ class AnnunciAzParams extends Equatable {
   final bool ibridoFilter;
   final bool fullRemoteFilter;
 
+  int get numberOfTeamFilters {
+    int result = 0;
+    if (inSedeFilter) result++;
+    if (ibridoFilter) result++;
+    if (fullRemoteFilter) result++;
+    return result;
+  }
+
+  int get numberOfContrattoFilters {
+    int result = 0;
+    if (partTimeFilter) result++;
+    if (fullTimeFilter) result++;
+
+    return result;
+  }
+
+  int get numberOfSeniorityFilters {
+    int result = 0;
+    if (juniorSeniorityFilter) result++;
+    if (midSeniorityFilter) result++;
+    if (seniorSeniorityFilter) result++;
+    return result;
+  }
+
   int get numberOfTypeOfFilter {
     int result = 0;
     if (!isSeniorityEmpty) result++;

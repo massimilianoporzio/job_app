@@ -57,7 +57,25 @@ class FreelancersDataSourceImpl
   @override
   Future<NotionResponseFreelancersDTO> fetchProssimaPaginaAnnunciFreelancers(
       String startCursor, AnnunciFreelancersParams params) {
-    // TODO: implement fetchProssimaPaginaAnnunciFreelancers
+    bool hasMore = true;
+    String? nextCursor;
+    List<AnnuncioFreelancersModel> listaAnnunci = [];
+    try {
+      Map<String, dynamic> payload = {
+        "page_size":
+            2, //per provare la paginazione se no default è 10 per notion
+      };
+    } on DioError catch (e) {
+      if (e.type == DioErrorType.connectionError ||
+          e.type == DioErrorType.unknown) {
+        throw NetworkException();
+      } else if (e.type == DioErrorType.badResponse) {
+        throw const ServerException();
+      }
+      rethrow;
+    } on Exception {
+      throw RestApiException();
+    }
     throw UnimplementedError();
   }
 }
