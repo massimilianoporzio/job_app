@@ -19,6 +19,14 @@ import 'package:job_app/features/aziende/domain/usecases/load_annunci.dart';
 import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
 
 import 'package:job_app/features/aziende/presentation/cubit/filters/aziende_filter_cubit.dart';
+import 'package:job_app/features/freelancers/data/datasources/freelancers_datasource.dart';
+import 'package:job_app/features/freelancers/data/datasources/freelancers_datasource_impl.dart';
+import 'package:job_app/features/freelancers/data/repositories/freelancers_repo_impl.dart';
+import 'package:job_app/features/freelancers/domain/repositories/freelancers_repo.dart';
+import 'package:job_app/features/freelancers/domain/usecases/load_annunci_freelancer.dart';
+import 'package:job_app/features/freelancers/domain/usecases/refresh_annunci_freelancer.dart';
+import 'package:job_app/features/freelancers/presentation/cubit/annunci/freelancers_cubit.dart';
+import 'package:job_app/features/freelancers/presentation/cubit/filters/freelancers_filters_cubit.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -37,21 +45,34 @@ Future<void> init() async {
         prefs: sl<SharedPreferences>(),
       ));
 
+  sl.registerLazySingleton<FreelancersDatasource>(
+      () => FreelancersDataSourceImpl(dio: sl<Dio>()));
+
   //*REPOSITORIES
   sl.registerLazySingleton<ConnectionRepository>(
       () => ConnectivityPlusRepository(sl<Connectivity>()));
 
   sl.registerLazySingleton<AziendeRepository>(
-      () => AziendeRepositoryImpl(remoteDS: sl()));
+      () => AziendeRepositoryImpl(remoteDS: sl<AziendeDatasource>()));
+
+  sl.registerLazySingleton<FreelancersRepository>(
+      () => FreelancersRepositoryImpl(remoteDS: sl<FreelancersDatasource>()));
 
   //*USECASES
+  //aziende:
   sl.registerLazySingleton<FetchAnnunciAzienda>(
-      () => FetchAnnunciAzienda(repository: sl()));
+      () => FetchAnnunciAzienda(repository: sl<AziendeRepository>()));
 
   sl.registerLazySingleton<LoadAnnunciAzienda>(
-      () => LoadAnnunciAzienda(repository: sl()));
+      () => LoadAnnunciAzienda(repository: sl<AziendeRepository>()));
   sl.registerLazySingleton<RefreshAnnunciAzienda>(
-      () => RefreshAnnunciAzienda(repository: sl()));
+      () => RefreshAnnunciAzienda(repository: sl<AziendeRepository>()));
+
+  //freelancers:
+  sl.registerLazySingleton<LoadAnnunciFreelancers>(
+      () => LoadAnnunciFreelancers(repository: sl<FreelancersRepository>()));
+  sl.registerLazySingleton<RefreshAnnunciFreelancer>(
+      () => RefreshAnnunciFreelancer(repository: sl<FreelancersRepository>()));
 
   sl.registerLazySingleton<FetchAnnuncio>(() => FetchAnnuncio());
 
@@ -66,12 +87,14 @@ Future<void> init() async {
   //bottom navigation cubit
   sl.registerFactory<NavigationCubit>(() => NavigationCubit());
 
-  //dettaglio annuncio (Either)
+  //dettaglio annuncio (Either) NON USATO
   sl.registerFactory<AnnuncioCubit>(
       () => AnnuncioCubit(fetchAnnuncioUsecase: sl<FetchAnnuncio>()));
 
   //filtri e ricerca per aziende
   sl.registerFactory<AziendeFilterCubit>(() => AziendeFilterCubit());
+  //filtri e ricerca per freelancers
+  sl.registerFactory<FreelancersFiltersCubit>(() => FreelancersFiltersCubit());
 
   //annunci aziende cubit
   sl.registerFactory<AziendeCubit>(() => AziendeCubit(
@@ -79,6 +102,12 @@ Future<void> init() async {
         loadAnnunciUsecase: sl<LoadAnnunciAzienda>(),
         refreshAnnunciUsecase: sl<RefreshAnnunciAzienda>(),
       ));
+  //Annunci freelancers
+  sl.registerFactory<FreelancersCubit>(() => FreelancersCubit(
+        loadAnnunciUsecase: sl<LoadAnnunciFreelancers>(),
+        refreshAnnunciUsecase: sl<RefreshAnnunciFreelancer>(),
+      ));
+
   //*MAPPERS
   sl.registerLazySingleton<AnnuncioAziendaMapper>(
       () => AnnuncioAziendaMapper());
