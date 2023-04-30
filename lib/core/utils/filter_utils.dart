@@ -83,6 +83,7 @@ List buildFilterMapFromParamsFreelancers(AnnunciFreelancersParams params) {
       } else {
         ndaMap = siMap; //UNICO FILTRO
       }
+      listaFiltri.add(ndaMap);
     }
   } //c'erano filtri NDA
   if (!params.isRelazioneEmpty) {
@@ -120,12 +121,13 @@ List buildFilterMapFromParamsFreelancers(AnnunciFreelancersParams params) {
           }
         ],
       };
-      if (params.numberOfNdaFilters > 1) {
+      if (params.numberOfRelazioneFilters > 1) {
         relazioneMap['or'].add(altriMap);
       } else {
         relazioneMap = altriMap; //UNICO FILTRO
       }
     }
+    listaFiltri.add(relazioneMap);
   } //c'erano filtri RELAZIONE
 
   return listaFiltri;

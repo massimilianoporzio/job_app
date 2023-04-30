@@ -18,7 +18,7 @@ class HorizontalStatsFreelancers extends StatelessWidget {
       height: 0.4 * mHeigth,
       width: 0.4 * mWidth,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           StatAnnunciFreelancers(
@@ -26,7 +26,6 @@ class HorizontalStatsFreelancers extends StatelessWidget {
             mWidth: mWidth,
           ),
           Container(
-            // color: Colors.lime,
             child: Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

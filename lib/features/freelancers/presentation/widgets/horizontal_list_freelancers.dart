@@ -135,14 +135,14 @@ class CardFreelancersHor extends StatelessWidget with UiLoggy {
             borderRadius: BorderRadius.circular(12),
             gradient: LinearGradient(
               colors: [
-                ColorManager.veryLightRed
+                ColorManager.notionLightPrimary
                     .harmonizeWith(
-                        Theme.of(context).colorScheme.secondaryContainer)
+                        Theme.of(context).colorScheme.primaryContainer)
                     .withOpacity(0.2),
-                Theme.of(context).colorScheme.secondaryContainer,
+                Theme.of(context).colorScheme.errorContainer.withOpacity(0.2),
               ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+              begin: Alignment.topRight,
+              end: Alignment.centerLeft,
             ),
           ),
           child: Padding(
@@ -173,8 +173,6 @@ class CardFreelancersHor extends StatelessWidget with UiLoggy {
                     ],
                   ),
                 ),
-                Text("annuncio.nomeAzienda.content",
-                    style: const TextStyle(fontSize: 12)),
 
                 AnnuncioActions(loggy: loggy, annuncio: annuncio),
                 BlocBuilder<DarkModeCubit, DarkModeState>(

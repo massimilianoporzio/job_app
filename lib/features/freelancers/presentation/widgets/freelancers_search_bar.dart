@@ -172,10 +172,11 @@ class _FreelancersSearchBarState extends State<FreelancersSearchBar>
                     IconButton(onPressed: () async {
                       //USO quello che torna da bottomSheet
                       final result = await showModalBottomSheet(
+                        isScrollControlled: true,
                         isDismissible: true,
                         context: context,
                         builder: (context) {
-                          return buildAziendeFilterSheet(context);
+                          return buildFreelancersFilterSheet(context);
                         },
                       );
                       // ).whenComplete(
@@ -250,10 +251,11 @@ class _FreelancersSearchBarState extends State<FreelancersSearchBar>
     );
   }
 
-  Widget buildAziendeFilterSheet(BuildContext context) {
+  Widget buildFreelancersFilterSheet(BuildContext context) {
+    var orientation = MediaQuery.of(context).orientation;
     return Container(
         color: Theme.of(context).colorScheme.background,
-        height: MediaQuery.of(context).size.height,
+        height: MediaQuery.of(context).size.height * 0.8,
         child: BlocBuilder<DarkModeCubit, DarkModeState>(
           builder: (context, themeState) {
             return BlocBuilder<FreelancersFiltersCubit,
@@ -364,13 +366,22 @@ class _FreelancersSearchBarState extends State<FreelancersSearchBar>
                             style: TextStyle(fontWeight: FontWeight.w600))
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        soloRelazioneFilter(context, themeState, state),
-                        altriRelazioneFilter(context, themeState, state),
-                      ],
-                    ),
+                    if (orientation == Orientation.landscape)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          soloRelazioneFilter(context, themeState, state),
+                          altriRelazioneFilter(context, themeState, state),
+                        ],
+                      )
+                    else
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          soloRelazioneFilter(context, themeState, state),
+                          altriRelazioneFilter(context, themeState, state),
+                        ],
+                      ),
                     const Divider(),
                     Center(
                       child: ElevatedButton(

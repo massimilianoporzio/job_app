@@ -77,14 +77,17 @@ class _AnnunciFreelancersState extends State<AnnunciFreelancers> {
 
           case FreelancersStateStatus.loaded:
             if (orientation == Orientation.landscape) {
-              return SingleChildScrollView(
-                child: Container(
-                  // color: Colors.lime,
-                  child: MainContent(
-                    orientation: orientation,
-                    mWidth: mWidth,
-                    mHeight: mHeight,
-                    lista: state.listaAnnunci,
+              return Scrollbar(
+                thumbVisibility: true,
+                child: SingleChildScrollView(
+                  child: Container(
+                    // color: Colors.lime,
+                    child: MainContent(
+                      orientation: orientation,
+                      mWidth: mWidth,
+                      mHeight: mHeight,
+                      lista: state.listaAnnunci,
+                    ),
                   ),
                 ),
               );
