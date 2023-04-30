@@ -16,18 +16,19 @@ import '../cubit/filters/freelancers_filters_cubit.dart';
 import '../widgets/annunci_freelancers_not_found.dart';
 import '../widgets/freelancers_search_bar.dart';
 
-class AnnunciFreelancers extends StatefulWidget {
-  AnnunciFreelancers({
+class AnnunciFreelancersWidget extends StatefulWidget {
+  AnnunciFreelancersWidget({
     super.key,
   }) {
     initializeDateFormatting();
   }
 
   @override
-  State<AnnunciFreelancers> createState() => _AnnunciFreelancersState();
+  State<AnnunciFreelancersWidget> createState() =>
+      _AnnunciFreelancersWidgetState();
 }
 
-class _AnnunciFreelancersState extends State<AnnunciFreelancers> {
+class _AnnunciFreelancersWidgetState extends State<AnnunciFreelancersWidget> {
   @override
   void initState() {
     super.initState();

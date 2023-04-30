@@ -7,6 +7,6 @@ class PagesManager {
   static List<Widget> pages = [
     AnnunciAziende(),
     const AnnunciPreferiti(), //DUMMY
-    AnnunciFreelancers(), // DUMMY
+    AnnunciFreelancersWidget(), // DUMMY
   ];
 }
