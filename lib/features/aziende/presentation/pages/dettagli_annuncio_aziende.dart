@@ -14,6 +14,7 @@ import 'package:loggy/loggy.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
+import '../../../../core/data/utils/snackbars.dart';
 import '../../../../core/domain/entities/annuncio_args.dart';
 import '../../domain/entities/annuncio_azienda.dart';
 import '../../../../core/services/service_locator.dart';
@@ -28,7 +29,11 @@ class DettaglioAnnunciAziende extends StatelessWidget with UiLoggy {
     final mode = context.read<DarkModeCubit>().state.mode;
     final args =
         ModalRoute.of(context)!.settings.arguments as AnnuncioArguments;
-
+    if (args.isFromPreferiti) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        showSnackbarInfo(context, "L'annuncio potrebbe non essere aggiornato");
+      });
+    }
     return BlocSelector<AziendeCubit, AziendeState, AnnuncioAzienda>(
       selector: (state) {
         var annuncio = state.listaAnnunci

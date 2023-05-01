@@ -120,9 +120,11 @@ class _VerticalListFreelancersState extends State<VerticalListFreelancers>
 
 class CardFreelancers extends StatelessWidget with UiLoggy {
   final AnnuncioFreelancers annuncio;
+  final bool isFromPreferiti;
   const CardFreelancers({
     super.key,
     required this.annuncio,
+    this.isFromPreferiti = false,
   });
 
   @override
@@ -186,7 +188,11 @@ class CardFreelancers extends StatelessWidget with UiLoggy {
                     ),
                   ),
 
-                  AnnuncioActions(loggy: loggy, annuncio: annuncio),
+                  AnnuncioActionsFreelancers(
+                    loggy: loggy,
+                    annuncio: annuncio,
+                    isFromPreferiti: isFromPreferiti,
+                  ),
 
                   BlocBuilder<DarkModeCubit, DarkModeState>(
                     builder: (context, state) {

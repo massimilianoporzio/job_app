@@ -10,10 +10,12 @@ class AnnuncioActions extends StatefulWidget {
     super.key,
     required this.loggy,
     required this.annuncio,
+    this.isFromPreferiti = false,
   });
 
   final Loggy<UiLoggy> loggy;
   final AnnuncioAzienda annuncio;
+  final bool isFromPreferiti;
 
   @override
   State<AnnuncioActions> createState() => _AnnuncioActionsState();
@@ -59,9 +61,9 @@ class _AnnuncioActionsState extends State<AnnuncioActions>
               widget.loggy.debug("VAI AL DETTAGLIO");
               Navigator.of(context).pushNamed(DettaglioAnnunciAziende.routeName,
                   arguments: AnnuncioArguments(
-                    annuncioId: widget.annuncio.id,
-                    tipoAnnuncio: widget.annuncio.tipoAnnuncio,
-                  ));
+                      annuncioId: widget.annuncio.id,
+                      tipoAnnuncio: widget.annuncio.tipoAnnuncio,
+                      isFromPreferiti: widget.isFromPreferiti));
             },
             // icon: const Icon(CupertinoIcons.ellipsis),
             icon: AnimatedIcon(

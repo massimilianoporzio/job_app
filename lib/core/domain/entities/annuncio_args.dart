@@ -4,9 +4,10 @@ class AnnuncioArguments {
   // final Annuncio annuncio;
   final String annuncioId;
   final TipoAnnuncio tipoAnnuncio;
+  final bool isFromPreferiti;
 
-  AnnuncioArguments({
-    required this.annuncioId,
-    required this.tipoAnnuncio,
-  });
+  AnnuncioArguments(
+      {required this.annuncioId,
+      required this.tipoAnnuncio,
+      this.isFromPreferiti = false});
 }

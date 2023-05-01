@@ -5,21 +5,24 @@ import 'package:loggy/loggy.dart';
 import '../../../../core/domain/entities/annuncio_args.dart';
 import '../pages/dettagli_annuncio_freelancers.dart';
 
-class AnnuncioActions extends StatefulWidget {
-  const AnnuncioActions({
+class AnnuncioActionsFreelancers extends StatefulWidget {
+  const AnnuncioActionsFreelancers({
     super.key,
     required this.loggy,
     required this.annuncio,
+    this.isFromPreferiti = false,
   });
 
   final Loggy<UiLoggy> loggy;
   final AnnuncioFreelancers annuncio;
+  final bool isFromPreferiti;
 
   @override
-  State<AnnuncioActions> createState() => _AnnuncioActionsState();
+  State<AnnuncioActionsFreelancers> createState() =>
+      _AnnuncioActionsFreelancersState();
 }
 
-class _AnnuncioActionsState extends State<AnnuncioActions>
+class _AnnuncioActionsFreelancersState extends State<AnnuncioActionsFreelancers>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
 
@@ -57,12 +60,12 @@ class _AnnuncioActionsState extends State<AnnuncioActions>
         IconButton(
             onPressed: () {
               widget.loggy.debug("VAI AL DETTAGLIO");
-              Navigator.of(context)
-                  .pushNamed(DettaglioAnnunciFreelancers.routeName,
-                      arguments: AnnuncioArguments(
-                        annuncioId: widget.annuncio.id,
-                        tipoAnnuncio: widget.annuncio.tipoAnnuncio,
-                      ));
+              Navigator.of(context).pushNamed(
+                  DettaglioAnnunciFreelancers.routeName,
+                  arguments: AnnuncioArguments(
+                      annuncioId: widget.annuncio.id,
+                      tipoAnnuncio: widget.annuncio.tipoAnnuncio,
+                      isFromPreferiti: widget.isFromPreferiti));
             },
             // icon: const Icon(CupertinoIcons.ellipsis),
             icon: AnimatedIcon(

@@ -116,9 +116,11 @@ class _HorizontalListFreelancersState extends State<HorizontalListFreelancers> {
 
 class CardFreelancersHor extends StatelessWidget with UiLoggy {
   final AnnuncioFreelancers annuncio;
+  final bool isFromPreferiti;
   const CardFreelancersHor({
     super.key,
     required this.annuncio,
+    this.isFromPreferiti = false,
   });
 
   @override
@@ -177,7 +179,11 @@ class CardFreelancersHor extends StatelessWidget with UiLoggy {
                   ),
                 ),
 
-                AnnuncioActions(loggy: loggy, annuncio: annuncio),
+                AnnuncioActionsFreelancers(
+                  loggy: loggy,
+                  annuncio: annuncio,
+                  isFromPreferiti: isFromPreferiti,
+                ),
                 BlocBuilder<DarkModeCubit, DarkModeState>(
                   builder: (context, state) {
                     return Row(

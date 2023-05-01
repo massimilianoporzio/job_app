@@ -47,10 +47,13 @@ class _HorizontalListPreferitiState extends State<HorizontalListPreferiti> {
                   child: widget.listaPreferiti[index].isAzienda
                       ? CardAziendaHor(
                           annuncio:
-                              widget.listaPreferiti[index].annuncioAzienda!)
+                              widget.listaPreferiti[index].annuncioAzienda!,
+                          isFromPreferiti: true,
+                        )
                       : CardFreelancersHor(
                           annuncio:
                               widget.listaPreferiti[index].annuncioFreelancers!,
+                          isFromPreferiti: true,
                         ),
                 ),
               ),

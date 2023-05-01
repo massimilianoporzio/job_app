@@ -1,20 +1,21 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:intl/intl.dart';
-import 'package:job_app/app/resources/string_constants.dart';
-import 'package:job_app/features/preferiti/domain/entities/preferito.dart';
-import 'package:job_app/features/preferiti/presentation/cubit/annunci/preferiti_cubit.dart';
+import 'package:job_app/core/data/utils/snackbars.dart';
 
 import 'package:loggy/loggy.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:job_app/app/resources/string_constants.dart';
 import 'package:job_app/core/domain/entities/typedefs.dart';
 import 'package:job_app/features/freelancers/domain/entities/annuncio_freelancer.dart';
 import 'package:job_app/features/freelancers/presentation/widgets/chips_freelancers.dart';
+import 'package:job_app/features/preferiti/domain/entities/preferito.dart';
+import 'package:job_app/features/preferiti/presentation/cubit/annunci/preferiti_cubit.dart';
 
 import '../../../../app/presentation/cubit/dark_mode/dark_mode_cubit.dart';
 import '../../../../core/domain/entities/annuncio_args.dart';
@@ -23,14 +24,23 @@ import '../../../../core/utils/rich_text_utils.dart';
 import '../cubit/annunci/freelancers_cubit.dart';
 
 class DettaglioAnnunciFreelancers extends StatelessWidget with UiLoggy {
+  final bool isFromPreferiti;
   static const String routeName = "dettaglioAnnuncioFreelancers";
-  const DettaglioAnnunciFreelancers({super.key});
+  const DettaglioAnnunciFreelancers({
+    Key? key,
+    this.isFromPreferiti = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final mode = context.read<DarkModeCubit>().state.mode;
     final args =
         ModalRoute.of(context)!.settings.arguments as AnnuncioArguments;
+    if (args.isFromPreferiti) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        showSnackbarInfo(context, "L'annuncio potrebbe non essere aggiornato");
+      });
+    }
 
     return BlocSelector<FreelancersCubit, FreelancersState,
         AnnuncioFreelancers>(

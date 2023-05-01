@@ -80,10 +80,13 @@ class _VerticalListPreferitiState extends State<VerticalListPreferiti>
                     child: widget.listaPreferiti[index].isAzienda
                         ? CardAzienda(
                             annuncio:
-                                widget.listaPreferiti[index].annuncioAzienda!)
+                                widget.listaPreferiti[index].annuncioAzienda!,
+                            isFromPreferiti: true,
+                          )
                         : CardFreelancers(
                             annuncio: widget
                                 .listaPreferiti[index].annuncioFreelancers!,
+                            isFromPreferiti: true,
                           ),
                   ),
                 );

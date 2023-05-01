@@ -113,9 +113,11 @@ class _HorizontalListState extends State<HorizontalList> {
 
 class CardAziendaHor extends StatelessWidget with UiLoggy {
   final AnnuncioAzienda annuncio;
+  final bool isFromPreferiti;
   const CardAziendaHor({
     super.key,
     required this.annuncio,
+    this.isFromPreferiti = false,
   });
 
   @override
@@ -181,7 +183,11 @@ class CardAziendaHor extends StatelessWidget with UiLoggy {
                     maxLines: 2,
                     style: const TextStyle(fontSize: 12),
                   ),
-                AnnuncioActions(loggy: loggy, annuncio: annuncio),
+                AnnuncioActions(
+                  loggy: loggy,
+                  annuncio: annuncio,
+                  isFromPreferiti: isFromPreferiti,
+                ),
                 BlocBuilder<DarkModeCubit, DarkModeState>(
                   builder: (context, state) {
                     return Row(

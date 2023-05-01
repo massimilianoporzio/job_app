@@ -116,10 +116,9 @@ class _VerticalListState extends State<VerticalList> with UiLoggy {
 
 class CardAzienda extends StatelessWidget with UiLoggy {
   final AnnuncioAzienda annuncio;
-  const CardAzienda({
-    super.key,
-    required this.annuncio,
-  });
+  final bool isFromPreferiti;
+  const CardAzienda(
+      {super.key, required this.annuncio, this.isFromPreferiti = false});
 
   @override
   Widget build(BuildContext context) {
@@ -189,7 +188,11 @@ class CardAzienda extends StatelessWidget with UiLoggy {
                       maxLines: 2,
                       style: const TextStyle(fontSize: 14),
                     ),
-                  AnnuncioActions(loggy: loggy, annuncio: annuncio),
+                  AnnuncioActions(
+                    loggy: loggy,
+                    annuncio: annuncio,
+                    isFromPreferiti: isFromPreferiti,
+                  ),
 
                   BlocBuilder<DarkModeCubit, DarkModeState>(
                     builder: (context, state) {
