@@ -22,6 +22,8 @@ L'utente può scorrere gli annunci (lista verticale se il dispositivo è in port
 Gli annunci sono visualizzati con un infinte scrolling che recupera gli annunci lato server usando la paginazione (al momento 2 per volta per testare la paginazione)
 Il numero di annunci per pagina è impostabile nel file lib\app\resources\app_consts.dart (const kNumeroDiAnnunciPerPagina = 2;)
 
+Prima della lista degli annunci sono visualizzate le statistiche relative agli annunci finora scaricati. (numeri e grafici)
+
 E' possibile effettuare una ricerca inserendo un termine chiave e filtrando per le caratteristiche dell'annuncio (tipo di contratto, tipo di esperienza ricercata ecc.)
 I filtri sono attivabili cliccando sull'icona filtro al fondo della barra di ricerca.
 
@@ -30,6 +32,10 @@ L'utente può resettare la ricerca cliccando su un icona nella barra di ricerca.
 L'utente può scegliere anche se usare il tema chiaro o scuro (prefernza che viene salvata anche alla chiusura della app)
 
 Cliccando su un'icona al centro di ogni annuncio se ne visualizza il dettaglio e l'utente può spuntare l'annuncio come preferito (al momento viene colorata solo l'icona)
+
+Nella pagina di dettaglio l'utente può inoltre condividere l'annuncio cliccando sulla prima icona "share".
+
+Al fondo della pagina l'utente può cliccare per ottenere supporto via email.
 
 TODO: manca la pagina dei "preferiti"
 
