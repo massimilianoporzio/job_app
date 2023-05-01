@@ -27,6 +27,15 @@ import 'package:job_app/features/freelancers/domain/usecases/load_annunci_freela
 import 'package:job_app/features/freelancers/domain/usecases/refresh_annunci_freelancer.dart';
 import 'package:job_app/features/freelancers/presentation/cubit/annunci/freelancers_cubit.dart';
 import 'package:job_app/features/freelancers/presentation/cubit/filters/freelancers_filters_cubit.dart';
+import 'package:job_app/features/preferiti/data/datasources/preferiti_datasource.dart';
+import 'package:job_app/features/preferiti/data/datasources/preferiti_local_datasource.dart';
+import 'package:job_app/features/preferiti/data/repositories/preferiti_repo_impl.dart';
+import 'package:job_app/features/preferiti/domain/repositories/preferiti_repo.dart';
+import 'package:job_app/features/preferiti/domain/usecases/aggiorna_preferito.dart';
+import 'package:job_app/features/preferiti/domain/usecases/aggiungi_preferito.dart';
+import 'package:job_app/features/preferiti/domain/usecases/lista_preferiti.dart';
+import 'package:job_app/features/preferiti/domain/usecases/rimuovi_preferito.dart';
+import 'package:job_app/features/preferiti/presentation/cubit/preferiti_cubit.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -48,6 +57,9 @@ Future<void> init() async {
   sl.registerLazySingleton<FreelancersDatasource>(
       () => FreelancersDataSourceImpl(dio: sl<Dio>()));
 
+  sl.registerLazySingleton<PreferitiDataSource>(
+      () => PreferitiLocalDatasource());
+
   //*REPOSITORIES
   sl.registerLazySingleton<ConnectionRepository>(
       () => ConnectivityPlusRepository(sl<Connectivity>()));
@@ -57,6 +69,11 @@ Future<void> init() async {
 
   sl.registerLazySingleton<FreelancersRepository>(
       () => FreelancersRepositoryImpl(remoteDS: sl<FreelancersDatasource>()));
+
+  sl.registerLazySingleton<PreferitiRepository>(() => PreferitiRepositoryImpl(
+      datasourceAziende: sl<AziendeDatasource>(),
+      datasourceFreelancers: sl<FreelancersDatasource>(),
+      preferitiDataSource: sl<PreferitiDataSource>()));
 
   //*USECASES
   //aziende:
@@ -73,6 +90,19 @@ Future<void> init() async {
       () => LoadAnnunciFreelancers(repository: sl<FreelancersRepository>()));
   sl.registerLazySingleton<RefreshAnnunciFreelancer>(
       () => RefreshAnnunciFreelancer(repository: sl<FreelancersRepository>()));
+
+  //preferiti
+  sl.registerLazySingleton<AggiornaPreferito>(
+      () => AggiornaPreferito(repository: sl<PreferitiRepository>()));
+
+  sl.registerLazySingleton<AggiungiPreferito>(
+      () => AggiungiPreferito(repository: sl<PreferitiRepository>()));
+
+  sl.registerLazySingleton<OttieniPreferiti>(
+      () => OttieniPreferiti(repository: sl<PreferitiRepository>()));
+
+  sl.registerLazySingleton<RimuoviPreferito>(
+      () => RimuoviPreferito(repository: sl<PreferitiRepository>()));
 
   sl.registerLazySingleton<FetchAnnuncio>(() => FetchAnnuncio());
 
@@ -106,6 +136,14 @@ Future<void> init() async {
   sl.registerFactory<FreelancersCubit>(() => FreelancersCubit(
         loadAnnunciUsecase: sl<LoadAnnunciFreelancers>(),
         refreshAnnunciUsecase: sl<RefreshAnnunciFreelancer>(),
+      ));
+
+  //preferiti
+  sl.registerFactory<PreferitiCubit>(() => PreferitiCubit(
+        aggiornaPreferitoUsecase: sl<AggiornaPreferito>(),
+        aggiungiPreferitoUsecase: sl<AggiungiPreferito>(),
+        ottieniPreferitiUsecase: sl<OttieniPreferiti>(),
+        rimuoviPreferitoUsecase: sl<RimuoviPreferito>(),
       ));
 
   //*MAPPERS

@@ -3,29 +3,35 @@ import 'package:job_app/core/domain/entities/typedefs.dart';
 
 import 'package:job_app/core/domain/enums/tipologia_annunci.dart';
 import 'package:job_app/core/domain/errors/failures.dart';
+import 'package:job_app/core/domain/usecases/base_usecase.dart';
 import 'package:job_app/core/log/repository_logger.dart';
 import 'package:job_app/features/aziende/data/datasources/aziende_datasource.dart';
 import 'package:job_app/features/aziende/data/mappers/annuncio_azienda_mapper.dart';
 import 'package:job_app/features/aziende/data/models/notion_response_azienda.dart';
 import 'package:job_app/features/freelancers/data/datasources/freelancers_datasource.dart';
 import 'package:job_app/features/freelancers/data/models/notion_response_dto_freelancers.dart';
+import 'package:job_app/features/preferiti/data/datasources/preferiti_datasource.dart';
 import 'package:job_app/features/preferiti/domain/entities/preferito.dart';
 import 'package:job_app/features/preferiti/domain/repositories/preferiti_repo.dart';
 
 import '../../../../core/domain/errors/exceptions.dart';
 import '../../../../core/services/service_locator.dart';
 import '../../../freelancers/data/mappers/annuncio_freelancers_mapper.dart';
+import '../../domain/usecases/preferiti_params.dart';
 
 class PreferitiRepositoryImpl
     with RepositoryLoggy
     implements PreferitiRepository {
   final AziendeDatasource datasourceAziende;
   final FreelancersDatasource datasourceFreelancers;
+  final PreferitiDataSource preferitiDataSource;
 
   PreferitiRepositoryImpl({
+    required this.preferitiDataSource,
     required this.datasourceAziende,
     required this.datasourceFreelancers,
   });
+
   @override
   Future<Either<Failure, Preferito>> fetchPreferito(
       {required String annuncioId, required TipoAnnuncio tipoAnnuncio}) async {
@@ -62,26 +68,45 @@ class PreferitiRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, Unit>> aggiornaPreferito(Preferito preferito) {
-    // TODO: implement aggiornaPreferito
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> aggiornaPreferito(
+      PreferitiParams params) async {
+    try {
+      await preferitiDataSource.aggiornaPreferito(params.preferito);
+      return const Right(unit);
+    } on Exception {
+      return Left(GenericFailure());
+    }
   }
 
   @override
-  Future<Either<Failure, Unit>> aggiungiPreferito(Preferito preferito) {
-    // TODO: implement aggiungiPreferito
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> aggiungiPreferito(PreferitiParams param) async {
+    try {
+      await preferitiDataSource.aggiungiPreferito(param.preferito);
+      return const Right(unit);
+    } on Exception {
+      return Left(GenericFailure());
+    }
   }
 
   @override
-  Future<Either<Failure, ListaPreferiti>> fetchListaPreferiti() {
-    // TODO: implement fetchListaPreferiti
-    throw UnimplementedError();
+  Future<Either<Failure, ListaPreferiti>> fetchListaPreferiti(
+      NoParams params) async {
+    try {
+      var lista = await preferitiDataSource.fetchListaPreferiti();
+
+      return Right(lista);
+    } on Exception {
+      return Left(GenericFailure());
+    }
   }
 
   @override
-  Future<Either<Failure, Unit>> rimuoviPreferito(String annuncioId) {
-    // TODO: implement rimuoviPreferito
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> rimuoviPreferito(PreferitiParams params) async {
+    try {
+      await preferitiDataSource.rimuoviPreferito(params.preferito.annuncioId);
+      return const Right(unit);
+    } on Exception {
+      return Left(GenericFailure());
+    }
   }
 }
