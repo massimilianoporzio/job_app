@@ -157,6 +157,14 @@ class _PreferitiSearchBarState extends State<PreferitiSearchBar> with UiLoggy {
                                       : 24),
                             ),
                     ),
+                    IconButton(
+                      onPressed: () {
+                        playSound(file: 'refresh.mp3');
+                        _refresh(context);
+                      },
+                      icon: Icon(Icons.refresh,
+                          size: orientation == Orientation.landscape ? 20 : 24),
+                    ),
                   ],
                 ),
               ),

@@ -71,7 +71,7 @@ class StatAnnunciPreferiti extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "annunci",
+                            int.parse(numAnnunci) == 1 ? "annuncio" : "annunci",
                             style: Theme.of(context)
                                 .textTheme
                                 .labelSmall!

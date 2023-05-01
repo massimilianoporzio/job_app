@@ -22,78 +22,76 @@ class PreferitiNotFound extends StatelessWidget {
       child: Scrollbar(
         thumbVisibility: orientation == Orientation.landscape,
         thickness: 4,
-        child: SingleChildScrollView(
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Image.asset(
-                orientation == Orientation.landscape
-                    ? 'assets/images/sfondi/article_not_found-hor.png' //TODO ritagliare ancora sopra e sotto
-                    : 'assets/images/sfondi/article_not_found.png',
-                fit: BoxFit.fitWidth,
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        orientation == Orientation.landscape
-                            ? StringConsts.notHor
-                            : StringConsts.not,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Image.asset(
+              orientation == Orientation.landscape
+                  ? 'assets/images/sfondi/article_not_found-hor.png' //TODO ritagliare ancora sopra e sotto
+                  : 'assets/images/sfondi/article_not_found.png',
+              fit: BoxFit.fitWidth,
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      orientation == Orientation.landscape
+                          ? StringConsts.notHor
+                          : StringConsts.not,
+                      style: kTitleTextStyle,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 40),
+                      child: const Text(
+                        StringConsts.found,
                         style: kTitleTextStyle,
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 40),
-                        child: const Text(
-                          StringConsts.found,
-                          style: kTitleTextStyle,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    'Oops! Non sono presenti annunci preferiti.',
-                    style: kSubtitleTextStyle.copyWith(color: Colors.black),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  BlocBuilder<NavigationCubit, NavigationState>(
-                    builder: (context, state) {
-                      return ReusablePrimaryButton(
-                        childText: StringConsts.tryAgain,
-                        buttonColor: Colors.green.harmonizeWith(
-                            Theme.of(context).colorScheme.background),
-                        childTextColor:
-                            Theme.of(context).colorScheme.onBackground,
-                        onPressed: () {
-                          int pageIndex = state.selectedIndex;
-                          switch (pageIndex) {
-                            case 0:
-                              PreferitiFiltersParams params = context
-                                  .read<PreferitiFiltersCubit>()
-                                  .state
-                                  .paramsFromState;
-                              context
-                                  .read<PreferitiCubit>()
-                                  .ottieniPreferiti(params);
-                              break;
-                            default:
-                          }
-                        },
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
+                    ),
+                  ],
+                ),
+                Text(
+                  'Oops! Non sono presenti annunci preferiti.',
+                  style: kSubtitleTextStyle.copyWith(color: Colors.black),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                BlocBuilder<NavigationCubit, NavigationState>(
+                  builder: (context, state) {
+                    return ReusablePrimaryButton(
+                      childText: StringConsts.tryAgain,
+                      buttonColor: Colors.green.harmonizeWith(
+                          Theme.of(context).colorScheme.background),
+                      childTextColor:
+                          Theme.of(context).colorScheme.onBackground,
+                      onPressed: () {
+                        int pageIndex = state.selectedIndex;
+                        switch (pageIndex) {
+                          case 1:
+                            PreferitiFiltersParams params = context
+                                .read<PreferitiFiltersCubit>()
+                                .state
+                                .paramsFromState;
+                            context
+                                .read<PreferitiCubit>()
+                                .ottieniPreferiti(params);
+                            break;
+                          default:
+                        }
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

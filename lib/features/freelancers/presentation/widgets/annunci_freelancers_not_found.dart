@@ -74,7 +74,7 @@ class AnnunciFreelancersNotFound extends StatelessWidget {
                         onPressed: () {
                           int pageIndex = state.selectedIndex;
                           switch (pageIndex) {
-                            case 0:
+                            case 2: //TODO non serve,...
                               AnnunciFreelancersParams params = context
                                   .read<FreelancersFiltersCubit>()
                                   .state

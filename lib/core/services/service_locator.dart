@@ -42,6 +42,7 @@ import 'package:job_app/features/preferiti/domain/usecases/aggiungi_preferito.da
 import 'package:job_app/features/preferiti/domain/usecases/lista_preferiti.dart';
 import 'package:job_app/features/preferiti/domain/usecases/rimuovi_preferito.dart';
 import 'package:job_app/features/preferiti/presentation/cubit/annunci/preferiti_cubit.dart';
+import 'package:job_app/features/preferiti/presentation/cubit/filters/preferiti_filters_cubit.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -152,6 +153,8 @@ Future<void> init() async {
         ottieniPreferitiUsecase: sl<OttieniPreferiti>(),
         rimuoviPreferitoUsecase: sl<RimuoviPreferito>(),
       ));
+
+  sl.registerFactory<PreferitiFiltersCubit>(() => PreferitiFiltersCubit());
 
   //*MAPPERS
   sl.registerLazySingleton<AnnuncioAziendaMapper>(

@@ -118,11 +118,11 @@ class Preferito extends Equatable with Comparable {
   }
 
   factory Preferito.fromAnnuncioAzienda(AnnuncioAzienda annuncio) {
-    return Preferito(annuncioAzienda: annuncio);
+    return Preferito(annuncioAzienda: annuncio.copyWith(preferito: true));
   }
 
   factory Preferito.fromAnnuncioFreelancers(AnnuncioFreelancers annuncio) {
-    return Preferito(annuncioFreelancers: annuncio);
+    return Preferito(annuncioFreelancers: annuncio.copyWith(preferito: true));
   }
 
   @override

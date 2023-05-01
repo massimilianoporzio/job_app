@@ -97,72 +97,70 @@ class PreferitiRepositoryImpl
       //ora la filtro con il searchTerm
       ListaPreferiti listaFiltrata = [];
       for (var preferito in lista) {
-        if (preferito.annuncioAzienda != null) {
-          for (var element in preferito.descrizioneOfferta) {
-            if (element.plainText.contains(params.searchTerm)) {
-              if (listaFiltrata.indexWhere((element) =>
-                      element.annuncioId == preferito.annuncioId) !=
-                  -1) {
-                listaFiltrata.add(preferito);
-              }
-            }
-          } //fine su descrizioneOfferta
-          for (var element in preferito.tempistiche) {
-            if (element.plainText.contains(params.searchTerm)) {
-              if (listaFiltrata.indexWhere((element) =>
-                      element.annuncioId == preferito.annuncioId) !=
-                  -1) {
-                listaFiltrata.add(preferito);
-              }
-            }
-          } //fine su tempistiche
-          for (var element in preferito.tempistichePagamento) {
-            if (element.plainText.contains(params.searchTerm)) {
-              if (listaFiltrata.indexWhere((element) =>
-                      element.annuncioId == preferito.annuncioId) !=
-                  -1) {
-                listaFiltrata.add(preferito);
-              }
-            }
-          } //fine se tempistichePagamento
-          for (var element in preferito.richiestaDiLavoro) {
-            if (element.plainText.contains(params.searchTerm)) {
-              if (listaFiltrata.indexWhere((element) =>
-                      element.annuncioId == preferito.annuncioId) !=
-                  -1) {
-                listaFiltrata.add(preferito);
-              }
-            }
-          } //fine filtro su richiesta di lavoro
-          for (var element in preferito.descrizioneProgetto) {
-            if (element.plainText.contains(params.searchTerm)) {
-              if (listaFiltrata.indexWhere((element) =>
-                      element.annuncioId == preferito.annuncioId) !=
-                  -1) {
-                listaFiltrata.add(preferito);
-              }
-            }
-          } //fine su descrizione progetto
-          for (var element in preferito.budget) {
-            if (element.plainText.contains(params.searchTerm)) {
-              if (listaFiltrata.indexWhere((element) =>
-                      element.annuncioId == preferito.annuncioId) !=
-                  -1) {
-                listaFiltrata.add(preferito);
-              }
-            }
-          } //fine budget
-          if (preferito.titolo.contains(params.searchTerm)) {
+        for (var element in preferito.descrizioneOfferta) {
+          if (element.plainText.contains(params.searchTerm)) {
             if (listaFiltrata.indexWhere(
                     (element) => element.annuncioId == preferito.annuncioId) !=
                 -1) {
               listaFiltrata.add(preferito);
             }
           }
+        } //fine su descrizioneOfferta
+        for (var element in preferito.tempistiche) {
+          if (element.plainText.contains(params.searchTerm)) {
+            if (listaFiltrata.indexWhere(
+                    (element) => element.annuncioId == preferito.annuncioId) !=
+                -1) {
+              listaFiltrata.add(preferito);
+            }
+          }
+        } //fine su tempistiche
+        for (var element in preferito.tempistichePagamento) {
+          if (element.plainText.contains(params.searchTerm)) {
+            if (listaFiltrata.indexWhere(
+                    (element) => element.annuncioId == preferito.annuncioId) !=
+                -1) {
+              listaFiltrata.add(preferito);
+            }
+          }
+        } //fine se tempistichePagamento
+        for (var element in preferito.richiestaDiLavoro) {
+          if (element.plainText.contains(params.searchTerm)) {
+            if (listaFiltrata.indexWhere(
+                    (element) => element.annuncioId == preferito.annuncioId) !=
+                -1) {
+              listaFiltrata.add(preferito);
+            }
+          }
+        } //fine filtro su richiesta di lavoro
+        for (var element in preferito.descrizioneProgetto) {
+          if (element.plainText.contains(params.searchTerm)) {
+            if (listaFiltrata.indexWhere(
+                    (element) => element.annuncioId == preferito.annuncioId) !=
+                -1) {
+              listaFiltrata.add(preferito);
+            }
+          }
+        } //fine su descrizione progetto
+        for (var element in preferito.budget) {
+          if (element.plainText.contains(params.searchTerm)) {
+            if (listaFiltrata.indexWhere(
+                    (element) => element.annuncioId == preferito.annuncioId) !=
+                -1) {
+              listaFiltrata.add(preferito);
+            }
+          }
+        } //fine budget
+        if (preferito.titolo.contains(params.searchTerm)) {
+          if (listaFiltrata.indexWhere(
+                  (element) => element.annuncioId == preferito.annuncioId) !=
+              -1) {
+            listaFiltrata.add(preferito);
+          }
         }
       }
       //TODO fare ricerca
-      return Right(lista);
+      return Right(params.isEmpty ? lista : listaFiltrata);
     } on Exception {
       return Left(GenericFailure());
     }
