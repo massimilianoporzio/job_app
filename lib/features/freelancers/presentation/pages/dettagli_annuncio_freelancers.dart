@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:intl/intl.dart';
 import 'package:job_app/app/resources/string_constants.dart';
+import 'package:job_app/features/preferiti/domain/entities/preferito.dart';
+import 'package:job_app/features/preferiti/presentation/cubit/preferiti_cubit.dart';
 import 'package:loggy/loggy.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -89,6 +91,23 @@ class DettaglioAnnunciFreelancers extends StatelessWidget with UiLoggy {
                                   context
                                       .read<FreelancersCubit>()
                                       .togglePreferito(annuncio.id);
+                                  if (annuncio.preferito) {
+                                    //RIMUOVI
+                                    loggy.debug("TOLGO DA LISTA PREFERITI");
+                                    context
+                                        .read<PreferitiCubit>()
+                                        .rimuoviPreferito(
+                                            Preferito.fromAnnuncioFreelancers(
+                                                annuncio));
+                                  } else {
+                                    loggy
+                                        .debug("AGGIUNGO ALLA LISTA PREFERITI");
+                                    context
+                                        .read<PreferitiCubit>()
+                                        .aggiungiPreferito(
+                                            Preferito.fromAnnuncioFreelancers(
+                                                annuncio));
+                                  }
                                 },
                                 icon: Icon(annuncio.preferito
                                     ? Icons.bookmark_added

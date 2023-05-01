@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:job_app/app/presentation/widgets/certain_error.dart';
+import 'package:job_app/core/domain/entities/typedefs.dart';
 import 'package:job_app/features/freelancers/domain/entities/annuncio_freelancer.dart';
 import 'package:job_app/features/freelancers/presentation/cubit/annunci/freelancers_cubit.dart';
 import 'package:job_app/features/freelancers/presentation/widgets/horizontal_list_freelancers.dart';
@@ -12,6 +13,7 @@ import 'package:job_app/features/freelancers/presentation/widgets/vertical_stats
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import '../../../../app/presentation/widgets/no_connection.dart';
+import '../../../preferiti/presentation/cubit/preferiti_cubit.dart';
 import '../cubit/filters/freelancers_filters_cubit.dart';
 import '../widgets/annunci_freelancers_not_found.dart';
 import '../widgets/freelancers_search_bar.dart';
@@ -42,6 +44,7 @@ class _AnnunciFreelancersWidgetState extends State<AnnunciFreelancersWidget> {
     var mWidth = mSize.width; //Larghezza
     var mHeight = mSize.height; //Altezza
     var orientation = MediaQuery.of(context).orientation;
+    var listaPreferiti = context.read<PreferitiCubit>().state.listaPreferiti;
     return BlocBuilder<FreelancersCubit, FreelancersState>(
       builder: (context, state) {
         switch (state.status) {
@@ -88,6 +91,7 @@ class _AnnunciFreelancersWidgetState extends State<AnnunciFreelancersWidget> {
                       mWidth: mWidth,
                       mHeight: mHeight,
                       lista: state.listaAnnunci,
+                      listaPreferiti: listaPreferiti,
                     ),
                   ),
                 ),
@@ -100,6 +104,7 @@ class _AnnunciFreelancersWidgetState extends State<AnnunciFreelancersWidget> {
                   mWidth: mWidth,
                   mHeight: mHeight,
                   lista: state.listaAnnunci,
+                  listaPreferiti: listaPreferiti,
                 ),
               );
             }
@@ -117,57 +122,61 @@ class MainContent extends StatelessWidget {
       required this.orientation,
       required this.mWidth,
       required this.mHeight,
+      required this.listaPreferiti,
       required this.lista});
 
   final Orientation orientation;
   final double mWidth;
   final double mHeight;
   final List<AnnuncioFreelancers> lista;
+  final ListaPreferiti listaPreferiti;
 
   @override
   Widget build(BuildContext context) {
+    for (var annuncio in lista) {
+      int index = listaPreferiti
+          .indexWhere((element) => element.annuncioId == annuncio.id);
+      if (index != -1) {
+        int indexToUpdate =
+            lista.indexWhere((element) => element.id == annuncio.id);
+        if (indexToUpdate != -1) {
+          lista[indexToUpdate] = annuncio.copyWith(preferito: true);
+        }
+      }
+    }
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
         const FreelancersSearchBar(),
         if (lista.isEmpty) const AnnunciFreelancersNotFound(),
         if (lista.isNotEmpty)
-          // Column(
-          //   children: [
-          //     SizedBox(
-          //       height: orientation == Orientation.landscape ? 8 : 8,
-          //     ),
-          //   ],
-          // ),
-          if (lista.isNotEmpty)
-            Container(
-              // color: Colors.pink,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (orientation == Orientation.portrait)
-                    VerticalStatsFreelancers(
-                      mWidth: mWidth,
-                      mHeight: mHeight,
-                    )
-                  else
-                    HorizontalStatsFreelancers(
-                      mWidth: mWidth,
+          Container(
+            // color: Colors.pink,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (orientation == Orientation.portrait)
+                  VerticalStatsFreelancers(
+                    mWidth: mWidth,
+                    mHeight: mHeight,
+                  )
+                else
+                  HorizontalStatsFreelancers(
+                    mWidth: mWidth,
+                    mHeigth: mHeight,
+                  ),
+                if (lista.isNotEmpty && orientation == Orientation.landscape)
+                  BlocBuilder<FreelancersFiltersCubit, FreelancersFiltersState>(
+                    builder: (context, state) => HorizontalListFreelancers(
                       mHeigth: mHeight,
+                      listaAnnunci: lista,
+                      params: state.paramsFromState,
                     ),
-                  if (lista.isNotEmpty && orientation == Orientation.landscape)
-                    BlocBuilder<FreelancersFiltersCubit,
-                        FreelancersFiltersState>(
-                      builder: (context, state) => HorizontalListFreelancers(
-                        mHeigth: mHeight,
-                        listaAnnunci: lista,
-                        params: state.paramsFromState,
-                      ),
-                    ),
-                ],
-              ),
+                  ),
+              ],
             ),
+          ),
         if (lista.isNotEmpty)
           const SizedBox(
             height: 8,
