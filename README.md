@@ -2,6 +2,8 @@
 
 Progetto Flutter per la hackaton Fudeo
 
+![What is this](scrrenshot.png)
+
 ## Getting Started
 
 Per compilare il progetto occore sia presente un file config.json (ad es: nella directory lib)
@@ -36,6 +38,8 @@ Cliccando su un'icona al centro di ogni annuncio se ne visualizza il dettaglio e
 Nella pagina di dettaglio l'utente può inoltre condividere l'annuncio cliccando sulla prima icona "share".
 
 Al fondo della pagina l'utente può cliccare per ottenere supporto via email.
+
+Sono presenti alcuni suoni al cambio del tema e nel reset. L'utente può mettere la appa in modalità silenziosa cliccando sull'icona "altoparlante" nella Appbar.
 
 TODO: manca la pagina dei "preferiti"
 
