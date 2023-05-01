@@ -11,6 +11,7 @@ import 'package:job_app/features/freelancers/domain/usecases/annunci_freelancer_
 import 'package:job_app/features/freelancers/presentation/cubit/annunci/freelancers_cubit.dart';
 import 'package:job_app/features/freelancers/presentation/cubit/filters/freelancers_filters_cubit.dart';
 import 'package:job_app/features/freelancers/presentation/pages/dettagli_annuncio_freelancers.dart';
+import 'package:job_app/features/preferiti/presentation/cubit/preferiti_cubit.dart';
 import 'package:loggy/loggy.dart';
 
 import '../core/services/service_locator.dart';
@@ -63,6 +64,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
+      BlocProvider(
+        create: (context) => sl<PreferitiCubit>(),
+      ),
       BlocProvider(
         create: (context) => sl<FreelancersFiltersCubit>(),
       ),

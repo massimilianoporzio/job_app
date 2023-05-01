@@ -6,6 +6,9 @@ import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:intl/intl.dart';
 import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
 import 'package:job_app/features/aziende/presentation/widgets/chips.dart';
+import 'package:job_app/features/preferiti/domain/entities/preferito.dart';
+import 'package:job_app/features/preferiti/domain/usecases/preferiti_params.dart';
+import 'package:job_app/features/preferiti/presentation/cubit/preferiti_cubit.dart';
 import 'package:loggy/loggy.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
@@ -84,6 +87,23 @@ class DettaglioAnnunciAziende extends StatelessWidget with UiLoggy {
                                     context
                                         .read<AziendeCubit>()
                                         .togglePreferito(annuncio.id);
+                                    if (annuncio.preferito) {
+                                      //RIMUOVI
+                                      loggy.debug("TOLGO DA LISTA PREFERITI");
+                                      context
+                                          .read<PreferitiCubit>()
+                                          .rimuoviPreferito(
+                                              Preferito.fromAnnuncioAzienda(
+                                                  annuncio));
+                                    } else {
+                                      loggy.debug(
+                                          "AGGIUNGO ALLA LISTA PREFERITI");
+                                      context
+                                          .read<PreferitiCubit>()
+                                          .aggiungiPreferito(
+                                              Preferito.fromAnnuncioAzienda(
+                                                  annuncio));
+                                    }
                                   },
                                   icon: Icon(annuncio.preferito
                                       ? Icons.bookmark_added

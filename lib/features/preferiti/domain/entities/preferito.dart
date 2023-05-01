@@ -39,6 +39,14 @@ class Preferito extends Equatable with Comparable {
     }
   }
 
+  factory Preferito.fromAnnuncioAzienda(AnnuncioAzienda annuncio) {
+    return Preferito(annuncioAzienda: annuncio);
+  }
+
+  factory Preferito.fromAnnuncioFreelancers(AnnuncioFreelancers annuncio) {
+    return Preferito(annuncioFreelancers: annuncio);
+  }
+
   @override
   List<Object?> get props => [annuncioAzienda, annuncioFreelancers];
 

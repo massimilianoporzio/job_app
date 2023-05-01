@@ -12,6 +12,6 @@ class AggiungiPreferito extends BaseUseCase {
 
   @override
   Future<Either<Failure, dynamic>> call(params) {
-    return repository.aggiornaPreferito(params);
+    return repository.aggiungiPreferito(params);
   }
 }
