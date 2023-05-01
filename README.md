@@ -35,17 +35,25 @@ L'utente può resettare la ricerca cliccando su un icona nella barra di ricerca.
 
 L'utente può scegliere anche se usare il tema chiaro o scuro (prefernza che viene salvata anche alla chiusura della app)
 
-Cliccando su un'icona al centro di ogni annuncio se ne visualizza il dettaglio e l'utente può spuntare l'annuncio come preferito (al momento viene colorata solo l'icona)
+Cliccando su un'icona al centro di ogni annuncio se ne visualizza il dettaglio e l'utente può spuntare l'annuncio come preferito.
+
+I preferiti sono salvati di modo che l'utente li possa trovare sempre anche in assenza di connessione Internet.
+La pagina dei preferiti mostra la lista (verticale o orizzontale a seconda dell'orientamenteo del dispoitivo) degli annunci salvati come preferiti, visualizzandoli come card con colori diversi a seconda che siano di Aziende o per Freelancers. (gli stessi colori delle rispettive pagine).
+
+I colori sono armonizzati con il tema presente sul dispostivo ( Dynamic color).
+
+Qualora la connessione non sia presente l'utente viene avvisato (provare con Airplane mode per esempio). Viene nuovamente avvisato quando la connessione è presente.
 
 Nella pagina di dettaglio l'utente può inoltre condividere l'annuncio cliccando sulla prima icona "share".
 
-Al fondo della pagina l'utente può cliccare per ottenere supporto via email.
+La pagina di dettaglio degli annunci, qualora ci si arrivi da un annuncio salvato come preferito, mostra un messaggio che avvisa l'utente che l'annuncio potrebbe non essere aggiornato rispetto al server.
+
+Al fondo della pagine l'utente può cliccare per ottenere supporto via email.
 
 Sono presenti alcuni suoni al cambio del tema e nel reset. L'utente può mettere la appa in modalità silenziosa cliccando sull'icona "altoparlante" nella Appbar.
 
 La app è provvista di icona launcher personalizzata.
 
-TODO: manca la pagina dei "preferiti"
 
 A few resources to get you started if this is your first Flutter project:
 
