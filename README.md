@@ -2,7 +2,9 @@
 
 Progetto Flutter per la hackaton Fudeo
 
-![What is this](scrrenshot.png)
+![](Screenshot.png)
+
+
 
 ## Getting Started
 
@@ -40,6 +42,8 @@ Nella pagina di dettaglio l'utente può inoltre condividere l'annuncio cliccando
 Al fondo della pagina l'utente può cliccare per ottenere supporto via email.
 
 Sono presenti alcuni suoni al cambio del tema e nel reset. L'utente può mettere la appa in modalità silenziosa cliccando sull'icona "altoparlante" nella Appbar.
+
+La app è provvista di icona launcher personalizzata.
 
 TODO: manca la pagina dei "preferiti"
 
