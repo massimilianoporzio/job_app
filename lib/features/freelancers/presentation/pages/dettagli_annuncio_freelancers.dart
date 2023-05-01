@@ -6,7 +6,8 @@ import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:intl/intl.dart';
 import 'package:job_app/app/resources/string_constants.dart';
 import 'package:job_app/features/preferiti/domain/entities/preferito.dart';
-import 'package:job_app/features/preferiti/presentation/cubit/preferiti_cubit.dart';
+import 'package:job_app/features/preferiti/presentation/cubit/annunci/preferiti_cubit.dart';
+
 import 'package:loggy/loggy.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';

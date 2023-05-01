@@ -10,10 +10,11 @@ import 'package:job_app/features/freelancers/presentation/widgets/horizontal_lis
 import 'package:job_app/features/freelancers/presentation/widgets/horizontal_stats_freelancers.dart';
 import 'package:job_app/features/freelancers/presentation/widgets/vertical_list_freelancers.dart';
 import 'package:job_app/features/freelancers/presentation/widgets/vertical_stats_freelancers.dart';
+import 'package:job_app/features/preferiti/presentation/cubit/annunci/preferiti_cubit.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import '../../../../app/presentation/widgets/no_connection.dart';
-import '../../../preferiti/presentation/cubit/preferiti_cubit.dart';
+
 import '../cubit/filters/freelancers_filters_cubit.dart';
 import '../widgets/annunci_freelancers_not_found.dart';
 import '../widgets/freelancers_search_bar.dart';

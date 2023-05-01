@@ -5,7 +5,8 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:job_app/core/domain/entities/typedefs.dart';
 
 import 'package:job_app/features/aziende/presentation/cubit/filters/aziende_filter_cubit.dart';
-import 'package:job_app/features/preferiti/presentation/cubit/preferiti_cubit.dart';
+import 'package:job_app/features/preferiti/presentation/cubit/annunci/preferiti_cubit.dart';
+
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import '../../../../app/presentation/widgets/certain_error.dart';

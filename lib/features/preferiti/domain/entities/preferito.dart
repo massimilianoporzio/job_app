@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:job_app/core/domain/entities/typedefs.dart';
 import 'package:job_app/features/aziende/data/mappers/annuncio_azienda_mapper.dart';
 import 'package:job_app/features/aziende/data/models/annuncio_azienda_model.dart';
 
@@ -22,6 +23,63 @@ class Preferito extends Equatable with Comparable {
             (annuncioAzienda != null && annuncioFreelancers == null) ||
                 (annuncioAzienda == null && annuncioFreelancers != null),
             "Non puoi usare due annunci o non usarne nessuno");
+
+  RichTextList get tempistiche {
+    if (annuncioFreelancers != null) {
+      return annuncioFreelancers!.tempistiche;
+    } else {
+      return [];
+    }
+  }
+
+  RichTextList get tempistichePagamento {
+    if (annuncioFreelancers != null) {
+      return annuncioFreelancers!.tempistichePagamento;
+    } else {
+      return [];
+    }
+  }
+
+  RichTextList get richiestaDiLavoro {
+    if (annuncioFreelancers != null) {
+      return annuncioFreelancers!.richiestaDiLavoro;
+    } else {
+      return [];
+    }
+  }
+
+  RichTextList get descrizioneProgetto {
+    if (annuncioFreelancers != null) {
+      return annuncioFreelancers!.descrizioneProgetto;
+    } else {
+      return [];
+    }
+  }
+
+  RichTextList get budget {
+    if (annuncioFreelancers != null) {
+      return annuncioFreelancers!.budget;
+    } else {
+      return [];
+    }
+  }
+
+  String get titolo {
+    if (annuncioAzienda != null) {
+      return annuncioAzienda!.titolo;
+    } else {
+      return annuncioFreelancers!.titolo;
+    }
+  }
+
+  RichTextList get descrizioneOfferta {
+    if (annuncioAzienda != null) {
+      return annuncioAzienda!.descrizioneOfferta;
+    } else {
+      return [];
+    }
+  }
+
   bool get isPreferito {
     if (annuncioFreelancers == null) {
       return annuncioAzienda!.preferito;

@@ -11,7 +11,8 @@ import 'package:job_app/features/freelancers/domain/usecases/annunci_freelancer_
 import 'package:job_app/features/freelancers/presentation/cubit/annunci/freelancers_cubit.dart';
 import 'package:job_app/features/freelancers/presentation/cubit/filters/freelancers_filters_cubit.dart';
 import 'package:job_app/features/freelancers/presentation/pages/dettagli_annuncio_freelancers.dart';
-import 'package:job_app/features/preferiti/presentation/cubit/preferiti_cubit.dart';
+import 'package:job_app/features/preferiti/presentation/cubit/annunci/preferiti_cubit.dart';
+
 import 'package:loggy/loggy.dart';
 
 import '../core/services/service_locator.dart';

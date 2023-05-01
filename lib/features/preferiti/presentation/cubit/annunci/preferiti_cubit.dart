@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:job_app/core/domain/entities/typedefs.dart';
 import 'package:job_app/core/domain/usecases/base_usecase.dart';
 import 'package:job_app/core/log/bloc_logger.dart';
 import 'package:job_app/features/preferiti/data/datasources/preferiti_datasource.dart';
@@ -9,12 +10,12 @@ import 'package:job_app/features/preferiti/domain/entities/preferito.dart';
 import 'package:job_app/features/preferiti/domain/usecases/aggiorna_preferito.dart';
 import 'package:job_app/features/preferiti/domain/usecases/aggiungi_preferito.dart';
 import 'package:job_app/features/preferiti/domain/usecases/lista_preferiti.dart';
+import 'package:job_app/features/preferiti/domain/usecases/preferiti_filter_params.dart';
 import 'package:job_app/features/preferiti/domain/usecases/preferiti_params.dart';
 import 'package:job_app/features/preferiti/domain/usecases/rimuovi_preferito.dart';
 
-import '../../../../app/resources/string_constants.dart';
-import '../../../../core/domain/entities/typedefs.dart';
-import '../../../../core/services/service_locator.dart';
+import '../../../../../app/resources/string_constants.dart';
+import '../../../../../core/services/service_locator.dart';
 
 part 'preferiti_state.dart';
 
@@ -58,7 +59,7 @@ class PreferitiCubit extends HydratedCubit<PreferitiState> with BlocLoggy {
     final response =
         await rimuoviPreferitoUsecase(PreferitiParams(preferito: preferito));
     //recupero la lista aggiornata dopo aver tolto il preferito e la emetto come nuove stato
-    ottieniPreferiti();
+    ottieniPreferiti(PreferitiFiltersParams.empty());
   }
 
   aggiungiPreferito(Preferito preferito) async {
@@ -69,12 +70,12 @@ class PreferitiCubit extends HydratedCubit<PreferitiState> with BlocLoggy {
             status: PreferitiStatus.error,
             message: StringConsts.genericError)), (r) {
       //recupero la lista aggiornata dopo aver aggiunto il preferito
-      ottieniPreferiti();
+      ottieniPreferiti(PreferitiFiltersParams.empty());
     });
   }
 
-  ottieniPreferiti() async {
-    final response = await ottieniPreferitiUsecase(NoParams());
+  ottieniPreferiti(PreferitiFiltersParams params) async {
+    final response = await ottieniPreferitiUsecase(params);
     loggy.debug("RESPONSE IS: $response ");
     response.fold(
       (failure) => emit(state.copyWith(

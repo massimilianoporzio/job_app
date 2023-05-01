@@ -41,7 +41,7 @@ import 'package:job_app/features/preferiti/domain/usecases/aggiorna_preferito.da
 import 'package:job_app/features/preferiti/domain/usecases/aggiungi_preferito.dart';
 import 'package:job_app/features/preferiti/domain/usecases/lista_preferiti.dart';
 import 'package:job_app/features/preferiti/domain/usecases/rimuovi_preferito.dart';
-import 'package:job_app/features/preferiti/presentation/cubit/preferiti_cubit.dart';
+import 'package:job_app/features/preferiti/presentation/cubit/annunci/preferiti_cubit.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 

@@ -7,8 +7,9 @@ import 'package:intl/intl.dart';
 import 'package:job_app/features/aziende/presentation/cubit/annunci/aziende_cubit.dart';
 import 'package:job_app/features/aziende/presentation/widgets/chips.dart';
 import 'package:job_app/features/preferiti/domain/entities/preferito.dart';
-import 'package:job_app/features/preferiti/domain/usecases/preferiti_params.dart';
-import 'package:job_app/features/preferiti/presentation/cubit/preferiti_cubit.dart';
+
+import 'package:job_app/features/preferiti/presentation/cubit/annunci/preferiti_cubit.dart';
+
 import 'package:loggy/loggy.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';

@@ -13,6 +13,7 @@ import 'package:job_app/features/freelancers/data/models/notion_response_dto_fre
 import 'package:job_app/features/preferiti/data/datasources/preferiti_datasource.dart';
 import 'package:job_app/features/preferiti/domain/entities/preferito.dart';
 import 'package:job_app/features/preferiti/domain/repositories/preferiti_repo.dart';
+import 'package:job_app/features/preferiti/domain/usecases/preferiti_filter_params.dart';
 
 import '../../../../core/domain/errors/exceptions.dart';
 import '../../../../core/services/service_locator.dart';
@@ -90,10 +91,77 @@ class PreferitiRepositoryImpl
 
   @override
   Future<Either<Failure, ListaPreferiti>> fetchListaPreferiti(
-      NoParams params) async {
+      PreferitiFiltersParams params) async {
     try {
       var lista = await preferitiDataSource.fetchListaPreferiti();
-
+      //ora la filtro con il searchTerm
+      ListaPreferiti listaFiltrata = [];
+      for (var preferito in lista) {
+        if (preferito.annuncioAzienda != null) {
+          for (var element in preferito.descrizioneOfferta) {
+            if (element.plainText.contains(params.searchTerm)) {
+              if (listaFiltrata.indexWhere((element) =>
+                      element.annuncioId == preferito.annuncioId) !=
+                  -1) {
+                listaFiltrata.add(preferito);
+              }
+            }
+          } //fine su descrizioneOfferta
+          for (var element in preferito.tempistiche) {
+            if (element.plainText.contains(params.searchTerm)) {
+              if (listaFiltrata.indexWhere((element) =>
+                      element.annuncioId == preferito.annuncioId) !=
+                  -1) {
+                listaFiltrata.add(preferito);
+              }
+            }
+          } //fine su tempistiche
+          for (var element in preferito.tempistichePagamento) {
+            if (element.plainText.contains(params.searchTerm)) {
+              if (listaFiltrata.indexWhere((element) =>
+                      element.annuncioId == preferito.annuncioId) !=
+                  -1) {
+                listaFiltrata.add(preferito);
+              }
+            }
+          } //fine se tempistichePagamento
+          for (var element in preferito.richiestaDiLavoro) {
+            if (element.plainText.contains(params.searchTerm)) {
+              if (listaFiltrata.indexWhere((element) =>
+                      element.annuncioId == preferito.annuncioId) !=
+                  -1) {
+                listaFiltrata.add(preferito);
+              }
+            }
+          } //fine filtro su richiesta di lavoro
+          for (var element in preferito.descrizioneProgetto) {
+            if (element.plainText.contains(params.searchTerm)) {
+              if (listaFiltrata.indexWhere((element) =>
+                      element.annuncioId == preferito.annuncioId) !=
+                  -1) {
+                listaFiltrata.add(preferito);
+              }
+            }
+          } //fine su descrizione progetto
+          for (var element in preferito.budget) {
+            if (element.plainText.contains(params.searchTerm)) {
+              if (listaFiltrata.indexWhere((element) =>
+                      element.annuncioId == preferito.annuncioId) !=
+                  -1) {
+                listaFiltrata.add(preferito);
+              }
+            }
+          } //fine budget
+          if (preferito.titolo.contains(params.searchTerm)) {
+            if (listaFiltrata.indexWhere(
+                    (element) => element.annuncioId == preferito.annuncioId) !=
+                -1) {
+              listaFiltrata.add(preferito);
+            }
+          }
+        }
+      }
+      //TODO fare ricerca
       return Right(lista);
     } on Exception {
       return Left(GenericFailure());
