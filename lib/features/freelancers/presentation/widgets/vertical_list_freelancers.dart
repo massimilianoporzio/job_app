@@ -105,7 +105,6 @@ class _VerticalListFreelancersState extends State<VerticalListFreelancers>
                     child: index >= widget.listaAnnunci.length
                         ? const BottomLoader()
                         : CardFreelancers(
-                            index: index,
                             annuncio: widget.listaAnnunci[index],
                           ),
                   ),
@@ -120,11 +119,9 @@ class _VerticalListFreelancersState extends State<VerticalListFreelancers>
 }
 
 class CardFreelancers extends StatelessWidget with UiLoggy {
-  final int index;
   final AnnuncioFreelancers annuncio;
   const CardFreelancers({
     super.key,
-    required this.index,
     required this.annuncio,
   });
 
@@ -135,7 +132,6 @@ class CardFreelancers extends StatelessWidget with UiLoggy {
 
     return InkWell(
       onTap: () {
-        loggy.debug('tapped on annuncio: $index');
         // Navigator.of(context).pushNamed(DettaglioAnnunciAziende.routeName,
         //     arguments: AnnuncioAziendeArguments(index.toString()));
       },

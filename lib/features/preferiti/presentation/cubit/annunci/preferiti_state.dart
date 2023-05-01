@@ -45,4 +45,21 @@ class PreferitiState extends Equatable {
       status: status ?? this.status,
     );
   }
+
+  String get numeroAnnunciRecenti {
+    if (listaPreferiti.isEmpty) {
+      return "0";
+    }
+    int numAnnunciRecenti = 0;
+    for (var annuncio in listaPreferiti) {
+      var oggi = DateTime.now();
+      var dataAnnuncio = annuncio.jobPosted;
+      // loggy.debug("dataAnnuncio: $dataAnnuncio");
+      int giorniDiDifferenza = oggi.difference(dataAnnuncio).inDays;
+      if (giorniDiDifferenza < kNumeroGiorniPerRecenti) {
+        numAnnunciRecenti += 1;
+      }
+    }
+    return numAnnunciRecenti.toString();
+  }
 }

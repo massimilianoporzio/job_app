@@ -101,7 +101,6 @@ class _VerticalListState extends State<VerticalList> with UiLoggy {
                     child: index >= widget.listaAnnunci.length
                         ? const BottomLoader()
                         : CardAzienda(
-                            index: index,
                             annuncio: widget.listaAnnunci[index],
                           ),
                   ),
@@ -116,11 +115,9 @@ class _VerticalListState extends State<VerticalList> with UiLoggy {
 }
 
 class CardAzienda extends StatelessWidget with UiLoggy {
-  final int index;
   final AnnuncioAzienda annuncio;
   const CardAzienda({
     super.key,
-    required this.index,
     required this.annuncio,
   });
 
@@ -131,7 +128,6 @@ class CardAzienda extends StatelessWidget with UiLoggy {
 
     return InkWell(
       onTap: () {
-        loggy.debug('tapped on annuncio: $index');
         // Navigator.of(context).pushNamed(DettaglioAnnunciAziende.routeName,
         //     arguments: AnnuncioAziendeArguments(index.toString()));
       },

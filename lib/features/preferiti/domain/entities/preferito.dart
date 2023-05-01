@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:job_app/core/domain/entities/typedefs.dart';
+import 'package:job_app/core/domain/enums/tipologia_annunci.dart';
 import 'package:job_app/features/aziende/data/mappers/annuncio_azienda_mapper.dart';
 import 'package:job_app/features/aziende/data/models/annuncio_azienda_model.dart';
 
@@ -80,7 +81,19 @@ class Preferito extends Equatable with Comparable {
     }
   }
 
-  bool get isPreferito {
+  TipoAnnuncio get tipoAnnuncio {
+    if (isAzienda) {
+      return TipoAnnuncio.aziende;
+    } else {
+      return TipoAnnuncio.freelancers;
+    }
+  }
+
+  bool get isAzienda {
+    return annuncioAzienda != null;
+  }
+
+  bool get preferito {
     if (annuncioFreelancers == null) {
       return annuncioAzienda!.preferito;
     } else {

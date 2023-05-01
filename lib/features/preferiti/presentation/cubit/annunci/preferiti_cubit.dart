@@ -14,8 +14,10 @@ import 'package:job_app/features/preferiti/domain/usecases/preferiti_filter_para
 import 'package:job_app/features/preferiti/domain/usecases/preferiti_params.dart';
 import 'package:job_app/features/preferiti/domain/usecases/rimuovi_preferito.dart';
 
+import '../../../../../app/resources/app_consts.dart';
 import '../../../../../app/resources/string_constants.dart';
 import '../../../../../core/services/service_locator.dart';
+import '../filters/preferiti_filters_cubit.dart';
 
 part 'preferiti_state.dart';
 
@@ -53,6 +55,12 @@ class PreferitiCubit extends HydratedCubit<PreferitiState> with BlocLoggy {
     result.addAll({'listaPreferiti': listaPreferiti});
 
     return result;
+  }
+
+  reset() {
+    emit(PreferitiState.initial());
+
+    ottieniPreferiti(PreferitiFiltersParams.empty());
   }
 
   rimuoviPreferito(Preferito preferito) async {
