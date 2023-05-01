@@ -110,21 +110,6 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
 
         // loggy.debug("lista aggiornata: $listaAggiornata");
         //TODO: da fare il check se preferito o no
-        var listaPreferiti =
-            (sl<PreferitiDataSource>() as PreferitiLocalDatasource)
-                .listaPreferiti;
-        if (listaPreferiti.isNotEmpty) {
-          for (var annuncio in listaAggiornata) {
-            var preferito = listaPreferiti
-                .firstWhere((element) => element.annuncioId == annuncio.id);
-            if (preferito.isPreferito) {
-              int indexToUpdate = listaAggiornata
-                  .indexWhere((element) => element.id == annuncio.id);
-              listaAggiornata[indexToUpdate] =
-                  annuncio.copyWith(preferito: true);
-            }
-          }
-        }
 
         emit(state.copyWith(
           status: AziendeStateStatus.loaded,

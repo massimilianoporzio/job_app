@@ -65,9 +65,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
       BlocProvider(
-        create: (context) => sl<PreferitiCubit>(),
-      ),
-      BlocProvider(
         create: (context) => sl<FreelancersFiltersCubit>(),
       ),
       BlocProvider<AziendeFilterCubit>(
@@ -108,6 +105,7 @@ class MyApp extends StatelessWidget {
           return freelancersCubit;
         },
       ),
+      BlocProvider<PreferitiCubit>(create: (context) => sl<PreferitiCubit>())
     ], child: const JobApp());
   }
 }

@@ -2,8 +2,10 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:job_app/core/domain/entities/typedefs.dart';
 
 import 'package:job_app/features/aziende/presentation/cubit/filters/aziende_filter_cubit.dart';
+import 'package:job_app/features/preferiti/presentation/cubit/preferiti_cubit.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import '../../../../app/presentation/widgets/certain_error.dart';
@@ -43,6 +45,7 @@ class _AnnunciAziendeState extends State<AnnunciAziende> {
     var mWidth = mSize.width; //Larghezza
     var mHeight = mSize.height; //Altezza
     var orientation = MediaQuery.of(context).orientation;
+    var listaPreferiti = context.read<PreferitiCubit>().state.listaPreferiti;
     return BlocBuilder<AziendeCubit, AziendeState>(
       builder: (context, state) {
         switch (state.status) {
@@ -87,6 +90,7 @@ class _AnnunciAziendeState extends State<AnnunciAziende> {
                     mWidth: mWidth,
                     mHeight: mHeight,
                     lista: state.listaAnnunci,
+                    listaPreferiti: listaPreferiti,
                   ),
                 ),
               );
@@ -98,6 +102,7 @@ class _AnnunciAziendeState extends State<AnnunciAziende> {
                   mWidth: mWidth,
                   mHeight: mHeight,
                   lista: state.listaAnnunci,
+                  listaPreferiti: listaPreferiti,
                 ),
               );
             }
@@ -115,56 +120,61 @@ class MainContent extends StatelessWidget {
       required this.orientation,
       required this.mWidth,
       required this.mHeight,
+      required this.listaPreferiti,
       required this.lista});
 
   final Orientation orientation;
   final double mWidth;
   final double mHeight;
   final List<AnnuncioAzienda> lista;
+  final ListaPreferiti listaPreferiti;
 
   @override
   Widget build(BuildContext context) {
+    for (var annuncio in lista) {
+      int index = listaPreferiti
+          .indexWhere((element) => element.annuncioId == annuncio.id);
+      if (index != -1) {
+        int indexToUpdate =
+            lista.indexWhere((element) => element.id == annuncio.id);
+        if (indexToUpdate != -1) {
+          lista[indexToUpdate] = annuncio.copyWith(preferito: true);
+        }
+      }
+    }
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
         const AziendeSearchBar(),
         if (lista.isEmpty) const AnnunciAzNotFound(),
         if (lista.isNotEmpty)
-          // Column(
-          //   children: [
-          //     SizedBox(
-          //       height: orientation == Orientation.landscape ? 8 : 8,
-          //     ),
-          //   ],
-          // ),
-          if (lista.isNotEmpty)
-            Container(
-              // color: Colors.pink,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (orientation == Orientation.portrait)
-                    VerticalStats(
-                      mWidth: mWidth,
-                      mHeight: mHeight,
-                    )
-                  else
-                    HorizontalStats(
-                      mWidth: mWidth,
+          Container(
+            // color: Colors.pink,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (orientation == Orientation.portrait)
+                  VerticalStats(
+                    mWidth: mWidth,
+                    mHeight: mHeight,
+                  )
+                else
+                  HorizontalStats(
+                    mWidth: mWidth,
+                    mHeigth: mHeight,
+                  ),
+                if (lista.isNotEmpty && orientation == Orientation.landscape)
+                  BlocBuilder<AziendeFilterCubit, AziendeFilterState>(
+                    builder: (context, state) => HorizontalList(
                       mHeigth: mHeight,
+                      listaAnnunci: lista,
+                      params: state.paramsFromState,
                     ),
-                  if (lista.isNotEmpty && orientation == Orientation.landscape)
-                    BlocBuilder<AziendeFilterCubit, AziendeFilterState>(
-                      builder: (context, state) => HorizontalList(
-                        mHeigth: mHeight,
-                        listaAnnunci: lista,
-                        params: state.paramsFromState,
-                      ),
-                    ),
-                ],
-              ),
+                  ),
+              ],
             ),
+          ),
         if (lista.isNotEmpty)
           const SizedBox(
             height: 8,
