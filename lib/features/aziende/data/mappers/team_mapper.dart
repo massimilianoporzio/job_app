@@ -6,8 +6,13 @@ import '../models/team_model.dart';
 class TeamMapper extends EntityMapper<TeamModel?, TeamEntity?> {
   @override
   TeamModel? fromEntity(TeamEntity? entity) {
-    // TODO: implement fromEntity
-    throw UnimplementedError();
+    if (entity == null) {
+      return null;
+    } else {
+      return TeamModel(
+          team: entity.team,
+          backgroundColorString: entity.backgroundColorString);
+    }
   }
 
   @override

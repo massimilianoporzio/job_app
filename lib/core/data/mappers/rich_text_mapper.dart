@@ -5,9 +5,9 @@ import 'package:job_app/core/domain/entities/rich_text_annotation.dart';
 import 'package:job_app/core/domain/entities/rich_text_entity.dart';
 import 'package:job_app/core/domain/entities/typedefs.dart';
 
-final modelToEntityMapper = _RichTextMapper();
+final modelToEntityMapper = RichTextMapper();
 
-class _RichTextMapper extends EntityMapper<RichTextModel, RichTextTextEntity> {
+class RichTextMapper extends EntityMapper<RichTextModel, RichTextTextEntity> {
   @override
   RichTextModel fromEntity(RichTextTextEntity entity) {
     return RichTextModel(
@@ -40,4 +40,9 @@ class _RichTextMapper extends EntityMapper<RichTextModel, RichTextTextEntity> {
 extension RichTextExt on List<RichTextModel> {
   RichTextList get richTextList =>
       map((e) => modelToEntityMapper.toEntity(e)).toList();
+}
+
+extension RichTextModelExt on List<RichTextTextEntity> {
+  RichTextModelList get richTextModelList =>
+      map((e) => modelToEntityMapper.fromEntity(e)).toList();
 }

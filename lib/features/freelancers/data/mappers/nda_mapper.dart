@@ -5,8 +5,12 @@ import 'package:job_app/features/freelancers/domain/entities/nda_entity.dart';
 class NdaMapper extends EntityMapper<NdaModel?, NdaEntity?> {
   @override
   NdaModel? fromEntity(NdaEntity? entity) {
-    // TODO: implement fromEntity
-    throw UnimplementedError();
+    if (entity == null) {
+      return null;
+    } else {
+      return NdaModel(
+          nda: entity.nda, backgroundColorString: entity.backgroundColorString);
+    }
   }
 
   @override

@@ -5,8 +5,13 @@ import 'package:job_app/features/freelancers/domain/entities/relazione_entity.da
 class RelazioneMapper extends EntityMapper<RelazioneModel?, RelazioneEntity?> {
   @override
   RelazioneModel? fromEntity(RelazioneEntity? entity) {
-    // TODO: implement fromEntity
-    throw UnimplementedError();
+    if (entity == null) {
+      return null;
+    } else {
+      return RelazioneModel(
+          relazione: entity.relazione,
+          backgroundColorString: entity.backgroundColorString);
+    }
   }
 
   @override

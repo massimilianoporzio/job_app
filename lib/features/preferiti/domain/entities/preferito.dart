@@ -22,6 +22,13 @@ class Preferito extends Equatable with Comparable {
             (annuncioAzienda != null && annuncioFreelancers == null) ||
                 (annuncioAzienda == null && annuncioFreelancers != null),
             "Non puoi usare due annunci o non usarne nessuno");
+  bool get isPreferito {
+    if (annuncioFreelancers == null) {
+      return annuncioAzienda!.preferito;
+    } else {
+      return annuncioFreelancers!.preferito;
+    }
+  }
 
   String get annuncioId {
     if (annuncioFreelancers == null) {

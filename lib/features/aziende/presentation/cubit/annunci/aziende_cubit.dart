@@ -2,6 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:job_app/app/resources/app_consts.dart';
 import 'package:job_app/features/aziende/domain/usecases/annunci_azienda_params.dart';
+import 'package:job_app/features/preferiti/data/datasources/preferiti_datasource.dart';
+import 'package:job_app/features/preferiti/data/datasources/preferiti_local_datasource.dart';
 
 import '../../../../../app/resources/string_constants.dart';
 import '../../../../../core/domain/entities/typedefs.dart';
@@ -107,6 +109,22 @@ class AziendeCubit extends Cubit<AziendeState> with BlocLoggy {
         }
 
         // loggy.debug("lista aggiornata: $listaAggiornata");
+        //TODO: da fare il check se preferito o no
+        var listaPreferiti =
+            (sl<PreferitiDataSource>() as PreferitiLocalDatasource)
+                .listaPreferiti;
+        if (listaPreferiti.isNotEmpty) {
+          for (var annuncio in listaAggiornata) {
+            var preferito = listaPreferiti
+                .firstWhere((element) => element.annuncioId == annuncio.id);
+            if (preferito.isPreferito) {
+              int indexToUpdate = listaAggiornata
+                  .indexWhere((element) => element.id == annuncio.id);
+              listaAggiornata[indexToUpdate] =
+                  annuncio.copyWith(preferito: true);
+            }
+          }
+        }
 
         emit(state.copyWith(
           status: AziendeStateStatus.loaded,

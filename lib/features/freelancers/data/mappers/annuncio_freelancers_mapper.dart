@@ -1,5 +1,6 @@
 import 'package:job_app/core/data/mappers/base_mapper.dart';
 import 'package:job_app/core/data/mappers/rich_text_mapper.dart';
+import 'package:job_app/core/data/models/weblink_model.dart';
 import 'package:job_app/core/domain/entities/typedefs.dart';
 import 'package:job_app/features/freelancers/data/mappers/nda_mapper.dart';
 import 'package:job_app/features/freelancers/data/mappers/relazione_mapper.dart';
@@ -8,6 +9,7 @@ import 'package:job_app/features/freelancers/domain/entities/annuncio_freelancer
 import 'package:job_app/features/freelancers/presentation/pages/annunci_freelancers.dart';
 
 import '../../../../core/domain/entities/weblink.dart';
+import '../../../../core/services/service_locator.dart';
 
 final _ndaMapper = NdaMapper();
 final _relazioneMapper = RelazioneMapper();
@@ -18,8 +20,28 @@ class AnnuncioFreelancersMapper
     extends EntityMapper<AnnuncioFreelancersModel, AnnuncioFreelancers> {
   @override
   AnnuncioFreelancersModel fromEntity(AnnuncioFreelancers entity) {
-    // TODO: implement fromEntity
-    throw UnimplementedError();
+    return AnnuncioFreelancersModel(
+        id: entity.id,
+        titolo: entity.titolo,
+        archived: entity.archived,
+        tempistiche: entity.tempistiche.richTextModelList,
+        tempistichePagamento: entity.tempistichePagamento.richTextModelList,
+        richiestaDiLavoro: entity.richiestaDiLavoro.richTextModelList,
+        descrizioneProgetto: entity.descrizioneProgetto.richTextModelList,
+        budget: entity.budget.richTextModelList,
+        jobPosted: entity.jobPosted,
+        comeCandidarsi: WebLinkModel(
+            content: entity.comeCandidarsi.content,
+            url: entity.comeCandidarsi.url),
+        emoji: entity.emoji,
+        nda: sl<NdaMapper>().fromEntity(entity.nda),
+        relazione: sl<RelazioneMapper>().fromEntity(entity.relazione),
+        urlAnnuncio: entity.urlAnnuncio != null
+            ? WebLinkModel(
+                content: entity.urlAnnuncio!.content,
+                url: entity.urlAnnuncio!.url)
+            : null,
+        tipoAnnuncio: entity.tipoAnnuncio);
   }
 
   @override

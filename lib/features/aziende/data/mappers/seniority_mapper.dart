@@ -6,8 +6,13 @@ import '../models/seniority_model.dart';
 class SeniorityMapper extends EntityMapper<SeniorityModel?, SeniorityEntity?> {
   @override
   SeniorityModel? fromEntity(SeniorityEntity? entity) {
-    // TODO: implement fromEntity
-    throw UnimplementedError();
+    if (entity == null) {
+      return null;
+    } else {
+      return SeniorityModel(
+          seniority: entity.seniority,
+          backgroundColorString: entity.backgroundColorString);
+    }
   }
 
   @override

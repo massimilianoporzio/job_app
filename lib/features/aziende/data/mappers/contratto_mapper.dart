@@ -6,8 +6,13 @@ import '../../domain/entities/contratto_entity.dart';
 class ContrattoMapper extends EntityMapper<ContrattoModel?, ContrattoEntity?> {
   @override
   ContrattoModel? fromEntity(ContrattoEntity? entity) {
-    // TODO: implement fromEntity
-    throw UnimplementedError();
+    if (entity == null) {
+      return null;
+    } else {
+      return ContrattoModel(
+          contratto: entity.contratto,
+          backgroundColorString: entity.backgroundColorString);
+    }
   }
 
   @override

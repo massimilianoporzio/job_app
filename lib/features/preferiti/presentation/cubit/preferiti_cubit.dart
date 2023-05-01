@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:job_app/core/domain/usecases/base_usecase.dart';
 import 'package:job_app/core/log/bloc_logger.dart';
+import 'package:job_app/features/preferiti/data/datasources/preferiti_datasource.dart';
 
 import 'package:job_app/features/preferiti/data/datasources/preferiti_local_datasource.dart';
 import 'package:job_app/features/preferiti/domain/entities/preferito.dart';
@@ -32,28 +33,25 @@ class PreferitiCubit extends HydratedCubit<PreferitiState> with BlocLoggy {
 
   @override
   PreferitiState? fromJson(Map<String, dynamic> json) {
-    var listaPreferiti = json['preferiti'];
+    var listaPreferiti = json['listaPreferiti'];
     var preferiti = List<Preferito>.from(
         listaPreferiti.map((model) => Preferito.fromJson(model)));
-    sl<PreferitiLocalDatasource>().listaPreferiti = preferiti;
+    (sl<PreferitiDataSource>() as PreferitiLocalDatasource).listaPreferiti =
+        preferiti;
     return PreferitiState(
         listaPreferiti: preferiti, status: PreferitiStatus.loaded);
   }
 
   @override
   Map<String, dynamic>? toJson(PreferitiState state) {
-    if (state.status == PreferitiStatus.loaded) {
-      final result = <String, dynamic>{};
-      final listaPreferiti = [];
-      for (var preferito in state.listaPreferiti) {
-        listaPreferiti.add(preferito.toJson());
-      }
-      result.addAll({'listaPreferiti': listaPreferiti});
-      //TODO aggiorna la lista sulla local datasource?
-
-      return result;
+    final result = <String, dynamic>{};
+    final listaPreferiti = [];
+    for (var preferito in state.listaPreferiti) {
+      listaPreferiti.add(preferito.toJson());
     }
-    return null; //salvo solo lo stato loaded
+    result.addAll({'listaPreferiti': listaPreferiti});
+
+    return result;
   }
 
   rimuoviPreferito(Preferito preferito) async {
